@@ -1,6 +1,8 @@
 # Meme Party
 
 > A simple test site that shows memes from reddit.
+>
+> Site is live at <https://mcecode.github.io/meme-party/>.
 
 This was supposed to be a short local project, but after a while I decided that it would be a good avenue to try to use and learn git, webpack, github, scss, among other technologies. As such, the code is still fairly raw at the moment but I do plan to clean it up (see [Refactoring](#refactoring) section below).
 
