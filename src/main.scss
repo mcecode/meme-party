@@ -1,0 +1,476 @@
+/*********************************************\ 
+  fonts 
+\*********************************************/
+/* roboto-400 - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Roboto'), local('Roboto-Regular'),
+       url('fonts/roboto-v20-latin-400.woff2') format('woff2'),
+       url('fonts/roboto-v20-latin-400.woff') format('woff');
+}
+/* roboto-900 - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local('Roboto Black'), local('Roboto-Black'),
+       url('fonts/roboto-v20-latin-900.woff2') format('woff2'),
+       url('fonts/roboto-v20-latin-900.woff') format('woff');
+}
+/* zilla-slab-highlight-700 - latin */
+@font-face {
+  font-family: 'Zilla Slab Highlight';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Zilla Slab Highlight Bold'), local('ZillaSlabHighlight-Bold'),
+       url('fonts/zilla-slab-highlight-v7-latin-700.woff2') format('woff2'),
+       url('fonts/zilla-slab-highlight-v7-latin-700.woff') format('woff');
+}
+
+/*********************************************\ 
+  variables 
+\*********************************************/
+// fonts
+$font-main: 'Roboto', sans-serif;
+$font-head: 'Zilla Slab Highlight', sans-serif;
+// colors
+$green-main: #005850;
+$red-error: #d62828;
+$light-contrast: #d8d8d8;
+$dark-contrast: #353e3d;
+
+/*********************************************\ 
+  mixins
+\*********************************************/
+// height
+@mixin height600 { @media (min-height: 600px) { @content; } }
+@mixin height650 { @media (min-height: 650px) { @content; } }
+@mixin height700 { @media (min-height: 700px) { @content; } }
+@mixin height750 { @media (min-height: 750px) { @content; } }
+@mixin height800 { @media (min-height: 800px) { @content; } }
+@mixin height850 { @media (min-height: 850px) { @content; } }
+@mixin height900 { @media (min-height: 900px) { @content; } }
+@mixin height950 { @media (min-height: 950px) { @content; } }
+@mixin height1000 { @media (min-height: 1000px) { @content; } }
+// width
+@mixin width500 { @media (min-width: 500px) { @content; } }
+@mixin width600 { @media (min-width: 600px) { @content; } }
+@mixin width700 { @media (min-width: 700px) { @content; } }
+@mixin width800 { @media (min-width: 800px) { @content; } }
+@mixin width900 { @media (min-width: 900px) { @content; } }
+@mixin width1000 { @media (min-width: 1000px) { @content; } }
+@mixin width1100 { @media (min-width: 1100px) { @content; } }
+@mixin width1200 { @media (min-width: 1200px) { @content; } }
+@mixin width1300 { @media (min-width: 1300px) { @content; } }
+// orientation
+@mixin landscape { @media (orientation: landscape) { @content; } }
+// others
+@mixin animateOnce($duration, $animation-name) {
+  animation: $duration ease-in-out 0ms 1 normal forwards running $animation-name;
+}
+@mixin errorParagraph($font500, $font700, $font900) {
+  text-align: center;
+  color: $red-error;
+
+  @include width500 { font-size: $font500; }
+  @include width700 { font-size: $font700; }
+  @include width900 { font-size: $font900; }
+}
+
+/*********************************************\ 
+  keyframes
+\*********************************************/
+@keyframes h1InitialAnimation {
+  0% { transform: translateX(-100vw); }
+  50% { transform: translateX(50vw); }
+  100% { transform: translateX(0vw); }
+}
+@keyframes pInitialAnimation { 100% { transform: translateY(0vh); } }
+@keyframes imgInitialAnimation { 100% { transform: scale(1) rotate(360deg); } }
+@keyframes buttonInitialAnimation { 100% { transform: translateY(0vh); } }
+@keyframes slideXAnimation {   
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+@keyframes slideYAnimation {   
+  0% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+@keyframes backAndForthAnimation {
+  0% { transform: translateX(-20vw); }
+  100% { transform: translateX(20vw); }
+}
+@keyframes rippleAnimation {
+  0% { box-shadow: 0 0 0 0 $dark-contrast; }
+	100% { box-shadow: 0 0 0 2rem lighten($color: $dark-contrast, $amount: 90%); }
+}
+
+/*********************************************\ 
+  classes
+\*********************************************/
+.h1-animate { @include animateOnce(750ms, h1InitialAnimation); }
+.p-animate {  @include animateOnce(750ms, pInitialAnimation); }
+.img-animate { @include animateOnce(750ms, imgInitialAnimation); }
+.button-animate { animation: 750ms ease-in-out 750ms 5 normal backwards running rippleAnimation; }
+.staph-onscroll {
+  transform: scale(0.5) translate(-20vw, -10vh);
+
+  @include landscape {
+    transform: scale(0.5) translate(-10vw, -10vh);
+  }
+}
+.p-fetcherror {
+  max-width: 25rem;
+  margin: 10vh 0 0;
+  line-height: 1.5;
+  
+  @include errorParagraph(1.2rem, 1.4rem, 1.6rem);
+}
+.p-loadercaption {
+  max-width: 25rem;
+  margin: 10vh 0 5vh;
+  line-height: 1.5;
+  text-align: center;
+  color: $light-contrast;
+  font-size: 1.2rem;
+
+  @include width500 { font-size: 1.4rem; }
+  @include width700 { font-size: 1.6rem; }
+  @include width900 { font-size: 1.8rem; }
+}
+.span-loaderball {
+  width: 7vw;
+  height: 7vw;
+  border-radius: 50%;
+  background: radial-gradient(#c40000, #0000c4);
+  animation: 750ms ease-in-out 0ms infinite alternate both running backAndForthAnimation;
+
+  @include landscape {
+    width: 5vw;
+    height: 5vw;
+  }
+}
+.img-loadermeme {
+  display: block;
+  margin: 5vh 0 10vh;
+}
+
+/*********************************************\ 
+  reset 
+\*********************************************/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  overflow: hidden;
+  font-family: $font-main;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+:focus {
+  outline: lighten($color: $green-main, $amount: 10%) double 0.3rem;
+  outline-offset: 0.5rem;
+}
+::-moz-focus-inner,
+::-moz-focus-outer {
+  border: none;
+}
+::selection {
+  background-color: $green-main;
+  color: $light-contrast;
+}
+
+/*********************************************\ 
+  landing section
+\*********************************************/
+header {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  padding: 1.5rem 1rem 0;
+  overflow: hidden;
+
+  h1 pre {
+    font-size: 3.5rem;
+    font-family: $font-head;
+    color: $green-main;
+
+    @include width500 { font-size: 3.8rem; }
+    @include width600 { font-size: 4.3rem; }
+    @include width700 { font-size: 5rem; }
+    @include width800 { font-size: 5.5rem; }
+    @include width900 { font-size: 6rem; }
+    @include width1000 { font-size: 6.5rem; }
+    @include width1100 { font-size: 7rem; }
+    @include width1200 { font-size: 7.5rem; }
+    @include width1300 { font-size: 8rem; }
+  }
+  
+  p { 
+    position: absolute;
+    top: 1.5rem;
+    right: 1rem;   
+    font-size: 1.5rem;
+    color: $green-main;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    letter-spacing: 0.1rem;
+
+    @include height600 { font-size: 1.6rem; }
+    @include height650 { font-size: 1.8rem; }
+    @include height700 { font-size: 1.95rem; }
+    @include height750 { font-size: 2.1rem; }
+    @include height800 { font-size: 2.25rem; }
+    @include height850 { font-size: 2.45rem; }
+    @include height900 { font-size: 2.55rem; }
+    @include height950 { font-size: 2.75rem; }
+    @include height1000 { font-size: 2.9rem; }
+  }
+
+  img {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    width: 50vw;
+
+    @include landscape { width: 30vw; }
+  }
+  
+  button {
+    position: absolute;
+    left: 40vw;
+    bottom: 35vh;
+    width: 5rem;
+    height: 5rem;
+    border: 0.5rem solid $green-main;
+    border-radius: 50%;
+    background-color: $green-main;
+    font-size: 0.9rem;
+    color: $light-contrast;
+    cursor: pointer;
+    transition: transform 750ms ease-in-out;
+
+    &:hover {
+      color: $dark-contrast;
+      background-color: $light-contrast;
+      border-color: $light-contrast;
+    }
+
+    &:active {
+      border-color: $green-main;
+    }
+
+    @include width500 { 
+      width: 6rem;
+      height: 6rem;
+    }
+    @include width600 { 
+      width: 7rem;
+      height: 7rem;
+    }
+    @include width700 { 
+      left: 50vw;
+      bottom: 50vh;
+      width: 8rem;
+      height: 8rem;
+      font-size: 1rem;
+    }
+    @include width800 { 
+      width: 9rem;
+      height: 9rem;
+      font-size: 1.1rem;
+    }
+    @include width900 { 
+      width: 10rem;
+      height: 10rem;
+      font-size: 1.3rem;
+    }
+    @include width1000 { 
+      width: 11rem;
+      height: 11rem;
+      border-width: 1rem;
+    }
+    @include width1100 { 
+      width: 12rem;
+      height: 12rem;
+      font-size: 1.5rem;
+    }
+    @include width1200 { 
+      width: 13rem;
+      height: 13rem;
+    }
+    @include width1300 { 
+      width: 14rem;
+      height: 14rem;
+      font-size: 1.7rem;
+    }
+
+    @include landscape {
+      left: 50vw;
+      bottom: 25vh;
+    }
+  }
+}
+
+/*********************************************\ 
+  meme section
+\*********************************************/
+main {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: darken($color: $green-main, $amount: 10%);
+  transform-origin: top;
+  transform: scale(0);
+  transition: transform 250ms ease-in-out;
+
+  button {
+    display: block;
+    width: 30vw;
+    height: 30vw;
+    border: 0.1rem solid $light-contrast;
+    border-radius: 50%;
+    background-color: $dark-contrast;
+    color: $light-contrast;
+    font-size: 2vmax;
+    writing-mode: vertical-lr; // doesn't work for buttons in chrome
+    text-orientation: upright;
+    letter-spacing: 0.1rem;
+    cursor: pointer;
+
+    @include landscape {
+      width: 15vw;
+      height: 15vw;
+    }
+
+    &:first-child {
+      position: sticky;
+      z-index: 1;
+      top: 1rem;
+      left: 5vw;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      transition: transform 250ms ease-in-out;
+    }
+
+    &:last-child {
+      margin: 0 0 1rem 65vw;
+      clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+      transition: transform 250ms ease-in-out;
+
+      @include landscape { margin-left: 80vw; }
+    }
+
+    &:hover {
+      background-color: $light-contrast;
+      color: $dark-contrast;
+      border-color: $dark-contrast;
+    }
+  }
+
+  div {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 3rem auto;
+
+    @include width900 { width: 70%; }
+  }
+
+  p {
+    transform-origin: top;
+    
+    @include animateOnce(500ms, slideYAnimation);
+  }
+
+  a { margin: 10vh 0; }
+
+  img {
+    max-width: 100%;
+    transform-origin: right;
+
+    @include animateOnce(500ms, slideXAnimation);
+  }
+
+  hr {
+    width: 100%;
+    height: 1vh;
+    background-color: $light-contrast;
+    transform-origin: left;
+
+    @include animateOnce(500ms, slideXAnimation);
+  }
+}
+
+/*********************************************\ 
+  noscript section
+\*********************************************/
+noscript {
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  
+  p {
+    position: absolute;
+    left: 15vw;
+    width: 70vw;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    &:nth-child(1) { top: 8vh; }
+
+    &:nth-child(2) { top: 27vh; }
+
+    &:nth-child(3) { bottom: 7vh; }
+
+    &::selection {
+      background-color: $light-contrast;
+      color: $dark-contrast;
+    }
+
+    @include errorParagraph(1.7rem, 1.9rem, 2.1rem);
+  }
+
+  img {
+    position: absolute;
+    left: 10vw;
+    bottom: 15vh;
+    width: 80vw;
+    height: 50vh;
+    
+    @include landscape {
+      left: 35vw;
+      width: 30vw;
+    }
+  }
+}
+
+/*********************************************\ 
+  others
+\*********************************************/
+@media (prefers-reduced-motion: reduce) {
+  main p,
+  main img,
+  main hr,
+  .h1-animate, 
+  .p-animate,
+  .img-animate,
+  .button-animate,
+  .span-loaderball {
+    animation: none;
+  };
+}

@@ -1,0 +1,13 @@
+# build directories
+build-dev/
+build-manifests/
+build-prod/
+
+# 3rd party modules
+node_modules/
+
+# original unprocessed binaries (e.g. fonts, images, etc.)
+originals/
+
+# local config file
+.env

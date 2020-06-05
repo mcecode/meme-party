@@ -1,0 +1,28 @@
+# handles undefined files
+*                     text=auto
+
+# source code
+*.map                 text -diff
+*.json                text
+*.js                  text
+*.scss                text
+*.css                 text
+*.html                text
+*.ejs                 text
+
+# configs/docs
+LICENSE               text
+.env                  text
+.gitignore            text
+.gitattributes        text
+package-lock.json     text -diff
+*.md                  text
+
+# fonts
+*.woff                binary
+*.woff2               binary
+*.ttf                 binary
+
+# images
+*.png                 binary
+*.jpg                 binary
