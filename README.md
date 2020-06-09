@@ -103,8 +103,7 @@ A tentative list of things I'd like to implement to better the project (though I
 - [ ] make two bundles, one with modern code for newer browsers and another with transpiled code for older browsers
 - [ ] use simplebar
 - [ ] add unicode emojis for decoration where appropriate
-- [ ] make _staph_ button circular to match _dank memes hur_ button
-- [ ] remove _moar_ button and use infinite scrolling
+- [ ] make _staph_ and _moar_ button circular with horizontal writing to match _dank memes hur_ button
 - [ ] use client side routing
 - [ ] make pages look decent even in super big screens
 - [ ] make it look more consistent across browsers
@@ -112,7 +111,9 @@ A tentative list of things I'd like to implement to better the project (though I
 - [ ] create a custom 404 page
 - [ ] allow users to choose the subreddit where memes come from
 - [ ] allow users to choose how many memes to load at a time
-- [ ] add SEO meta tags
+- [ ] add SEO meta tags and repo image
+- [ ] add nsfw and spoiler indication to memes
+- [ ] add credits somewhere
 
 ## Licenses and 3rd Party Assets
 
