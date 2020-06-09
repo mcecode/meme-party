@@ -1,0 +1,9 @@
+// TODO: test if this will trickle down to the other files below or if you need to bring it in in each one
+// bring in partials
+@use '../scss-partial/index.scss';
+
+// bring in global styles
+@use './fonts';
+@use './reset';
+@use './keyframes';
+@use './noscript';

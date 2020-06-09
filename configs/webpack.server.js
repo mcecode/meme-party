@@ -33,14 +33,14 @@ const serverSettings = {
       errors: true
     },
     before: (app, server, compiler) => {
-      server._watch('./src/template.ejs');
+      server._watch('./src/ejs-template/index.ejs');
     }
   },
   plugins: [
     new htmlWebpackPlugin({
       title: 'Server - Meme Party',
       inject: false,
-      template: './src/template.ejs'
+      template: './src/ejs-template/index.ejs'
     }),
     new miniCssExtractPlugin({
       filename: '[name].css'

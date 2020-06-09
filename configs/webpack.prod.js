@@ -35,7 +35,7 @@ const productionSettings = {
     new htmlWebpackPlugin({
       title: 'Meme Party',
       inject: false,
-      template: './src/template.ejs'
+      template: './src/ejs-template/index.ejs'
     }),
     new miniCssExtractPlugin({
       filename: '[contenthash:5].css'
