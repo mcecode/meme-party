@@ -81,9 +81,9 @@ const developmentSettings = {
             loader: 'css-loader', 
             options: { 
               importLoaders: 2, 
-              // modules: {
-              //   localIdentName: 'from-[name]__class-[local]'
-              // }
+              modules: {
+                localIdentName: 'from-[name]__class-[local]'
+              }
             }
           },
           { 

@@ -92,9 +92,9 @@ const productionSettings = {
             loader: 'css-loader', 
             options: { 
               importLoaders: 2, 
-              // modules: {
-              //   localIdentName: '[sha1:hash:base64:5]'
-              // }
+              modules: {
+                localIdentName: '[sha1:hash:base64:5]'
+              }
             }
           }, 
           { 

@@ -5,25 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= htmlWebpackPlugin.options.title %></title>
 
-  <!-- TODO: Update requires with new file locations -->
   <link rel="preload" 
-    href="<%= require('./images/heavy-breathing-cat.jpg') %>"
+    href="<%= require('../component-landing/images/heavy-breathing-cat.jpg') %>"
     as="image" type="image/jpeg">
   <link rel="preload" 
-    href="<%= require('./fonts/roboto-v20-latin-400.woff2') %>"
+    href="<%= require('../scss-global/fonts/roboto-v20-latin-400.woff2') %>"
     as="font" type="font/woff2" crossorigin>
   <link rel="preload" 
-    href="<%= require('./fonts/roboto-v20-latin-900.woff2') %>"
+    href="<%= require('../scss-global/fonts/roboto-v20-latin-900.woff2') %>"
     as="font" type="font/woff2" crossorigin>
   <link rel="preload" 
-    href="<%= require('./fonts/zilla-slab-highlight-v7-latin-700.woff2') %>"
+    href="<%= require('../scss-global/fonts/zilla-slab-highlight-v7-latin-700.woff2') %>"
     as="font" type="font/woff2" crossorigin>
-  <link rel="prefetch" href="<%= require('./images/loader-meme-1.jpg') %>">
-  <link rel="prefetch" href="<%= require('./images/loader-meme-2.jpg') %>">
-  <link rel="prefetch" href="<%= require('./images/loader-meme-3.jpg') %>">
-  <link rel="prefetch" href="<%= require('./images/loader-meme-4.jpg') %>">
-  <link rel="prefetch" href="<%= require('./images/loader-meme-5.jpg') %>">
-  <link rel="prefetch" href="<%= require('./images/loader-meme-6.jpg') %>">
+  <link rel="prefetch" href="<%= require('../component-meme/images/loader-meme-1.jpg') %>">
+  <link rel="prefetch" href="<%= require('../component-meme/images/loader-meme-2.jpg') %>">
+  <link rel="prefetch" href="<%= require('../component-meme/images/loader-meme-3.jpg') %>">
+  <link rel="prefetch" href="<%= require('../component-meme/images/loader-meme-4.jpg') %>">
+  <link rel="prefetch" href="<%= require('../component-meme/images/loader-meme-5.jpg') %>">
+  <link rel="prefetch" href="<%= require('../component-meme/images/loader-meme-6.jpg') %>">
 
   <link rel="shortcut icon" href="<%= require('./images/green-mnm.png') %> " type="image/x-icon">
   <%= htmlWebpackPlugin.tags.headTags %>
@@ -32,7 +31,7 @@
   <header>
     <h1></h1>
     <p>good memes rayt here</p>
-    <img src="<%= require('./images/heavy-breathing-cat.jpg') %>">
+    <img src="<%= require('../component-landing/images/heavy-breathing-cat.jpg') %>">
     <button>dank memes hur</button>
   </header>
 
@@ -49,7 +48,7 @@
     <p>Very remorse</p>
     <img src="<%= require('./images/doge.png') %>">
   </noscript>
-  
+
   <%= htmlWebpackPlugin.tags.bodyTags %>
 </body>
 </html>
