@@ -1,0 +1,44 @@
+/*********************************************\ 
+  noscript section
+\*********************************************/
+noscript {
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  
+  p {
+    position: absolute;
+    left: 15vw;
+    width: 70vw;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    &:nth-child(1) { top: 8vh; }
+
+    &:nth-child(2) { top: 27vh; }
+
+    &:nth-child(3) { bottom: 7vh; }
+
+    &::selection {
+      background-color: $light-contrast;
+      color: $dark-contrast;
+    }
+
+    @include errorParagraph(1.7rem, 1.9rem, 2.1rem);
+  }
+
+  img {
+    position: absolute;
+    left: 10vw;
+    bottom: 15vh;
+    width: 80vw;
+    height: 50vh;
+    
+    @include landscape {
+      left: 35vw;
+      width: 30vw;
+    }
+  }
+}

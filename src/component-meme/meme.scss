@@ -1,0 +1,149 @@
+/*********************************************\ 
+  classes
+\*********************************************/
+.staph-onscroll {
+  transform: scale(0.5) translate(-20vw, -10vh);
+
+  @include landscape {
+    transform: scale(0.5) translate(-10vw, -10vh);
+  }
+}
+.p-fetcherror {
+  max-width: 25rem;
+  margin: 10vh 0 0;
+  line-height: 1.5;
+  
+  @include errorParagraph(1.2rem, 1.4rem, 1.6rem);
+}
+.p-loadercaption {
+  max-width: 25rem;
+  margin: 10vh 0 5vh;
+  line-height: 1.5;
+  text-align: center;
+  color: $light-contrast;
+  font-size: 1.2rem;
+
+  @include width500 { font-size: 1.4rem; }
+  @include width700 { font-size: 1.6rem; }
+  @include width900 { font-size: 1.8rem; }
+}
+.span-loaderball {
+  width: 7vw;
+  height: 7vw;
+  border-radius: 50%;
+  background: radial-gradient(#c40000, #0000c4);
+  animation: 750ms ease-in-out 0ms infinite alternate both running backAndForthAnimation;
+
+  @include landscape {
+    width: 5vw;
+    height: 5vw;
+  }
+}
+.img-loadermeme {
+  display: block;
+  margin: 5vh 0 10vh;
+}
+
+/*********************************************\ 
+  meme section
+\*********************************************/
+main {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: darken($color: $green-main, $amount: 10%);
+  transform-origin: top;
+  transform: scale(0);
+  transition: transform 250ms ease-in-out;
+
+  button {
+    display: block;
+    width: 30vw;
+    height: 30vw;
+    border: 0.1rem solid $light-contrast;
+    border-radius: 50%;
+    background-color: $dark-contrast;
+    color: $light-contrast;
+    font-size: 2vmax;
+    writing-mode: vertical-lr; // doesn't work for buttons in chrome
+    text-orientation: upright;
+    letter-spacing: 0.1rem;
+    cursor: pointer;
+
+    @include landscape {
+      width: 15vw;
+      height: 15vw;
+    }
+
+    &:first-child {
+      position: sticky;
+      z-index: 1;
+      top: 1rem;
+      left: 5vw;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      transition: transform 250ms ease-in-out;
+    }
+
+    &:last-child {
+      margin: 0 0 1rem 65vw;
+      clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+      transition: transform 250ms ease-in-out;
+
+      @include landscape { margin-left: 80vw; }
+    }
+
+    &:hover {
+      background-color: $light-contrast;
+      color: $dark-contrast;
+      border-color: $dark-contrast;
+    }
+  }
+
+  div {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 3rem auto;
+
+    @include width900 { width: 70%; }
+  }
+
+  p {
+    transform-origin: top;
+    
+    @include animateOnce(500ms, slideYAnimation);
+  }
+
+  a { margin: 10vh 0; }
+
+  img {
+    max-width: 100%;
+    transform-origin: right;
+
+    @include animateOnce(500ms, slideXAnimation);
+  }
+
+  hr {
+    width: 100%;
+    height: 1vh;
+    background-color: $light-contrast;
+    transform-origin: left;
+
+    @include animateOnce(500ms, slideXAnimation);
+  }
+}
+
+/*********************************************\ 
+  prefers reduced motion
+\*********************************************/
+@media (prefers-reduced-motion: reduce) {
+  main p,
+  main img,
+  main hr,
+  .span-loaderball {
+    animation: none;
+  };
+}

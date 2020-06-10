@@ -89,9 +89,10 @@ A tentative list of things I'd like to implement to better the project (though I
 
 ### Refactoring
 
+- [ ] break up js and scss monoliths into components
 - [ ] create the html components in js
 - [ ] use css modules with css-loader
-- [ ] break up js and scss monoliths into components
+- [ ] use js classes
 - [ ] reduce unnecessary media query use
 - [ ] find a way to keep webpack configs DRY
 - [ ] use jsdoc comments / add explaining comments

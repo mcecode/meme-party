@@ -1,0 +1,27 @@
+/*********************************************\ 
+  keyframes
+\*********************************************/
+@keyframes h1InitialAnimation {
+  0% { transform: translateX(-100vw); }
+  50% { transform: translateX(50vw); }
+  100% { transform: translateX(0vw); }
+}
+@keyframes pInitialAnimation { 100% { transform: translateY(0vh); } }
+@keyframes imgInitialAnimation { 100% { transform: scale(1) rotate(360deg); } }
+@keyframes buttonInitialAnimation { 100% { transform: translateY(0vh); } }
+@keyframes slideXAnimation {   
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+@keyframes slideYAnimation {   
+  0% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+@keyframes backAndForthAnimation {
+  0% { transform: translateX(-20vw); }
+  100% { transform: translateX(20vw); }
+}
+@keyframes rippleAnimation {
+  0% { box-shadow: 0 0 0 0 $dark-contrast; }
+	100% { box-shadow: 0 0 0 2rem lighten($color: $dark-contrast, $amount: 90%); }
+}
