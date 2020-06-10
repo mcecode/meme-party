@@ -1,5 +1,5 @@
 /*********************************************\ 
-  variable declarations
+  variable declarations /
 \*********************************************/
 const
 landing = document.querySelector('header'),
@@ -61,4 +61,3 @@ showButton.addEventListener('click', () => {
   
   shuffleSubreddits();
 });
-

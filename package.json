@@ -10,7 +10,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "start": "env-cmd cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.server.js --env.NODE_ENV=development --progress",
+    "start": "env-cmd cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.server.js --env.NODE_ENV=development",
     "build:dev": "cross-env NODE_ENV=development webpack --config configs/webpack.dev.js --env.NODE_ENV=development --progress",
     "build:prod": "cross-env NODE_ENV=production webpack --config configs/webpack.prod.js --env.NODE_ENV=production --progress"
   },
