@@ -16,6 +16,7 @@ class Landing {
     this.addStyles();
     this.setContent();
     window.addEventListener('load', this);
+    // this.showButton.addEventListener('click', this);
     window.addEventListener('resize', this);
   }
 
@@ -60,28 +61,30 @@ class Landing {
 
   // ! clean this up
   // ! make it work
-  setAnimation() {    
+  // ! onload event won't work now
+  setAnimation() {
     if (!localStorage.getItem('saw landing animation'))  {
       this.paragraph.style.transform = 'translateY(-100vh)';
       this.catImage.style.transform = 'scale(0)';
       this.showButton.style.transform = 'translateY(100vh)';
-  
+
       this.heading.classList.add('headingAnimate');
       setTimeout(() => {this.paragraph.classList.add('paragraphAnimate');}, 750);
       setTimeout(() => {this.catImage.classList.add('catImageAnimate');}, 750*2);
       setTimeout(() => {this.showButton.style.transform = 'scale(1)';}, 750*3)
       setTimeout(() => {this.showButton.classList.add('showButtonAnimate');}, 750*4);
-  
+      
       localStorage.setItem('saw landing animation', true);
     } else {
+      // ! this won't work anymore import the animation from scss
       this.showButton.style.animation = '750ms ease-in-out 0ms 5 normal backwards running rippleAnimation';
     }
-    // try removing this then test
-    window.removeEventListener('load', this);
+    // window.removeEventListener('load', this);
   }
 
   handleEvent(e) {
     if (e.target === window && e.type === 'load') this.setAnimation();
+    // if (e.target === this.showButton && e.type === 'click') this.setAnimation();
     if (e.target === window && e.type === 'resize') this.setHeadingContent();
   }
 }

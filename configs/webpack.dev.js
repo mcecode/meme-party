@@ -82,7 +82,7 @@ const developmentSettings = {
             options: { 
               importLoaders: 2, 
               modules: {
-                localIdentName: 'from-[name]__class-[local]'
+                localIdentName: '[local]-[sha1:hash:base64:5]'
               }
             }
           },

@@ -1,5 +1,22 @@
 @use '../scss-partial/index.scss' as *;
 
+@keyframes slideXAnimation {   
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+@keyframes slideYAnimation {   
+  0% { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+@keyframes backAndForthAnimation {
+  0% { transform: translateX(-20vw); }
+  100% { transform: translateX(20vw); }
+}
+@keyframes rippleAnimation {
+  0% { box-shadow: 0 0 0 0 $dark-contrast; }
+  100% { box-shadow: 0 0 0 2rem lighten($color: $dark-contrast, $amount: 90%); }
+}
+
 /*********************************************\ 
   classes
 \*********************************************/

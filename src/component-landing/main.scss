@@ -132,10 +132,37 @@
 }
 
 // animation classes
-.headingAnimate { @include animateOnce(750ms, h1InitialAnimation); }
-.paragraphAnimate {  @include animateOnce(750ms, pInitialAnimation); }
-.catImageAnimate { @include animateOnce(750ms, imgInitialAnimation); }
-.showButtonAnimate { animation: 750ms ease-in-out 750ms 5 normal backwards running rippleAnimation; }
+@keyframes h1InitialAnimation {
+  0% { transform: translateX(-100vw); }
+  50% { transform: translateX(50vw); }
+  100% { transform: translateX(0vw); }
+}
+@keyframes pInitialAnimation { 100% { transform: translateY(0vh); } }
+@keyframes imgInitialAnimation { 100% { transform: scale(1) rotate(360deg); } }
+@keyframes buttonInitialAnimation { 100% { transform: translateY(0vh); } }
+
+:global {
+  .headingAnimate {
+    :local {
+      @include animateOnce(750ms, h1InitialAnimation);
+    }
+  }
+  .paragraphAnimate {
+    :local {
+      @include animateOnce(750ms, pInitialAnimation);
+    }
+  }
+  .catImageAnimate {
+    :local {
+      @include animateOnce(750ms, imgInitialAnimation);
+    }
+  }
+  .showButtonAnimate {
+    :local {
+      animation: rippleAnimation 750ms ease-in-out 750ms 5 normal backwards running;
+    }
+  }
+}
 
 // animation negation for prefers-reduced-motion
 @media (prefers-reduced-motion: reduce) {

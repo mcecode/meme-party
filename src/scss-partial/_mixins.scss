@@ -27,8 +27,11 @@
 // orientation
 @mixin landscape { @media (orientation: landscape) { @content; } }
 // others
+/**
+ * ! if this works switch animation name and duration
+*/
 @mixin animateOnce($duration, $animation-name) {
-  animation: $duration ease-in-out 0ms 1 normal forwards running $animation-name;
+  animation: $animation-name $duration ease-in-out 0ms 1 normal forwards running;
 }
 @mixin errorParagraph($font500, $font700, $font900) {
   text-align: center;
