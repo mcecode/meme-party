@@ -72,7 +72,6 @@
   font-size: 0.9rem;
   color: $light-contrast;
   cursor: pointer;
-  transition: transform 750ms ease-in-out;
 
   &:hover {
     color: $dark-contrast;
@@ -136,40 +135,52 @@
 }
 
 // animation classes
-@keyframes h1InitialAnimation {
-  0% { transform: translateX(-100vw); }
-  50% { transform: translateX(50vw); }
-  100% { transform: translateX(0vw); }
+
+.paragraphPreAnimate {
+  transform: translateY(-100vh);
 }
-@keyframes pInitialAnimation { 100% { transform: translateY(0vh); } }
-@keyframes imgInitialAnimation { 100% { transform: scale(1) rotate(360deg); } }
-@keyframes buttonInitialAnimation { 100% { transform: translateY(0vh); } }
-@keyframes rippleAnimation {
+.catImagePreAnimate {
+  transform: scale(0);
+}
+.showButtonPreAnimate {
+  transform: translateY(100vh);
+}
+
+@keyframes headingAnimation {
+  0% { transform: translateX(-100vw) skewX(10deg); }
+  50% { transform: translateX(50vw) skewX(-10deg); }
+  100% { transform: translateX(0vw) skewX(0deg); }
+}
+@keyframes paragraphAnimation {
+  100% { transform: translateY(0vh); }
+}
+@keyframes catImageAnimation {
+  100% { transform: scale(1) rotate(360deg); }
+}
+@keyframes showButtonAnimation {
+  100% { transform: translateY(0vh); }
+}
+@keyframes showButtonRippleAnimation {
   0% { box-shadow: 0 0 0 0 $dark-contrast; }
   100% { box-shadow: 0 0 0 2rem lighten($color: $dark-contrast, $amount: 90%); }
 }
 
-:global {
-  .headingAnimate {
-    :local {
-      @include animateOnce(750ms, h1InitialAnimation);
-    }
-  }
-  .paragraphAnimate {
-    :local {
-      @include animateOnce(750ms, pInitialAnimation);
-    }
-  }
-  .catImageAnimate {
-    :local {
-      @include animateOnce(750ms, imgInitialAnimation);
-    }
-  }
-  .showButtonAnimate {
-    :local {
-      animation: rippleAnimation 750ms ease-in-out 750ms 5 normal backwards running;
-    }
-  }
+.headingAnimate :local {
+    animation: headingAnimation 1300ms ease-in-out 0ms 1 normal forwards running;
+}
+.paragraphAnimate :local {
+    animation: paragraphAnimation 750ms ease-in-out 1300ms 1 normal forwards running;
+}
+.catImageAnimate :local {
+    animation: catImageAnimation 750ms ease-in-out 2050ms 1 normal forwards running;
+}
+.showButtonAnimate :local {
+    animation: 
+      showButtonAnimation 750ms ease-in-out 2800ms 1 normal forwards running,
+      showButtonRippleAnimation 750ms ease-in-out 3800ms 5 normal forwards running;
+}
+.showButtonRippleAnimate :local {
+    animation: showButtonRippleAnimation 750ms ease-in-out 0ms 5 normal forwards running;
 }
 
 // animation negation for prefers-reduced-motion
@@ -177,7 +188,8 @@
   .headingAnimate,
   .paragraphAnimate,
   .catImageAnimate,
-  .showButtonAnimate {
+  .showButtonAnimate,
+  .showButtonRippleAnimate {
     animation: none;
   };
 }

@@ -29,6 +29,8 @@
 // others
 /**
  * ! if this works switch animation name and duration
+ * ! add delay and number of iterations to params
+ * ! remember to implement this in landing main.scss in partial refactor
 */
 @mixin animateOnce($duration, $animation-name) {
   animation: $animation-name $duration ease-in-out 0ms 1 normal forwards running;

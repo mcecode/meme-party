@@ -2,23 +2,24 @@ import style from './main.scss';
 import heavyBreathingCat from './images/heavy-breathing-cat.jpg';
 
 class Landing {
-  constructor() {
+  constructor(root) {
     this.container = document.createElement('header');
     this.heading = document.createElement('h1');
     this.paragraph = document.createElement('p');
     this.catImage = document.createElement('img');
     this.showButton = document.createElement('button');
-    this.init();
+    this.init(root);
   }
 
-  init() {
-    this.mount();
+  init(root) {
+    this.mount(root);
     this.addEvents();
     this.addStyles();
     this.setContent();
   }
 
-  mount() {
+  mount(root) {
+    root.append(this.container);
     this.container.append(
       this.heading,
       this.paragraph,
@@ -65,19 +66,18 @@ class Landing {
 
   setAnimation() {
     if (!localStorage.getItem('saw landing animation'))  {
-      this.paragraph.style.transform = 'translateY(-100vh)';
-      this.catImage.style.transform = 'scale(0)';
-      this.showButton.style.transform = 'translateY(100vh)';
+      this.paragraph.classList.add(style.paragraphPreAnimate);
+      this.catImage.classList.add(style.catImagePreAnimate);
+      this.showButton.classList.add(style.showButtonPreAnimate);
 
-      this.heading.classList.add('headingAnimate');
-      setTimeout(() => {this.paragraph.classList.add('paragraphAnimate');}, 750);
-      setTimeout(() => {this.catImage.classList.add('catImageAnimate');}, 750*2);
-      setTimeout(() => {this.showButton.style.transform = 'scale(1)';}, 750*3)
-      setTimeout(() => {this.showButton.classList.add('showButtonAnimate');}, 750*4);
+      this.heading.classList.add(style.headingAnimate);
+      this.paragraph.classList.add(style.paragraphAnimate);
+      this.catImage.classList.add(style.catImageAnimate);
+      this.showButton.classList.add(style.showButtonAnimate);
 
       localStorage.setItem('saw landing animation', true);
     } else {
-      this.showButton.classList.add('showButtonAnimate');
+      this.showButton.classList.add(style.showButtonRippleAnimate);
     }
     window.removeEventListener('load', this);
   }
