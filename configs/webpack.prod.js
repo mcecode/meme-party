@@ -85,7 +85,6 @@ const productionSettings = {
       {
         test: /\.scss$/i,
         include: path.resolve(__dirname, '../src'),
-        sideEffects: true,
         use: [
           miniCssExtractPlugin.loader,
           { 

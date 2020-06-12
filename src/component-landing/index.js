@@ -13,11 +13,9 @@ class Landing {
 
   init() {
     this.mount();
+    this.addEvents();
     this.addStyles();
     this.setContent();
-    window.addEventListener('load', this);
-    // this.showButton.addEventListener('click', this);
-    window.addEventListener('resize', this);
   }
 
   mount() {
@@ -27,6 +25,11 @@ class Landing {
       this.catImage,
       this.showButton
     );
+  }
+
+  addEvents() {
+    window.addEventListener('load', this);
+    window.addEventListener('resize', this);
   }
 
   addStyles() {
@@ -41,6 +44,7 @@ class Landing {
     this.setHeadingContent();
     this.paragraph.textContent = 'good memes rayt here';
     this.catImage.src = heavyBreathingCat;
+    this.catImage.alt = 'Heavy breathing cat meme';
     this.showButton.textContent = 'dank memes hur';
   }
 
@@ -59,9 +63,6 @@ class Landing {
     }    
   }
 
-  // ! clean this up
-  // ! make it work
-  // ! onload event won't work now
   setAnimation() {
     if (!localStorage.getItem('saw landing animation'))  {
       this.paragraph.style.transform = 'translateY(-100vh)';
@@ -73,18 +74,16 @@ class Landing {
       setTimeout(() => {this.catImage.classList.add('catImageAnimate');}, 750*2);
       setTimeout(() => {this.showButton.style.transform = 'scale(1)';}, 750*3)
       setTimeout(() => {this.showButton.classList.add('showButtonAnimate');}, 750*4);
-      
+
       localStorage.setItem('saw landing animation', true);
     } else {
-      // ! this won't work anymore import the animation from scss
-      this.showButton.style.animation = '750ms ease-in-out 0ms 5 normal backwards running rippleAnimation';
+      this.showButton.classList.add('showButtonAnimate');
     }
-    // window.removeEventListener('load', this);
+    window.removeEventListener('load', this);
   }
 
-  handleEvent(e) {
-    if (e.target === window && e.type === 'load') this.setAnimation();
-    // if (e.target === this.showButton && e.type === 'click') this.setAnimation();
+  handleEvent(e) {    
+    if (e.target === document && e.type === 'load') this.setAnimation();
     if (e.target === window && e.type === 'resize') this.setHeadingContent();
   }
 }

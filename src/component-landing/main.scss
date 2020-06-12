@@ -1,5 +1,9 @@
 @use '../scss-partial/index.scss' as *;
 
+/**
+ * component-landing styles
+*/
+
 // base classes
 .container {
   position: fixed;
@@ -140,6 +144,10 @@
 @keyframes pInitialAnimation { 100% { transform: translateY(0vh); } }
 @keyframes imgInitialAnimation { 100% { transform: scale(1) rotate(360deg); } }
 @keyframes buttonInitialAnimation { 100% { transform: translateY(0vh); } }
+@keyframes rippleAnimation {
+  0% { box-shadow: 0 0 0 0 $dark-contrast; }
+  100% { box-shadow: 0 0 0 2rem lighten($color: $dark-contrast, $amount: 90%); }
+}
 
 :global {
   .headingAnimate {
