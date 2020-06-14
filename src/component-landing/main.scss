@@ -1,10 +1,11 @@
+/**************************************************\
+  component-landing main.scss
+\**************************************************/
+
+/* Imports */
 @use '../scss-partial/index.scss' as *;
 
-/**
- * component-landing styles
-*/
-
-// base classes
+/* Base style classes */
 .container {
   position: fixed;
   height: 100vh;
@@ -18,15 +19,33 @@
   font-family: $font-head;
   color: $green-main;
 
-  @include width500 { font-size: 3.8rem; }
-  @include width600 { font-size: 4.3rem; }
-  @include width700 { font-size: 5rem; }
-  @include width800 { font-size: 5.5rem; }
-  @include width900 { font-size: 6rem; }
-  @include width1000 { font-size: 6.5rem; }
-  @include width1100 { font-size: 7rem; }
-  @include width1200 { font-size: 7.5rem; }
-  @include width1300 { font-size: 8rem; }
+  @include width500 {
+    font-size: 3.8rem;
+  }
+  @include width600 {
+    font-size: 4.3rem;
+  }
+  @include width700 {
+    font-size: 5rem;
+  }
+  @include width800 {
+    font-size: 5.5rem;
+  }
+  @include width900 {
+    font-size: 6rem;
+  }
+  @include width1000 {
+    font-size: 6.5rem;
+  }
+  @include width1100 {
+    font-size: 7rem;
+  }
+  @include width1200 {
+    font-size: 7.5rem;
+  }
+  @include width1300 {
+    font-size: 8rem;
+  }
 }
 
 .paragraph {
@@ -39,15 +58,33 @@
   text-orientation: upright;
   letter-spacing: 0.1rem;
 
-  @include height600 { font-size: 1.6rem; }
-  @include height650 { font-size: 1.8rem; }
-  @include height700 { font-size: 1.95rem; }
-  @include height750 { font-size: 2.1rem; }
-  @include height800 { font-size: 2.25rem; }
-  @include height850 { font-size: 2.45rem; }
-  @include height900 { font-size: 2.55rem; }
-  @include height950 { font-size: 2.75rem; }
-  @include height1000 { font-size: 2.9rem; }
+  @include height600 {
+    font-size: 1.6rem;
+  }
+  @include height650 {
+    font-size: 1.8rem;
+  }
+  @include height700 {
+    font-size: 1.95rem;
+  }
+  @include height750 {
+    font-size: 2.1rem;
+  }
+  @include height800 {
+    font-size: 2.25rem;
+  }
+  @include height850 {
+    font-size: 2.45rem;
+  }
+  @include height900 {
+    font-size: 2.55rem;
+  }
+  @include height950 {
+    font-size: 2.75rem;
+  }
+  @include height1000 {
+    font-size: 2.9rem;
+  }
 }
 
 .catImage {
@@ -57,7 +94,9 @@
   z-index: -1;
   width: 50vw;
 
-  @include landscape { width: 30vw; }
+  @include landscape {
+    width: 30vw;
+  }
 }
 
 .showButton {
@@ -134,8 +173,10 @@
   }
 }
 
-// animation classes
-
+/* Pre-animation classes */
+.headingPreAnimate {
+  transform: translateX(-100vw) skewX(10deg);
+}
 .paragraphPreAnimate {
   transform: translateY(-100vh);
 }
@@ -146,44 +187,62 @@
   transform: translateY(100vh);
 }
 
+/* Animation keyframes */
 @keyframes headingAnimation {
-  0% { transform: translateX(-100vw) skewX(10deg); }
-  50% { transform: translateX(50vw) skewX(-10deg); }
-  100% { transform: translateX(0vw) skewX(0deg); }
+  50% {
+    transform: translateX(50vw) skewX(-10deg);
+  }
+  100% {
+    transform: translateX(0vw) skewX(0deg);
+  }
 }
 @keyframes paragraphAnimation {
-  100% { transform: translateY(0vh); }
+  100% {
+    transform: translateY(0vh);
+  }
 }
 @keyframes catImageAnimation {
-  100% { transform: scale(1) rotate(360deg); }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
 }
 @keyframes showButtonAnimation {
-  100% { transform: translateY(0vh); }
+  100% {
+    transform: translateY(0vh);
+  }
 }
 @keyframes showButtonRippleAnimation {
-  0% { box-shadow: 0 0 0 0 $dark-contrast; }
-  100% { box-shadow: 0 0 0 2rem lighten($color: $dark-contrast, $amount: 90%); }
+  0% {
+    box-shadow: 0 0 0 0 $dark-contrast;
+  }
+  99% {
+    box-shadow: 0 0 0 2rem lighten($color: $dark-contrast, $amount: 90%);
+  }
+  100% {
+    box-shadow: 0 0 0 0 $dark-contrast;
+  }
 }
 
+/* Animation classes */
 .headingAnimate :local {
-    animation: headingAnimation 1300ms ease-in-out 0ms 1 normal forwards running;
+  animation: headingAnimation 1300ms ease-in-out 0ms 1 normal forwards running;
 }
 .paragraphAnimate :local {
-    animation: paragraphAnimation 750ms ease-in-out 1300ms 1 normal forwards running;
+  animation: paragraphAnimation 750ms ease-in-out 1300ms 1 normal forwards running;
 }
 .catImageAnimate :local {
-    animation: catImageAnimation 750ms ease-in-out 2050ms 1 normal forwards running;
+  animation: catImageAnimation 750ms ease-in-out 2050ms 1 normal forwards running;
 }
 .showButtonAnimate :local {
-    animation: 
-      showButtonAnimation 750ms ease-in-out 2800ms 1 normal forwards running,
-      showButtonRippleAnimation 750ms ease-in-out 3800ms 5 normal forwards running;
+  animation: 
+    showButtonAnimation 750ms ease-in-out 2800ms 1 normal forwards running,
+    showButtonRippleAnimation 750ms ease-in-out 3800ms 5 normal forwards running;
 }
 .showButtonRippleAnimate :local {
-    animation: showButtonRippleAnimation 750ms ease-in-out 0ms 5 normal forwards running;
+  animation: showButtonRippleAnimation 750ms ease-in-out 0ms 5 normal forwards running;
 }
 
-// animation negation for prefers-reduced-motion
+/* @media prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .headingAnimate,
   .paragraphAnimate,

@@ -107,7 +107,7 @@ A tentative list of things I'd like to implement to better the project (though I
 - [ ] make _staph_ and _moar_ button circular with horizontal writing to match _dank memes hur_ button
 - [ ] use client side routing
 - [ ] make pages look decent even in super big screens
-- [ ] make it look more consistent across browsers
+- [ ] make it look more consistent across browsers and devices
 - [ ] make it more accesible for keyboard-only navigation
 - [ ] create a custom 404 page
 - [ ] allow users to choose the subreddit where memes come from
