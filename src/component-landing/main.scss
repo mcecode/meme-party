@@ -13,7 +13,6 @@
   padding: 1.5rem 1rem 0;
   overflow: hidden;
 }
-
 .heading pre {
   font-size: 3.5rem;
   font-family: $font-head;
@@ -47,8 +46,7 @@
     font-size: 8rem;
   }
 }
-
-.paragraph {
+.tagLine {
   position: absolute;
   top: 1.5rem;
   right: 1rem;   
@@ -86,7 +84,6 @@
     font-size: 2.9rem;
   }
 }
-
 .catImage {
   position: absolute;
   left: 0;
@@ -98,7 +95,6 @@
     width: 30vw;
   }
 }
-
 .showButton {
   position: absolute;
   left: 40vw;
@@ -177,7 +173,7 @@
 .headingPreAnimate {
   transform: translateX(-100vw) skewX(10deg);
 }
-.paragraphPreAnimate {
+.tagLinePreAnimate {
   transform: translateY(-100vh);
 }
 .catImagePreAnimate {
@@ -196,7 +192,7 @@
     transform: translateX(0vw) skewX(0deg);
   }
 }
-@keyframes paragraphAnimation {
+@keyframes tagLineAnimation {
   100% {
     transform: translateY(0vh);
   }
@@ -227,8 +223,8 @@
 .headingAnimate :local {
   animation: headingAnimation 1300ms ease-in-out 0ms 1 normal forwards running;
 }
-.paragraphAnimate :local {
-  animation: paragraphAnimation 750ms ease-in-out 1300ms 1 normal forwards running;
+.tagLineAnimate :local {
+  animation: tagLineAnimation 750ms ease-in-out 1300ms 1 normal forwards running;
 }
 .catImageAnimate :local {
   animation: catImageAnimation 750ms ease-in-out 2050ms 1 normal forwards running;
@@ -244,8 +240,15 @@
 
 /* @media prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
+  .headingPreAnimate,
+  .tagLinePreAnimate,
+  .catImagePreAnimate,
+  .showButtonPreAnimate {
+    transform: none;
+  }
+
   .headingAnimate,
-  .paragraphAnimate,
+  .tagLineAnimate,
   .catImageAnimate,
   .showButtonAnimate,
   .showButtonRippleAnimate {

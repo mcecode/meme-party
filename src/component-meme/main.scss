@@ -1,9 +1,11 @@
+/**************************************************\
+  component-meme main.scss
+\**************************************************/
+
+/* Imports */
 @use '../scss-partial/index.scss' as *;
 
-/**
- * component-meme styles
-*/
-
+/* Animation keyframes */
 @keyframes slideXAnimation {   
   0% { transform: scaleX(0); }
   100% { transform: scaleX(1); }
@@ -17,9 +19,171 @@
   100% { transform: translateX(20vw); }
 }
 
-/*********************************************\ 
-  classes
-\*********************************************/
+/* Base style classes */
+.container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: darken($color: $green-main, $amount: 10%);
+  transform-origin: top;
+  transform: scale(0);
+  transition: transform 250ms ease-in-out;
+}
+
+.hideButton,
+.moreButton {
+  display: block;
+  width: 30vw;
+  height: 30vw;
+  border: 0.1rem solid $light-contrast;
+  border-radius: 50%;
+  background-color: $dark-contrast;
+  color: $light-contrast;
+  font-size: 2vmax;
+
+  // doesn't work for buttons in chrome
+  // remove this and clip path
+  writing-mode: vertical-lr; 
+
+  text-orientation: upright;
+  letter-spacing: 0.1rem;
+  cursor: pointer;
+
+  @include landscape {
+    width: 15vw;
+    height: 15vw;
+  }
+
+  &:hover {
+    background-color: $light-contrast;
+    color: $dark-contrast;
+    border-color: $dark-contrast;
+  }
+}
+
+.hideButton {
+  position: sticky;
+  z-index: 1;
+  top: 1rem;
+  left: 5vw;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  transition: transform 250ms ease-in-out;
+}
+
+.moreButton {
+  margin: 0 0 1rem 65vw;
+  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+  transition: transform 250ms ease-in-out;
+
+  @include landscape { margin-left: 80vw; }
+}
+
+.memesContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: 3rem auto;
+
+  @include width900 { width: 70%; }
+}
+
+/* 
+main -> .container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: darken($color: $green-main, $amount: 10%);
+  transform-origin: top;
+  transform: scale(0);
+  transition: transform 250ms ease-in-out;
+
+  button -> .hideButton; .moreButton {
+    display: block;
+    width: 30vw;
+    height: 30vw;
+    border: 0.1rem solid $light-contrast;
+    border-radius: 50%;
+    background-color: $dark-contrast;
+    color: $light-contrast;
+    font-size: 2vmax;
+
+    // doesn't work for buttons in chrome
+    // remove this and clip path
+    writing-mode: vertical-lr; 
+
+    text-orientation: upright;
+    letter-spacing: 0.1rem;
+    cursor: pointer;
+
+    @include landscape {
+      width: 15vw;
+      height: 15vw;
+    }
+
+    &:first-child -> .hideButton {
+      position: sticky;
+      z-index: 1;
+      top: 1rem;
+      left: 5vw;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      transition: transform 250ms ease-in-out;
+    }
+
+    &:last-child -> .moreButton {
+      margin: 0 0 1rem 65vw;
+      clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+      transition: transform 250ms ease-in-out;
+
+      @include landscape { margin-left: 80vw; }
+    }
+
+    &:hover {
+      background-color: $light-contrast;
+      color: $dark-contrast;
+      border-color: $dark-contrast;
+    }
+  }
+
+  div -> .memesContainer {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 3rem auto;
+
+    @include width900 { width: 70%; }
+  }
+
+  p {
+    transform-origin: top;
+    
+    @include animateOnce(500ms, slideYAnimation);
+  }
+
+  a { margin: 10vh 0; }
+
+  img {
+    max-width: 100%;
+    transform-origin: right;
+
+    @include animateOnce(500ms, slideXAnimation);
+  }
+
+  hr {
+    width: 100%;
+    height: 1vh;
+    background-color: $light-contrast;
+    transform-origin: left;
+
+    @include animateOnce(500ms, slideXAnimation);
+  }
+}
+
 .staph-onscroll {
   transform: scale(0.5) translate(-20vw, -10vh);
 
@@ -61,103 +225,9 @@
 .img-loadermeme {
   display: block;
   margin: 5vh 0 10vh;
-}
+} */
 
-/*********************************************\ 
-  meme section
-\*********************************************/
-main {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  background-color: darken($color: $green-main, $amount: 10%);
-  transform-origin: top;
-  transform: scale(0);
-  transition: transform 250ms ease-in-out;
-
-  button {
-    display: block;
-    width: 30vw;
-    height: 30vw;
-    border: 0.1rem solid $light-contrast;
-    border-radius: 50%;
-    background-color: $dark-contrast;
-    color: $light-contrast;
-    font-size: 2vmax;
-    writing-mode: vertical-lr; // doesn't work for buttons in chrome
-    text-orientation: upright;
-    letter-spacing: 0.1rem;
-    cursor: pointer;
-
-    @include landscape {
-      width: 15vw;
-      height: 15vw;
-    }
-
-    &:first-child {
-      position: sticky;
-      z-index: 1;
-      top: 1rem;
-      left: 5vw;
-      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-      transition: transform 250ms ease-in-out;
-    }
-
-    &:last-child {
-      margin: 0 0 1rem 65vw;
-      clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
-      transition: transform 250ms ease-in-out;
-
-      @include landscape { margin-left: 80vw; }
-    }
-
-    &:hover {
-      background-color: $light-contrast;
-      color: $dark-contrast;
-      border-color: $dark-contrast;
-    }
-  }
-
-  div {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    margin: 3rem auto;
-
-    @include width900 { width: 70%; }
-  }
-
-  p {
-    transform-origin: top;
-    
-    @include animateOnce(500ms, slideYAnimation);
-  }
-
-  a { margin: 10vh 0; }
-
-  img {
-    max-width: 100%;
-    transform-origin: right;
-
-    @include animateOnce(500ms, slideXAnimation);
-  }
-
-  hr {
-    width: 100%;
-    height: 1vh;
-    background-color: $light-contrast;
-    transform-origin: left;
-
-    @include animateOnce(500ms, slideXAnimation);
-  }
-}
-
-/*********************************************\ 
-  prefers reduced motion
-\*********************************************/
+/* @media prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   main p,
   main img,

@@ -24,7 +24,7 @@ class Landing {
   init() {
     this.container = document.createElement('header');
     this.heading = document.createElement('h1');
-    this.paragraph = document.createElement('p');
+    this.tagLine = document.createElement('p');
     this.catImage = document.createElement('img');
     this.showButton = document.createElement('button');
     this.sawInitialAnimationKey = 'landing: saw initial animation v2';
@@ -38,7 +38,7 @@ class Landing {
     root.append(this.container);
     this.container.append(
       this.heading,
-      this.paragraph,
+      this.tagLine,
       this.catImage,
       this.showButton
     );
@@ -54,13 +54,13 @@ class Landing {
   setStyles() {
     this.container.className = style.container;
     this.heading.className = style.heading;
-    this.paragraph.className = style.paragraph;
+    this.tagLine.className = style.tagLine;
     this.catImage.className = style.catImage;
     this.showButton.className = style.showButton;
 
     if (!localStorage.getItem(this.sawInitialAnimationKey)) {
       this.heading.classList.add(style.headingPreAnimate);
-      this.paragraph.classList.add(style.paragraphPreAnimate);
+      this.tagLine.classList.add(style.tagLinePreAnimate);
       this.catImage.classList.add(style.catImagePreAnimate);
       this.showButton.classList.add(style.showButtonPreAnimate);
     }
@@ -69,7 +69,7 @@ class Landing {
   /** Sets innerHTML, textContent, and alt text of elements */
   setContent() {
     this.setHeadingContent();
-    this.paragraph.textContent = 'good memes rayt here';
+    this.tagLine.textContent = 'good memes rayt here';
     this.catImage.src = heavyBreathingCat;
     this.catImage.alt = 'heavy breathing cat meme';
     this.showButton.textContent = 'dank memes hur';
@@ -95,7 +95,7 @@ class Landing {
   setAnimation() {
     if (!localStorage.getItem(this.sawInitialAnimationKey))  {
       this.heading.classList.add(style.headingAnimate);
-      this.paragraph.classList.add(style.paragraphAnimate);
+      this.tagLine.classList.add(style.tagLineAnimate);
       this.catImage.classList.add(style.catImageAnimate);
       this.showButton.classList.add(style.showButtonAnimate);
 
@@ -109,7 +109,7 @@ class Landing {
 
   /**
    * Handles events whose callback is 'this'
-   * @param {Event} e - Document event triggered
+   * @param {Event} e - Document triggered event
    */
   handleEvent(e) {    
     if (e.target === document && e.type === 'load') this.setAnimation();

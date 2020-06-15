@@ -1,23 +1,7 @@
 /*********************************************\ 
-  imports
-\*********************************************/
-import sadPepe from './images/sad-pepe.png';
-import loaderMeme1 from './images/loader-meme-1.jpg';
-import loaderMeme2 from './images/loader-meme-2.jpg';
-import loaderMeme3 from './images/loader-meme-3.jpg';
-import loaderMeme4 from './images/loader-meme-4.jpg';
-import loaderMeme5 from './images/loader-meme-5.jpg';
-import loaderMeme6 from './images/loader-meme-6.jpg';
-
-/*********************************************\ 
   variable declarations
 \*********************************************/
 const
-main = document.querySelector('main'),
-hideButton = main.querySelector('button:first-child'),
-moreButton = main.querySelector('button:last-child'),
-initialDivision = document.createElement('hr'),
-memes = document.getElementById('memes'),
 subreddits = [
   'memes',
   'dankmemes',
@@ -181,25 +165,10 @@ function appendDivision() {
 }
 
 /*********************************************\ 
-  event listeners
-\*********************************************/
-hideButton.addEventListener('click', () => {
-  main.style.transform = 'scale(0)';
-  memes.innerHTML = '';
-
-  if (fetchError) {
-    moreButton.style.transform = 'scale(1)';
-    fetchError = false;
-  }
-});
-
-moreButton.addEventListener('click', shuffleSubreddits);
-
-/*********************************************\ 
   intersection observers
 \*********************************************/
 const 
-initialDivisionObserver = new IntersectionObserver((entries) => {
+initialDivisionObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       hideButton.classList.remove('staph-onscroll');
