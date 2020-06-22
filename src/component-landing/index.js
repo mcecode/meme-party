@@ -112,8 +112,14 @@ class Landing {
    * @param {Event} e - Document triggered event
    */
   handleEvent(e) {    
-    if (e.target === document && e.type === 'load') this.setAnimation();
-    if (e.target === window && e.type === 'resize') this.setHeadingContent();
+    if (e.target === document && e.type === 'load') {
+      this.setAnimation();
+      return;
+    } 
+    if (e.target === window && e.type === 'resize') {
+      this.setHeadingContent();
+      return;
+    }
   }
 }
 

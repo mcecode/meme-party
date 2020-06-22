@@ -5,9 +5,10 @@
 /** Non-js imports */
 import './scss-global/index.scss';
 
-/** Class imports */
+/** JS imports */
 import Landing from './component-landing/index.js';
-import Meme from './component-meme/index.js';
+import Main from './component-main/index.js';
+import GlobalState from './js-state/index.js';
 
 /** Entry point for all components */
 const root = document.getElementById('root');
@@ -16,19 +17,23 @@ const root = document.getElementById('root');
 let landing = new Landing(root);
 
 /** Meme instance */
-let meme = new Meme(root, landing.showButton);
+let main = new Main(root);
+
+/** GlobalState instance */
+let globalState = new GlobalState(landing, main);
 
 /** Hot Module Replacement */
 if (module.hot) {
   module.hot.accept([
     './component-landing/index.js',
-    './component-meme/index.js'
+    './component-main/index.js'
   ], () => {
     landing.container.remove();
     window.removeEventListener('resize', landing);
     landing = new Landing(root);
     window.removeEventListener('load', landing);
-    meme.container.remove();
-    meme = new Meme(root, landing.showButton);
+    main.container.remove();
+    main = new Main(root);
+    globalState = new GlobalState(landing, main);
   });
 }

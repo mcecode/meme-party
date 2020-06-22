@@ -1,43 +1,35 @@
 /**************************************************\
-  component-meme index.js
+  component-main index.js
 \**************************************************/
 
 /** Non-js imports */
 import style from './main.scss';
-import sadPepe from './images/sad-pepe.png';
-import loaderMeme1 from './images/loader-meme-1.jpg';
-import loaderMeme2 from './images/loader-meme-2.jpg';
-import loaderMeme3 from './images/loader-meme-3.jpg';
-import loaderMeme4 from './images/loader-meme-4.jpg';
-import loaderMeme5 from './images/loader-meme-5.jpg';
-import loaderMeme6 from './images/loader-meme-6.jpg';
+
+/** JS imports */
+import Meme from './meme.js';
+import Loader from './loader.js';
 
 /** Class representing the main content page */
-class Meme {
+class Main {
   /**
    * Calls all initializing methods
    * @param {HTMLDivElement} root - Entry point for all components
-   * @param {HTMLButtonElement} landingShowButton - Shows main content page using event listener
    */
-  constructor(root, landingShowButton) {
-    this.init(landingShowButton);
+  constructor(root) {
+    this.init();
     this.mount(root);
     this.setEvents();
     this.setStyles();
     this.setContent();
   }
 
-  /** 
-   * Creates and assigns HTMLElements
-   * @param {HTMLButtonElement} landingShowButton - Shows main content page using event listener
-   */
-  init(landingShowButton) {
+  /** Creates HTMLElements */
+  init() {
     this.container = document.createElement('main');
     this.hideButton = document.createElement('button');
     this.moreButton = document.createElement('button');
     this.memesContainer = document.createElement('div');
     this.initialDivision = document.createElement('hr');
-    this.landingShowButton = landingShowButton;
   }
 
   /**
@@ -55,7 +47,6 @@ class Meme {
 
   /** Sets events whose call back is 'this' */
   setEvents() {
-    this.landingShowButton.addEventListener('click', this);
     this.hideButton.addEventListener('click', this);
     this.moreButton.addEventListener('click', this);
   }
@@ -102,15 +93,34 @@ class Meme {
     moreButton.addEventListener('click', shuffleSubreddits);
     */
     // TODO: put these in their own function
-    if (e.target === this.landingShowButton && e.type === 'click') {
-      this.container.style.transform = 'scale(1)';
-    }
     if (e.target === this.hideButton && e.type === 'click') {
       this.container.style.transform = 'scale(0)';
+      return;
+    } 
+    if (e.target === this.moreButton && e.type === 'click') {
+
+      return;
     }
-    if (e.target === this.moreButton && e.type === 'click') console.log('this.moreButton clicked');
   }
 }
 
-/** Exports Meme class */
-export default Meme;
+/** Exports Main class */
+export default Main;
+
+/*
+intersection observer
+
+const 
+initialDivisionObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      hideButton.classList.remove('staph-onscroll');
+    } else {
+      hideButton.classList.add('staph-onscroll');
+    }
+  });
+}, {
+  rootMargin: '-150px 0px 0px 0px',
+});
+initialDivisionObserver.observe(initialDivision);
+*/

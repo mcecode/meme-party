@@ -1,6 +1,20 @@
-/*********************************************\ 
-  variable declarations
-\*********************************************/
+/**************************************************\
+  component-main meme.js
+\**************************************************/
+
+/** Non-js imports */
+import style from './main.scss';
+import sadPepe from './images/sad-pepe.png';
+
+class Meme {
+  constructor(container) {
+
+  }
+}
+
+/*
+variables
+
 const
 subreddits = [
   'memes',
@@ -10,36 +24,15 @@ subreddits = [
   'comedyheaven',
   'pewdiepiesubmissions',
 ],
-loader = [
-  document.createElement('p'),
-  document.createElement('span'),
-  document.createElement('img'),
-  document.createElement('hr'),
-],
-loaderCaptions = [
-  'Memes hot off the press coming right up!',
-  'Fetching some dank memes...',
-  'Please wait a bit, the memes will be coming soon.',
-],
-loaderMemes = [
-  loaderMeme1,
-  loaderMeme2,
-  loaderMeme3,
-  loaderMeme4,
-  loaderMeme5,
-  loaderMeme6,
-];
 
 let
 subredditCount = Math.floor(Math.random() * 6),
-loaderCaptionCount = Math.floor(Math.random() * 3),
-loaderMemeCount = Math.floor(Math.random() * 6),
+// make this fetchSuccess to be less ambigous
 fetchError = false,
 loadedMemes = 0;
 
-/*********************************************\ 
-  functions
-\*********************************************/
+functions
+
 function shuffleSubreddits() {
   if (subredditCount === 6) {
     subredditCount = 0;
@@ -93,6 +86,7 @@ function preloadMemes(data, numberOfMemes) {
 function showMemes(memesObject) {
   removeLoader();
 
+  // use for...of instead
   let memeLink;
   for (memeLink in memesObject) {
     memes.append(memesObject[memeLink]);
@@ -119,64 +113,9 @@ function handleFetchError(err) {
   fetchError = true;
 }
 
-function showLoader() {
-  moreButton.style.transform = 'scale(0)';
-
-  function appendLoader() {
-    loader[0].classList.add('p-loadercaption'); 
-    loader[0].textContent = loaderCaptions[loaderCaptionCount];
-    loader[1].classList.add('span-loaderball');
-    loader[2].classList.add('img-loadermeme');
-    loader[2].src = loaderMemes[loaderMemeCount];
-
-    loader.forEach(part => {
-      memes.append(part);
-    });
-  }
-
-  if (loaderCaptionCount === 3 || loaderMemeCount === 6) {
-    if (loaderCaptionCount === 3) loaderCaptionCount = 0;
-    if (loaderMemeCount === 6) loaderMemeCount = 0;
-
-    appendLoader();   
-    
-    loaderCaptionCount += 1;
-    loaderMemeCount += 1;
-  } else {
-    appendLoader();
-
-    loaderCaptionCount += 1;
-    loaderMemeCount += 1;
-  }
-}
-
-function removeLoader() {
-  moreButton.style.transform = 'scale(1)';
-
-  loader.forEach(part => {
-    part.remove();
-  });
-}
-
 function appendDivision() {
   const division = document.createElement('hr');
 
   memes.append(division);
 }
-
-/*********************************************\ 
-  intersection observers
-\*********************************************/
-const 
-initialDivisionObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      hideButton.classList.remove('staph-onscroll');
-    } else {
-      hideButton.classList.add('staph-onscroll');
-    }
-  });
-}, {
-  rootMargin: '-150px 0px 0px 0px',
-});
-initialDivisionObserver.observe(initialDivision);
+*/
