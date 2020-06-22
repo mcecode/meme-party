@@ -1,16 +1,19 @@
 /**************************************************\
-  component-main meme.js
+  component-main memes.js
 \**************************************************/
 
 /** Non-js imports */
 import style from './main.scss';
 import sadPepe from './images/sad-pepe.png';
 
-class Meme {
-  constructor(container) {
+class Memes {
+  constructor(memesContainer) {
 
   }
 }
+
+/** Exports Memes class */
+export default Memes;
 
 /*
 variables

@@ -19,7 +19,7 @@
   100% { transform: translateX(20vw); }
 }
 
-/* Base style classes */
+/* Main base style classes */
 .container {
   position: fixed;
   width: 100vw;
@@ -30,7 +30,6 @@
   transform: scale(0);
   transition: transform 250ms ease-in-out;
 }
-
 .hideButton,
 .moreButton {
   display: block;
@@ -61,7 +60,6 @@
     border-color: $dark-contrast;
   }
 }
-
 .hideButton {
   position: sticky;
   z-index: 1;
@@ -70,7 +68,6 @@
   clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   transition: transform 250ms ease-in-out;
 }
-
 .moreButton {
   margin: 0 0 1rem 65vw;
   clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
@@ -78,7 +75,6 @@
 
   @include landscape { margin-left: 80vw; }
 }
-
 .memesContainer {
   display: flex;
   flex-flow: column nowrap;
@@ -111,101 +107,37 @@
   }
 }
 
-/* 
-main -> .container {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  background-color: darken($color: $green-main, $amount: 10%);
-  transform-origin: top;
-  transform: scale(0);
-  transition: transform 250ms ease-in-out;
+/* Loader base style classes */
+.loaderMessage {
+  max-width: 25rem;
+  margin: 10vh 0 5vh;
+  line-height: 1.5;
+  text-align: center;
+  color: $light-contrast;
+  font-size: 1.2rem;
 
-  button -> .hideButton; .moreButton {
-    display: block;
-    width: 30vw;
-    height: 30vw;
-    border: 0.1rem solid $light-contrast;
-    border-radius: 50%;
-    background-color: $dark-contrast;
-    color: $light-contrast;
-    font-size: 2vmax;
+  @include width500 { font-size: 1.4rem; }
+  @include width700 { font-size: 1.6rem; }
+  @include width900 { font-size: 1.8rem; }
+}
+.loaderBall :local {
+  width: 7vw;
+  height: 7vw;
+  border-radius: 50%;
+  background: radial-gradient(#c40000, #0000c4);
+  animation: backAndForthAnimation 750ms ease-in-out 0ms infinite alternate both running;
 
-    // doesn't work for buttons in chrome
-    // remove this and clip path
-    writing-mode: vertical-lr; 
-
-    text-orientation: upright;
-    letter-spacing: 0.1rem;
-    cursor: pointer;
-
-    @include landscape {
-      width: 15vw;
-      height: 15vw;
-    }
-
-    &:first-child -> .hideButton {
-      position: sticky;
-      z-index: 1;
-      top: 1rem;
-      left: 5vw;
-      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-      transition: transform 250ms ease-in-out;
-    }
-
-    &:last-child -> .moreButton {
-      margin: 0 0 1rem 65vw;
-      clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
-      transition: transform 250ms ease-in-out;
-
-      @include landscape { margin-left: 80vw; }
-    }
-
-    &:hover {
-      background-color: $light-contrast;
-      color: $dark-contrast;
-      border-color: $dark-contrast;
-    }
-  }
-
-  div -> .memesContainer {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    margin: 3rem auto;
-
-    @include width900 { width: 70%; }
-  }
-
-  // p, a, img, hr put inside .memesContainer
-  p {
-    transform-origin: top;
-    
-    @include animateOnce(500ms, slideYAnimation);
-  }
-
-  a { margin: 10vh 0; }
-
-  img {
-    max-width: 100%;
-    transform-origin: right;
-
-    @include animateOnce(500ms, slideXAnimation);
-  }
-
-  hr {
-    width: 100%;
-    height: 1vh;
-    background-color: $light-contrast;
-    transform-origin: left;
-
-    @include animateOnce(500ms, slideXAnimation);
+  @include landscape {
+    width: 5vw;
+    height: 5vw;
   }
 }
+.loaderMemeImage {
+  display: block;
+  margin: 5vh 0 10vh;
+}
 
+/*
 .staph-onscroll {
   transform: scale(0.5) translate(-20vw, -10vh);
 
@@ -220,34 +152,8 @@ main -> .container {
   
   @include errorParagraph(1.2rem, 1.4rem, 1.6rem);
 }
-.p-loadercaption {
-  max-width: 25rem;
-  margin: 10vh 0 5vh;
-  line-height: 1.5;
-  text-align: center;
-  color: $light-contrast;
-  font-size: 1.2rem;
 
-  @include width500 { font-size: 1.4rem; }
-  @include width700 { font-size: 1.6rem; }
-  @include width900 { font-size: 1.8rem; }
-}
-.span-loaderball {
-  width: 7vw;
-  height: 7vw;
-  border-radius: 50%;
-  background: radial-gradient(#c40000, #0000c4);
-  animation: 750ms ease-in-out 0ms infinite alternate both running backAndForthAnimation;
-
-  @include landscape {
-    width: 5vw;
-    height: 5vw;
-  }
-}
-.img-loadermeme {
-  display: block;
-  margin: 5vh 0 10vh;
-} */
+*/
 
 /* @media prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {

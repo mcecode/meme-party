@@ -12,86 +12,73 @@ import loaderMeme5 from './images/loader-meme-5.jpg';
 import loaderMeme6 from './images/loader-meme-6.jpg';
 
 class Loader {
-  constructor(container) {
+  constructor(memesContainer) {
+    this.container = memesContainer;
+    
+    this.message = document.createElement('p');
+    this.message.className = style.loaderMessage;
+    this.messageContent = [
+      'Memes hot off the press coming right up!',
+      'Fetching some dank memes...',
+      'Please wait a bit, the memes will be coming soon.'
+    ];
+    this.messageContentIndex = Math.floor(Math.random() * 3);
 
+    this.ball = document.createElement('span');
+    this.ball.className = style.loaderBall;
+
+    this.memeImage = document.createElement('img');
+    this.memeImage.className = style.loaderMemeImage;
+    this.memeImageSrc = [
+      loaderMeme1,
+      loaderMeme2,
+      loaderMeme3,
+      loaderMeme4,
+      loaderMeme5,
+      loaderMeme6
+    ];
+    this.memeImageSrcIndex = Math.floor(Math.random() * 6);
+
+    this.division = document.createElement('hr');
   }
 
-  show() {
+  append() {
+    if (this.messageContentIndex === 3) this.messageContentIndex = 0;
+    if (this.memeImageSrcIndex === 6) this.memeImageSrcIndex = 0;
+  
+    this.message.textContent = this.messageContent[this.messageContentIndex];
+    this.memeImage.src = this.memeImageSrc[this.memeImageSrcIndex];
 
+    this.container.append(
+      this.message,
+      this.ball,
+      this.memeImage,
+      this.division
+    );
+    
+    this.messageContentIndex += 1;
+    this.memeImageSrcIndex += 1;
   }
 
-  hide() {
-
+  remove() {
+    this.message.remove();
+    this.ball.remove();
+    this.memeImage.remove();
+    this.division.remove();
   }
 }
 
+/** Exports Loader class */
+export default Loader;
+
 /*
-variables
-
-const
-loader = [
-  enclose these in a div
-  document.createElement('p'),
-  document.createElement('span'),
-  document.createElement('img'),
-  document.createElement('hr'),
-],
-loaderCaptions = [
-  'Memes hot off the press coming right up!',
-  'Fetching some dank memes...',
-  'Please wait a bit, the memes will be coming soon.',
-],
-loaderMemes = [
-  loaderMeme1,
-  loaderMeme2,
-  loaderMeme3,
-  loaderMeme4,
-  loaderMeme5,
-  loaderMeme6,
-];
-
-let
-loaderCaptionCount = Math.floor(Math.random() * 3),
-loaderMemeCount = Math.floor(Math.random() * 6),
-
-functions
+TODO: add this functionality
 
 function showLoader() {
   moreButton.style.transform = 'scale(0)';
-
-  function appendLoader() {
-    loader[0].classList.add('p-loadercaption'); 
-    loader[0].textContent = loaderCaptions[loaderCaptionCount];
-    loader[1].classList.add('span-loaderball');
-    loader[2].classList.add('img-loadermeme');
-    loader[2].src = loaderMemes[loaderMemeCount];
-
-    loader.forEach(part => {
-      memes.append(part);
-    });
-  }
-
-  if (loaderCaptionCount === 3 || loaderMemeCount === 6) {
-    if (loaderCaptionCount === 3) loaderCaptionCount = 0;
-    if (loaderMemeCount === 6) loaderMemeCount = 0;
-
-    appendLoader();   
-    
-    loaderCaptionCount += 1;
-    loaderMemeCount += 1;
-  } else {
-    appendLoader();
-
-    loaderCaptionCount += 1;
-    loaderMemeCount += 1;
-  }
 }
 
 function removeLoader() {
   moreButton.style.transform = 'scale(1)';
-
-  loader.forEach(part => {
-    part.remove();
-  });
 }
 */

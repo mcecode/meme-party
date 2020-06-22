@@ -16,18 +16,13 @@ class GlobalState {
     this.landing.showButton.addEventListener('click', this);
   }
 
-  /** Shows main content page */
-  showMain() {
-    this.main.container.style.transform = 'scale(1)';
-  }
-
   /**
    * Handles events whose callback is 'this'
    * @param {Event} e - Document triggered event
    */
   handleEvent(e) {
     if (e.target === this.landing.showButton && e.type === 'click') {
-      this.showMain();
+      this.main.show();
       return;
     }
   }
