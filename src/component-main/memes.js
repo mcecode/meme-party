@@ -74,9 +74,9 @@ class Memes {
         Sorry.
         Something went wrong while getting the memes.
         Please try again later or refresh the page.`;
-      errorMessage.className = style.memeErrorMessage;
+      errorMessage.className = style.fetchErrorMessage;
       errorImage.src = sadPepe;
-      errorImage.className = style.memeErrorImage;
+      errorImage.className = style.fetchErrorImage;
       this.moreButton.style.transform = 'scale(0)';
       this.memesContainer.append(
         errorMessage,

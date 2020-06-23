@@ -7,19 +7,31 @@
 
 /* Animation keyframes */
 @keyframes slideXAnimation {   
-  0% { transform: scaleX(0); }
-  100% { transform: scaleX(1); }
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }
 @keyframes slideYAnimation {   
-  0% { transform: scaleY(0); }
-  100% { transform: scaleY(1); }
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
 }
 @keyframes backAndForthAnimation {
-  0% { transform: translateX(-20vw); }
-  100% { transform: translateX(20vw); }
+  0% {
+    transform: translateX(-20vw);
+  }
+  100% {
+    transform: translateX(20vw);
+  }
 }
 
-/* Main base style classes */
+/* Main base classes */
 .container {
   position: fixed;
   width: 100vw;
@@ -33,26 +45,12 @@
 .hideButton,
 .moreButton {
   display: block;
-  width: 30vw;
-  height: 30vw;
   border: 0.1rem solid $light-contrast;
   border-radius: 50%;
   background-color: $dark-contrast;
   color: $light-contrast;
-  font-size: 2vmax;
-
-  // doesn't work for buttons in chrome
-  // remove this and clip path
-  writing-mode: vertical-lr; 
-
-  text-orientation: upright;
-  letter-spacing: 0.1rem;
+  font-size: 4.5vmax;
   cursor: pointer;
-
-  @include landscape {
-    width: 15vw;
-    height: 15vw;
-  }
 
   &:hover {
     background-color: $light-contrast;
@@ -63,17 +61,28 @@
 .hideButton {
   position: sticky;
   z-index: 1;
+  width: 25vw;
+  height: 25vw;
   top: 1rem;
   left: 5vw;
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
   transition: transform 250ms ease-in-out;
+  
+  @include landscape {
+    width: 12.5vw;
+    height: 12.5vw;
+  }
 }
 .moreButton {
-  margin: 0 0 1rem 65vw;
-  clip-path: polygon(50% 100%, 0% 0%, 100% 0%);
+  width: 30vw;
+  height: 30vw;
+  margin: 0 0 2rem 35vw;
   transition: transform 250ms ease-in-out;
 
-  @include landscape { margin-left: 80vw; }
+  @include landscape {
+    width: 15vw;
+    height: 15vw;
+    margin-left: 42.5vw;
+  }
 }
 .memesContainer {
   display: flex;
@@ -81,16 +90,20 @@
   justify-content: center;
   align-items: center;
   width: 80%;
-  margin: 3rem auto;
+  margin: 3rem auto 2rem;
 
-  @include width900 { width: 70%; }
+  @include width900 {
+    width: 70%;
+  }
 
   p :local {
     transform-origin: top;
     animation: slideYAnimation 500ms ease-in-out 0ms 1 normal forwards running;
   }
   
-  a { margin: 10vh 0; }
+  a {
+    margin: 10vh 0;
+  }
   
   img :local {
     max-width: 100%;
@@ -107,7 +120,7 @@
   }
 }
 
-/* Main added styles */
+/* Main transition classes */
 .hideButtonOnScroll {
   transform: scale(0.5) translate(-20vw, -10vh);
 
@@ -116,7 +129,7 @@
   }
 }
 
-/* Loader base style classes */
+/* Loader classes */
 .loaderMessage {
   max-width: 25rem;
   margin: 10vh 0 5vh;
@@ -125,9 +138,15 @@
   color: $light-contrast;
   font-size: 1.2rem;
 
-  @include width500 { font-size: 1.4rem; }
-  @include width700 { font-size: 1.6rem; }
-  @include width900 { font-size: 1.8rem; }
+  @include width500 {
+    font-size: 1.4rem;
+  }
+  @include width700 {
+    font-size: 1.6rem;
+  }
+  @include width900 {
+    font-size: 1.8rem;
+  }
 }
 .loaderBall :local {
   width: 7vw;
@@ -146,24 +165,28 @@
   margin: 5vh 0 10vh;
 }
 
-/* Meme base style classes */
-.memeErrorMessage {
+/* Fetch error classes */
+.fetchErrorMessage {
   max-width: 25rem;
   margin: 10vh 0;
   line-height: 1.5;
   
   @include errorParagraph(1.2rem, 1.4rem, 1.6rem);
 }
-.memeErrorImage {
+.fetchErrorImage {
   margin-bottom: 10vh;
 }
 
 /* @media prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  main p,
-  main img,
-  main hr,
-  .span-loaderball {
+  .memesContainer p,
+  .memesContainer img,
+  .memesContainer hr,
+  .loaderBall {
     animation: none;
   };
+
+  .loaderBall {
+    display: none;
+  }
 }

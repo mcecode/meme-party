@@ -43,7 +43,7 @@ class Main {
         }
       });
     }, {
-      rootMargin: '-150px 0px 0px 0px',
+      rootMargin: '-100px 0px 0px 0px',
     });
   }
 
