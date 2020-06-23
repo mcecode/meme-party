@@ -31,7 +31,7 @@ class Landing {
   }
 
   /**
-   * Adds created elements to the HTML document
+   * Appends created HTMLElements to the HTML document
    * @param {HTMLDivElement} root - Entry point for all components
    */
   mount(root) {
@@ -50,7 +50,7 @@ class Landing {
     window.addEventListener('resize', this);
   }
 
-  /** Adds base style and pre-animation classes to elements */
+  /** Adds base style and pre-animation classes to HTMLElements */
   setStyles() {
     this.container.className = style.container;
     this.heading.className = style.heading;
@@ -66,7 +66,7 @@ class Landing {
     }
   }
 
-  /** Sets innerHTML, textContent, and alt text of elements */
+  /** Sets innerHTML, textContent, and alt text of HTMLElements */
   setContent() {
     this.setHeadingContent();
     this.tagLine.textContent = 'good memes rayt here';

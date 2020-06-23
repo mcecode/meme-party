@@ -11,9 +11,16 @@ import loaderMeme4 from './images/loader-meme-4.jpg';
 import loaderMeme5 from './images/loader-meme-5.jpg';
 import loaderMeme6 from './images/loader-meme-6.jpg';
 
+/** Class representing the loader that appears while memes are loading */
 class Loader {
-  constructor(memesContainer) {
+  /**
+   * Initializes properties and adds base style classes to HTMLElements
+   * @param {HTMLDivElement} memesContainer - Contains all Meme and Loader elements
+   * @param {HTMLButtonElement} moreButton - Loads more memes through API calls in Memes
+   */
+  constructor(memesContainer, moreButton) {
     this.container = memesContainer;
+    this.moreButton = moreButton;
     
     this.message = document.createElement('p');
     this.message.className = style.loaderMessage;
@@ -42,7 +49,10 @@ class Loader {
     this.division = document.createElement('hr');
   }
 
+  /** Appends Loader HTMLElements to the HTML document */
   append() {
+    this.moreButton.style.transform = 'scale(0)';
+
     if (this.messageContentIndex === 3) this.messageContentIndex = 0;
     if (this.memeImageSrcIndex === 6) this.memeImageSrcIndex = 0;
   
@@ -60,7 +70,10 @@ class Loader {
     this.memeImageSrcIndex += 1;
   }
 
+  /** Removes Loader HTMLElements to the HTML document */
   remove() {
+    this.moreButton.style.transform = 'scale(1)';
+
     this.message.remove();
     this.ball.remove();
     this.memeImage.remove();
@@ -70,15 +83,3 @@ class Loader {
 
 /** Exports Loader class */
 export default Loader;
-
-/*
-TODO: add this functionality
-
-function showLoader() {
-  moreButton.style.transform = 'scale(0)';
-}
-
-function removeLoader() {
-  moreButton.style.transform = 'scale(1)';
-}
-*/

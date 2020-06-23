@@ -26,7 +26,8 @@ let globalState = new GlobalState(landing, main);
 if (module.hot) {
   module.hot.accept([
     './component-landing/index.js',
-    './component-main/index.js'
+    './component-main/index.js',
+    './js-state/index.js'
   ], () => {
     landing.container.remove();
     window.removeEventListener('resize', landing);

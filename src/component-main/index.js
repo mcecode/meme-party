@@ -49,7 +49,7 @@ class Main {
   }
 
   /**
-   * Adds created elements to the HTML document
+   * Appends created HTMLElements to the HTML document
    * @param {HTMLDivElement} root - Entry point for all components
    */
   mount(root) {
@@ -68,7 +68,7 @@ class Main {
     // initialDivisionObserver.observe(initialDivision);
   }
 
-  /** Adds base style classes to elements */
+  /** Adds base style classes to HTMLElements */
   setStyles() {
     this.container.className = style.container;
     this.hideButton.className = style.hideButton;
@@ -76,7 +76,7 @@ class Main {
     this.memesContainer.className = style.memesContainer;
   }
 
-  /** Sets textContent of elements */
+  /** Sets textContent of HTMLElements */
   setContent() {
     this.hideButton.textContent = 'staph';
     this.moreButton.textContent = 'moar';
@@ -89,7 +89,7 @@ class Main {
     this.memesContainer.append(this.initialDivision);
 
     this.loader.append();
-    // this.meme.start();
+    this.memes.getAndShowMemes();
   }
 
   /** Hides this.container */
@@ -97,10 +97,10 @@ class Main {
     this.memesContainer.innerHTML = '';
     this.container.style.transform = 'scale(0)';
 
-    // if (fetchError) {
-    //   moreButton.style.transform = 'scale(1)';
-    //   fetchError = false;
-    // }
+    if (this.memes.fetchError) {
+      this.moreButton.style.transform = 'scale(1)';
+      this.memes.fetchError = false;
+    }
   }
 
   /**
