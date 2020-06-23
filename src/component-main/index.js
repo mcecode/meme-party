@@ -34,18 +34,17 @@ class Main {
     this.memes = new Memes(this.memesContainer, this.moreButton);
     this.loader = new Loader(this.memesContainer, this.moreButton);
 
-    // const 
-    // initialDivisionObserver = new IntersectionObserver(entries => {
-    //   entries.forEach(entry => {
-    //     if (entry.isIntersecting) {
-    //       hideButton.classList.remove('staph-onscroll');
-    //     } else {
-    //       hideButton.classList.add('staph-onscroll');
-    //     }
-    //   });
-    // }, {
-    //   rootMargin: '-150px 0px 0px 0px',
-    // });
+    this.initialDivisionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.hideButton.classList.remove(style.hideButtonOnScroll);
+        } else {
+          this.hideButton.classList.add(style.hideButtonOnScroll);
+        }
+      });
+    }, {
+      rootMargin: '-150px 0px 0px 0px',
+    });
   }
 
   /**
@@ -65,7 +64,9 @@ class Main {
   setEventsAndObserve() {
     this.hideButton.addEventListener('click', this);
     this.moreButton.addEventListener('click', this);
-    // initialDivisionObserver.observe(initialDivision);
+    this.memesContainer.addEventListener('AllMemeImagesFullyLoaded', this);
+    this.memesContainer.addEventListener('ErrorFetchingMemes', this);
+    this.initialDivisionObserver.observe(this.initialDivision);
   }
 
   /** Adds base style classes to HTMLElements */
@@ -113,7 +114,16 @@ class Main {
       return;
     } 
     if (e.target === this.moreButton && e.type === 'click') {
-      // this.meme.start();
+      this.loader.append();
+      this.memes.getAndShowMemes();
+      return;
+    }
+    if (e.target === this.memesContainer && e.type === 'AllMemeImagesFullyLoaded') {
+      this.loader.remove(e);
+      return;
+    }
+    if (e.target === this.memesContainer && e.type === 'ErrorFetchingMemes') {
+      this.loader.remove(e);
       return;
     }
   }

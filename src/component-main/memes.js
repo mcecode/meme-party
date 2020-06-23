@@ -8,8 +8,9 @@ import sadPepe from './images/sad-pepe.png';
 
 class Memes {
   constructor(memesContainer, moreButton) {
-    this.container = memesContainer;
+    this.memesContainer = memesContainer;
     this.moreButton = moreButton;
+
     this.subreddits = [
       'memes',
       'dankmemes',
@@ -24,6 +25,7 @@ class Memes {
     this.memeCount = 10;
   }
 
+  // maybe use begin() as name then break up
   async getAndShowMemes() {
     if (this.subredditsIndex === 6) this.subredditsIndex = 0;
 
@@ -51,10 +53,11 @@ class Memes {
           if (this.memesLoaded === this.memeCount) {
             for (let meme in memesObject) {
                 const memeDivision = document.createElement('hr');
-                this.container.append(
+                this.memesContainer.append(
                 memesObject[meme],
                 memeDivision
               );
+              this.memesContainer.dispatchEvent(new Event('AllMemeImagesFullyLoaded'));
             }
             this.memesLoaded = 0;
           }
@@ -71,15 +74,17 @@ class Memes {
         Sorry.
         Something went wrong while getting the memes.
         Please try again later or refresh the page.`;
-      errorMessage.classList.add(style.memeFetchError);
+      errorMessage.className = style.memeErrorMessage;
       errorImage.src = sadPepe;
+      errorImage.className = style.memeErrorImage;
       this.moreButton.style.transform = 'scale(0)';
-      memes.append(
+      this.memesContainer.append(
         errorMessage,
         errorImage,
         errorDivision
       );
       this.fetchError = true;
+      this.memesContainer.dispatchEvent(new Event('ErrorFetchingMemes'));
     }
 
     this.subredditsIndex += 1;

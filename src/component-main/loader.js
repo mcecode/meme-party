@@ -19,7 +19,7 @@ class Loader {
    * @param {HTMLButtonElement} moreButton - Loads more memes through API calls in Memes
    */
   constructor(memesContainer, moreButton) {
-    this.container = memesContainer;
+    this.memesContainer = memesContainer;
     this.moreButton = moreButton;
     
     this.message = document.createElement('p');
@@ -50,6 +50,7 @@ class Loader {
   }
 
   /** Appends Loader HTMLElements to the HTML document */
+  // maybe use begin() as name then break up
   append() {
     this.moreButton.style.transform = 'scale(0)';
 
@@ -59,7 +60,7 @@ class Loader {
     this.message.textContent = this.messageContent[this.messageContentIndex];
     this.memeImage.src = this.memeImageSrc[this.memeImageSrcIndex];
 
-    this.container.append(
+    this.memesContainer.append(
       this.message,
       this.ball,
       this.memeImage,
@@ -71,13 +72,13 @@ class Loader {
   }
 
   /** Removes Loader HTMLElements to the HTML document */
-  remove() {
-    this.moreButton.style.transform = 'scale(1)';
-
+  remove(e) {
     this.message.remove();
     this.ball.remove();
     this.memeImage.remove();
     this.division.remove();
+
+    if (!(e.type === 'ErrorFetchingMemes')) this.moreButton.style.transform = 'scale(1)';
   }
 }
 
