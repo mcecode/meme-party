@@ -2,7 +2,7 @@
   scss-global _noscript.scss
 \**************************************************/
 
-/// Imports
+/// @use
 @use '../scss-partial/index.scss' as *;
 
 noscript {
@@ -32,11 +32,11 @@ noscript {
     }
 
     &::selection {
-      background-color: $light-contrast;
-      color: $dark-contrast;
+      background-color: $v_light-contrast;
+      color: $v_dark-contrast;
     }
 
-    @include errorParagraph(1.7rem, 1.9rem, 2.1rem);
+    @include m_errorParagraph(1.7rem, 1.9rem, 2.1rem);
   }
 
   img {
@@ -46,7 +46,7 @@ noscript {
     width: 80vw;
     height: 50vh;
     
-    @include landscape {
+    @include m_landscape {
       left: 35vw;
       width: 30vw;
     }

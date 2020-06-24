@@ -2,7 +2,7 @@
   component-main main.scss
 \**************************************************/
 
-/// Imports
+/// @use
 @use '../scss-partial/index.scss' as *;
 
 /* Animation keyframes */
@@ -37,7 +37,7 @@
   width: 100vw;
   height: 100vh;
   overflow: auto;
-  background-color: darken($color: $green-main, $amount: 10%);
+  background-color: darken($color: $v_green-main, $amount: 10%);
   transform-origin: top;
   transform: scale(0);
   transition: transform 250ms ease-in-out;
@@ -45,17 +45,17 @@
 .hideButton,
 .moreButton {
   display: block;
-  border: 0.1rem solid $light-contrast;
+  border: 0.1rem solid $v_light-contrast;
   border-radius: 50%;
-  background-color: $dark-contrast;
-  color: $light-contrast;
+  background-color: $v_dark-contrast;
+  color: $v_light-contrast;
   font-size: 4.5vmax;
   cursor: pointer;
 
   &:hover {
-    background-color: $light-contrast;
-    color: $dark-contrast;
-    border-color: $dark-contrast;
+    background-color: $v_light-contrast;
+    color: $v_dark-contrast;
+    border-color: $v_dark-contrast;
   }
 }
 .hideButton {
@@ -67,7 +67,7 @@
   left: 5vw;
   transition: transform 250ms ease-in-out;
   
-  @include landscape {
+  @include m_landscape {
     width: 12.5vw;
     height: 12.5vw;
   }
@@ -79,7 +79,7 @@
   transform: scale(0);
   transition: transform 250ms ease-in-out;
 
-  @include landscape {
+  @include m_landscape {
     width: 15vw;
     height: 15vw;
     margin-left: 42.5vw;
@@ -93,7 +93,7 @@
   width: 80%;
   margin: 3rem auto 2rem;
 
-  @include width900 {
+  @include m_width900 {
     width: 70%;
   }
 
@@ -115,7 +115,7 @@
   hr :local {
     width: 100%;
     height: 1vh;
-    background-color: $light-contrast;
+    background-color: $v_light-contrast;
     transform-origin: left;
     animation: slideXAnimation 500ms ease-in-out 0ms 1 normal forwards running;        
   }
@@ -128,7 +128,7 @@
 .hideButtonOnScroll {
   transform: scale(0.5) translate(-20vw, -10vh);
 
-  @include landscape {
+  @include m_landscape {
     transform: scale(0.5) translate(-10vw, -10vh);
   }
 }
@@ -142,16 +142,16 @@
   margin: 10vh 0 5vh;
   line-height: 1.5;
   text-align: center;
-  color: $light-contrast;
+  color: $v_light-contrast;
   font-size: 1.2rem;
 
-  @include width500 {
+  @include m_width500 {
     font-size: 1.4rem;
   }
-  @include width700 {
+  @include m_width700 {
     font-size: 1.6rem;
   }
-  @include width900 {
+  @include m_width900 {
     font-size: 1.8rem;
   }
 }
@@ -162,7 +162,7 @@
   background: radial-gradient(#c40000, #0000c4);
   animation: backAndForthAnimation 750ms ease-in-out 0ms infinite alternate both running;
 
-  @include landscape {
+  @include m_landscape {
     width: 5vw;
     height: 5vw;
   }
@@ -178,7 +178,7 @@
   margin: 10vh 0;
   line-height: 1.5;
   
-  @include errorParagraph(1.2rem, 1.4rem, 1.6rem);
+  @include m_errorParagraph(1.2rem, 1.4rem, 1.6rem);
 }
 .fetchErrorImage {
   margin-bottom: 10vh;

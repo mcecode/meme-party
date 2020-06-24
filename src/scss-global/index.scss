@@ -1,4 +1,8 @@
-// bring in global styles
-@use './fonts';
-@use './reset';
-@use './noscript';
+////
+/// scss-global index.scss
+////
+
+/// @use 
+@use './fonts.scss';
+@use './base.scss';
+@use './noscript.scss';

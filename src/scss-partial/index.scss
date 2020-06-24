@@ -1,3 +1,7 @@
-// bring in partials
-@forward './variables';
-@forward './mixins';
+////
+/// scss-partial _index.scss
+////
+
+/// @forward
+@forward './variables.scss' as v_*;
+@forward './mixins.scss' as m_*;

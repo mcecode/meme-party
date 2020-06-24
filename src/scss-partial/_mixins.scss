@@ -1,45 +1,123 @@
-// bring in variables
+////
+/// scss-partial _mixins.scss
+////
+
+/// @use
 @use './variables.scss' as *;
 
-/*********************************************\ 
-  mixins
-\*********************************************/
-// height
-@mixin height600 { @media (min-height: 600px) { @content; } }
-@mixin height650 { @media (min-height: 650px) { @content; } }
-@mixin height700 { @media (min-height: 700px) { @content; } }
-@mixin height750 { @media (min-height: 750px) { @content; } }
-@mixin height800 { @media (min-height: 800px) { @content; } }
-@mixin height850 { @media (min-height: 850px) { @content; } }
-@mixin height900 { @media (min-height: 900px) { @content; } }
-@mixin height950 { @media (min-height: 950px) { @content; } }
-@mixin height1000 { @media (min-height: 1000px) { @content; } }
-// width
-@mixin width500 { @media (min-width: 500px) { @content; } }
-@mixin width600 { @media (min-width: 600px) { @content; } }
-@mixin width700 { @media (min-width: 700px) { @content; } }
-@mixin width800 { @media (min-width: 800px) { @content; } }
-@mixin width900 { @media (min-width: 900px) { @content; } }
-@mixin width1000 { @media (min-width: 1000px) { @content; } }
-@mixin width1100 { @media (min-width: 1100px) { @content; } }
-@mixin width1200 { @media (min-width: 1200px) { @content; } }
-@mixin width1300 { @media (min-width: 1300px) { @content; } }
-// orientation
-@mixin landscape { @media (orientation: landscape) { @content; } }
-// others
-/**
- * ! if this works switch animation name and duration
- * ! add delay and number of iterations to params
- * ! remember to implement this in landing main.scss in partial refactor
-*/
-@mixin animateOnce($duration, $animation-name) {
-  animation: $animation-name $duration ease-in-out 0ms 1 normal forwards running;
+/// @media height
+@mixin height600 {
+  @media (min-height: 600px) {
+    @content;
+  }
 }
+@mixin height650 {
+  @media (min-height: 650px) {
+    @content;
+  }
+}
+@mixin height700 {
+  @media (min-height: 700px) {
+    @content;
+  }
+}
+@mixin height750 {
+  @media (min-height: 750px) {
+    @content;
+  }
+}
+@mixin height800 {
+  @media (min-height: 800px) {
+    @content;
+  }
+}
+@mixin height850 {
+  @media (min-height: 850px) {
+    @content;
+  }
+}
+@mixin height900 {
+  @media (min-height: 900px) {
+    @content;
+  }
+}
+@mixin height950 {
+  @media (min-height: 950px) {
+    @content;
+  }
+}
+@mixin height1000 {
+  @media (min-height: 1000px) {
+    @content;
+  }
+}
+
+/// @media width
+@mixin width500 {
+  @media (min-width: 500px) {
+    @content;
+  }
+}
+@mixin width600 {
+  @media (min-width: 600px) {
+    @content;
+  }
+}
+@mixin width700 {
+  @media (min-width: 700px) {
+    @content;
+  }
+}
+@mixin width800 {
+  @media (min-width: 800px) {
+    @content;
+  }
+}
+@mixin width900 {
+  @media (min-width: 900px) {
+    @content;
+  }
+}
+@mixin width1000 {
+  @media (min-width: 1000px) {
+    @content;
+  }
+}
+@mixin width1100 {
+  @media (min-width: 1100px) {
+    @content;
+  }
+}
+@mixin width1200 {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+@mixin width1300 {
+  @media (min-width: 1300px) {
+    @content;
+  }
+}
+
+/// @media orientation
+@mixin landscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+/// Error paragraph
 @mixin errorParagraph($font500, $font700, $font900) {
   text-align: center;
   color: $red-error;
 
-  @include width500 { font-size: $font500; }
-  @include width700 { font-size: $font700; }
-  @include width900 { font-size: $font900; }
+  @include width500 {
+    font-size: $font500;
+  }
+  @include width700 {
+    font-size: $font700;
+  }
+  @include width900 {
+    font-size: $font900;
+  }
 }

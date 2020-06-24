@@ -1,33 +1,39 @@
-/*********************************************\ 
-  fonts 
-\*********************************************/
+/**************************************************\
+  scss-global _fonts.scss
+\**************************************************/
+
 /* roboto-400 - latin */
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local('Roboto'), local('Roboto-Regular'),
-       url('fonts/roboto-v20-latin-400.woff2') format('woff2'),
-       url('fonts/roboto-v20-latin-400.woff') format('woff');
+  src:  local('Roboto'),
+        local('Roboto-Regular'),
+        url('fonts/roboto-v20-latin-400.woff2') format('woff2'),
+        url('fonts/roboto-v20-latin-400.woff') format('woff');
 }
+
 /* roboto-900 - latin */
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: local('Roboto Black'), local('Roboto-Black'),
-       url('fonts/roboto-v20-latin-900.woff2') format('woff2'),
-       url('fonts/roboto-v20-latin-900.woff') format('woff');
+  src:  local('Roboto Black'),
+        local('Roboto-Black'),
+        url('fonts/roboto-v20-latin-900.woff2') format('woff2'),
+        url('fonts/roboto-v20-latin-900.woff') format('woff');
 }
+
 /* zilla-slab-highlight-700 - latin */
 @font-face {
   font-family: 'Zilla Slab Highlight';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: local('Zilla Slab Highlight Bold'), local('ZillaSlabHighlight-Bold'),
-       url('fonts/zilla-slab-highlight-v7-latin-700.woff2') format('woff2'),
-       url('fonts/zilla-slab-highlight-v7-latin-700.woff') format('woff');
+  src:  local('Zilla Slab Highlight Bold'),
+        local('ZillaSlabHighlight-Bold'),
+        url('fonts/zilla-slab-highlight-v7-latin-700.woff2') format('woff2'),
+        url('fonts/zilla-slab-highlight-v7-latin-700.woff') format('woff');
 }

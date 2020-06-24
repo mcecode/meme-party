@@ -2,7 +2,7 @@
   component-landing main.scss
 \**************************************************/
 
-/// Imports
+/// @use
 @use '../scss-partial/index.scss' as *;
 
 /* Base style classes */
@@ -15,34 +15,34 @@
 }
 .heading pre {
   font-size: 3.5rem;
-  font-family: $font-head;
-  color: $green-main;
+  font-family: $v_font-head;
+  color: $v_green-main;
 
-  @include width500 {
+  @include m_width500 {
     font-size: 3.8rem;
   }
-  @include width600 {
+  @include m_width600 {
     font-size: 4.3rem;
   }
-  @include width700 {
+  @include m_width700 {
     font-size: 5rem;
   }
-  @include width800 {
+  @include m_width800 {
     font-size: 5.5rem;
   }
-  @include width900 {
+  @include m_width900 {
     font-size: 6rem;
   }
-  @include width1000 {
+  @include m_width1000 {
     font-size: 6.5rem;
   }
-  @include width1100 {
+  @include m_width1100 {
     font-size: 7rem;
   }
-  @include width1200 {
+  @include m_width1200 {
     font-size: 7.5rem;
   }
-  @include width1300 {
+  @include m_width1300 {
     font-size: 8rem;
   }
 }
@@ -51,36 +51,36 @@
   top: 1.5rem;
   right: 1rem;   
   font-size: 1.5rem;
-  color: $green-main;
+  color: $v_green-main;
   writing-mode: vertical-lr;
   text-orientation: upright;
   letter-spacing: 0.1rem;
 
-  @include height600 {
+  @include m_height600 {
     font-size: 1.6rem;
   }
-  @include height650 {
+  @include m_height650 {
     font-size: 1.8rem;
   }
-  @include height700 {
+  @include m_height700 {
     font-size: 1.95rem;
   }
-  @include height750 {
+  @include m_height750 {
     font-size: 2.1rem;
   }
-  @include height800 {
+  @include m_height800 {
     font-size: 2.25rem;
   }
-  @include height850 {
+  @include m_height850 {
     font-size: 2.45rem;
   }
-  @include height900 {
+  @include m_height900 {
     font-size: 2.55rem;
   }
-  @include height950 {
+  @include m_height950 {
     font-size: 2.75rem;
   }
-  @include height1000 {
+  @include m_height1000 {
     font-size: 2.9rem;
   }
 }
@@ -91,7 +91,7 @@
   z-index: -1;
   width: 50vw;
 
-  @include landscape {
+  @include m_landscape {
     width: 30vw;
   }
 }
@@ -101,69 +101,69 @@
   bottom: 35vh;
   width: 5rem;
   height: 5rem;
-  border: 0.5rem solid $green-main;
+  border: 0.5rem solid $v_green-main;
   border-radius: 50%;
-  background-color: $green-main;
+  background-color: $v_green-main;
   font-size: 0.9rem;
-  color: $light-contrast;
+  color: $v_light-contrast;
   cursor: pointer;
 
   &:hover {
-    color: $dark-contrast;
-    background-color: $light-contrast;
-    border-color: $light-contrast;
+    color: $v_dark-contrast;
+    background-color: $v_light-contrast;
+    border-color: $v_light-contrast;
   }
 
   &:active {
-    border-color: $green-main;
+    border-color: $v_green-main;
   }
 
-  @include width500 { 
+  @include m_width500 { 
     width: 6rem;
     height: 6rem;
   }
-  @include width600 { 
+  @include m_width600 { 
     width: 7rem;
     height: 7rem;
   }
-  @include width700 { 
+  @include m_width700 { 
     left: 50vw;
     bottom: 50vh;
     width: 8rem;
     height: 8rem;
     font-size: 1rem;
   }
-  @include width800 { 
+  @include m_width800 { 
     width: 9rem;
     height: 9rem;
     font-size: 1.1rem;
   }
-  @include width900 { 
+  @include m_width900 { 
     width: 10rem;
     height: 10rem;
     font-size: 1.3rem;
   }
-  @include width1000 { 
+  @include m_width1000 { 
     width: 11rem;
     height: 11rem;
     border-width: 1rem;
   }
-  @include width1100 { 
+  @include m_width1100 { 
     width: 12rem;
     height: 12rem;
     font-size: 1.5rem;
   }
-  @include width1200 { 
+  @include m_width1200 { 
     width: 13rem;
     height: 13rem;
   }
-  @include width1300 { 
+  @include m_width1300 { 
     width: 14rem;
     height: 14rem;
     font-size: 1.7rem;
   }
 
-  @include landscape {
+  @include m_landscape {
     left: 50vw;
     bottom: 25vh;
   }
@@ -209,13 +209,13 @@
 }
 @keyframes showButtonRippleAnimation {
   0% {
-    box-shadow: 0 0 0 0 $dark-contrast;
+    box-shadow: 0 0 0 0 $v_dark-contrast;
   }
   99% {
-    box-shadow: 0 0 0 2rem lighten($color: $dark-contrast, $amount: 90%);
+    box-shadow: 0 0 0 2rem lighten($color: $v_dark-contrast, $amount: 90%);
   }
   100% {
-    box-shadow: 0 0 0 0 $dark-contrast;
+    box-shadow: 0 0 0 0 $v_dark-contrast;
   }
 }
 
