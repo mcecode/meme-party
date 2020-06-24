@@ -18,32 +18,31 @@ class Main {
   constructor(root) {
     this.init();
     this.mount(root);
-    this.setEventsAndObserve();
+    this.setEventsAndObserves();
     this.setStyles();
     this.setContent();
   }
 
-  /** Creates HTMLElements, Objects, and Observers */
+  /** Creates HTMLElements, instances of module objects, and Observers */
   init() {
+    // HTMLElements
     this.container = document.createElement('main');
     this.hideButton = document.createElement('button');
     this.moreButton = document.createElement('button');
     this.memesContainer = document.createElement('div');
     this.initialDivision = document.createElement('hr');
 
-    this.memes = new Memes(this.memesContainer, this.moreButton);
-    this.loader = new Loader(this.memesContainer, this.moreButton);
+    // Objects
+    this.loader = new Loader(this.memesContainer);
+    this.memes = new Memes(this.memesContainer);
 
+    // IntersectionObservers
     this.initialDivisionObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          this.hideButton.classList.remove(style.hideButtonOnScroll);
-        } else {
+        (entry.isIntersecting) ? 
+          this.hideButton.classList.remove(style.hideButtonOnScroll) :
           this.hideButton.classList.add(style.hideButtonOnScroll);
-        }
       });
-    }, {
-      rootMargin: '-100px 0px 0px 0px',
     });
   }
 
@@ -61,15 +60,18 @@ class Main {
   }
 
   /** Sets events whose call back is 'this' and observers to observe */
-  setEventsAndObserve() {
+  setEventsAndObserves() {
+    // Events
     this.hideButton.addEventListener('click', this);
     this.moreButton.addEventListener('click', this);
     this.memesContainer.addEventListener('AllMemeImagesFullyLoaded', this);
     this.memesContainer.addEventListener('ErrorFetchingMemes', this);
+
+    // Observes
     this.initialDivisionObserver.observe(this.initialDivision);
   }
 
-  /** Adds base style classes to HTMLElements */
+  /** Adds base classes to HTMLElements */
   setStyles() {
     this.container.className = style.container;
     this.hideButton.className = style.hideButton;
@@ -83,23 +85,33 @@ class Main {
     this.moreButton.textContent = 'moar';
   }
 
-  /** Shows this.container */
+  /** Sets this.memesContainer and shows this.container with a loader and then with memes */
   show() {
+    // Sets this.memesContainer
     this.memesContainer.innerHTML = '';
-    this.container.style.transform = 'scale(1)';
     this.memesContainer.append(this.initialDivision);
 
+    // Shows this.container
+    this.container.classList.add(style.containerShow);
+
+    // Shows loader
     this.loader.append();
-    this.memes.getAndShowMemes();
+
+    // Shows memes and removes loader
+    this.memes.show();
   }
 
-  /** Hides this.container */
+  /** Sets this.memesContainer, hides this.container, and helps handle cases of fetch error */
   hide() {
+    // Sets this.memesContainer
     this.memesContainer.innerHTML = '';
-    this.container.style.transform = 'scale(0)';
 
+    // Hides this.container
+    this.container.classList.remove(style.containerShow);
+    
+    // Handles fetch error
     if (this.memes.fetchError) {
-      this.moreButton.style.transform = 'scale(1)';
+      this.moreButton.classList.remove(style.moreButtonShow);
       this.memes.fetchError = false;
     }
   }
@@ -114,16 +126,18 @@ class Main {
       return;
     } 
     if (e.target === this.moreButton && e.type === 'click') {
+      this.moreButton.classList.remove(style.moreButtonShow);
       this.loader.append();
-      this.memes.getAndShowMemes();
+      this.memes.show();
       return;
     }
     if (e.target === this.memesContainer && e.type === 'AllMemeImagesFullyLoaded') {
-      this.loader.remove(e);
+      this.moreButton.classList.add(style.moreButtonShow);
+      this.loader.remove();
       return;
     }
     if (e.target === this.memesContainer && e.type === 'ErrorFetchingMemes') {
-      this.loader.remove(e);
+      this.loader.remove();
       return;
     }
   }

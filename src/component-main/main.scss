@@ -76,6 +76,7 @@
   width: 30vw;
   height: 30vw;
   margin: 0 0 2rem 35vw;
+  transform: scale(0);
   transition: transform 250ms ease-in-out;
 
   @include landscape {
@@ -121,6 +122,9 @@
 }
 
 /* Main transition classes */
+.containerShow {
+  transform: scale(1);
+}
 .hideButtonOnScroll {
   transform: scale(0.5) translate(-20vw, -10vh);
 
@@ -128,8 +132,11 @@
     transform: scale(0.5) translate(-10vw, -10vh);
   }
 }
+.moreButtonShow {
+  transform: scale(1);
+}
 
-/* Loader classes */
+/* Loader base classes */
 .loaderMessage {
   max-width: 25rem;
   margin: 10vh 0 5vh;
@@ -165,7 +172,7 @@
   margin: 5vh 0 10vh;
 }
 
-/* Fetch error classes */
+/* Fetch error base classes */
 .fetchErrorMessage {
   max-width: 25rem;
   margin: 10vh 0;
@@ -179,6 +186,12 @@
 
 /* @media prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
+  .container,
+  .hideButton,
+  .moreButton {
+    transition: none;
+  }
+
   .memesContainer p,
   .memesContainer img,
   .memesContainer hr,

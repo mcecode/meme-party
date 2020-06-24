@@ -10,9 +10,11 @@ class GlobalState {
    * @param {Object} main - Main instance
    */
   constructor(landing, main) {
+    // Objects
     this.landing = landing;
     this.main = main;
 
+    // Events
     this.landing.showButton.addEventListener('click', this);
   }
 
