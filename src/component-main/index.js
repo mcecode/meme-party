@@ -85,26 +85,24 @@ class Main {
     this.moreButton.textContent = 'moar';
   }
 
-  /** Sets this.memesContainer and shows this.container with a loader and then with memes */
+  /** Shows this.container with a loader and then with memes */
   show() {
-    // Sets this.memesContainer
-    this.memesContainer.innerHTML = '';
+    // Adds and removes necessary HTMLElements and classNames
     this.memesContainer.append(this.initialDivision);
-
-    // Shows this.container
     this.container.classList.add(style.containerShow);
+    this.moreButton.classList.remove(style.moreButtonShow);
 
     // Shows loader
     this.loader.append();
 
     // Shows memes and removes loader
-    this.memes.show();
+    this.memes.append();
   }
 
-  /** Sets this.memesContainer, hides this.container, and helps handle cases of fetch error */
+  /** Hides this.container and cleans up memes and fetch errors */
   hide() {
-    // Sets this.memesContainer
-    this.memesContainer.innerHTML = '';
+    // Removes previously appended memes
+    this.memes.remove();
 
     // Hides this.container
     this.container.classList.remove(style.containerShow);
@@ -128,7 +126,7 @@ class Main {
     if (e.target === this.moreButton && e.type === 'click') {
       this.moreButton.classList.remove(style.moreButtonShow);
       this.loader.append();
-      this.memes.show();
+      this.memes.append();
       return;
     }
     if (e.target === this.memesContainer && e.type === 'AllMemeImagesFullyLoaded') {

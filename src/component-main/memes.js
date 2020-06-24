@@ -35,8 +35,8 @@ class Memes {
     this.fetchError = false;
   }
 
-  /** Fetches, preloads, and shows memes */
-  async show() {
+  /** Appends memes to the HTML document */
+  async append() {
     // Checks if indexes are over the limit
     if (this.subredditsIndex >= 6) this.subredditsIndex = 0;
 
@@ -119,6 +119,11 @@ class Memes {
 
     // Increments indexes for the next request
     this.subredditsIndex += 1;
+  }
+
+  /** Removes memes from the HTML document */
+  remove() {
+    this.container.innerHTML = '';
   }
 }
 

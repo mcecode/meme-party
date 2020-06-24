@@ -1,9 +1,10 @@
-// bring in partials
+/**************************************************\
+  scss-global _noscript.scss
+\**************************************************/
+
+/// Imports
 @use '../scss-partial/index.scss' as *;
 
-/*********************************************\ 
-  noscript section
-\*********************************************/
 noscript {
   position: fixed;
   z-index: 1;
@@ -18,11 +19,17 @@ noscript {
     font-size: 1.5rem;
     font-weight: bold;
 
-    &:nth-child(1) { top: 8vh; }
+    &:nth-child(1) {
+      top: 8vh;
+    }
 
-    &:nth-child(2) { top: 27vh; }
+    &:nth-child(2) {
+      top: 27vh;
+    }
 
-    &:nth-child(3) { bottom: 7vh; }
+    &:nth-child(3) {
+      bottom: 7vh;
+    }
 
     &::selection {
       background-color: $light-contrast;

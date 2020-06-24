@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Title -->
   <title><%= htmlWebpackPlugin.options.title %></title>
 
+  <!-- Preloads -->
   <link rel="preload" 
     href="<%= require('../component-landing/images/heavy-breathing-cat.jpg') %>"
     as="image" type="image/jpeg">
@@ -17,6 +20,8 @@
   <link rel="preload" 
     href="<%= require('../scss-global/fonts/zilla-slab-highlight-v7-latin-700.woff2') %>"
     as="font" type="font/woff2" crossorigin>
+  
+  <!-- Prefetches -->
   <link rel="prefetch" href="<%= require('../component-main/images/loader-meme-1.jpg') %>">
   <link rel="prefetch" href="<%= require('../component-main/images/loader-meme-2.jpg') %>">
   <link rel="prefetch" href="<%= require('../component-main/images/loader-meme-3.jpg') %>">
@@ -24,12 +29,17 @@
   <link rel="prefetch" href="<%= require('../component-main/images/loader-meme-5.jpg') %>">
   <link rel="prefetch" href="<%= require('../component-main/images/loader-meme-6.jpg') %>">
 
+  <!-- Favicon -->
   <link rel="shortcut icon" href="<%= require('./images/green-mnm.png') %> " type="image/x-icon">
+
+  <!-- CSS -->
   <%= htmlWebpackPlugin.tags.headTags %>
 </head>
 <body>
+  <!-- Entry point for all components -->
   <div id="root"></div>
 
+  <!-- Handles JS being turned off -->
   <noscript>
     <p>This web app doesn't work without JavaScript.</p>
     <p>Much sorry</p>
@@ -37,6 +47,7 @@
     <img src="<%= require('./images/doge.png') %>">
   </noscript>
 
+  <!-- JS -->
   <%= htmlWebpackPlugin.tags.bodyTags %>
 </body>
 </html>

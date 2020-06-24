@@ -62,7 +62,7 @@ class Loader {
     this.message.textContent = this.messageContent[this.messageContentIndex];
     this.memeImage.src = this.memeImageSrc[this.memeImageSrcIndex];
 
-    // Appends Loader HTMLElements to the HTML document
+    // Shows loader
     this.container.append(
       this.message,
       this.ball,
