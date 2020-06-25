@@ -1,14 +1,14 @@
 # Meme Party
 
-> A simple test site that shows memes from reddit.
+> A fun site that shows random memes from reddit.
 >
 > Site is live at <https://mcecode.github.io/meme-party/>.
 
-This was supposed to be a short local project, but after a while I decided that it would be a good avenue to try to use and learn git, webpack, github, scss, among other technologies. As such, the code is still fairly raw at the moment but I do plan to clean it up (see [Refactoring](#refactoring) section below).
+This was supposed to be a short local project, but after a while I decided that it would be a good avenue to try to use and learn Git, webpack, GitHub, and SCSS, among other technologies. As such, I now plan to update/refactor the code and add features whenever I can (see [Todo](#todo) section below).
 
 ## Usage
 
-You're going to need node and npm for this project, to check if you have them just type `node -v` and/or `npm -v` in your command line and if you see it respond with a version (e.g. v12.18.0) then you should be good to go.
+You're going to need node and npm for this project, to check if you have them just type `node -v` and/or `npm -v` in your command line and if you see it respond with a version (e.g. `v12.18.0`) then you should be good to go.
 
 If you don't have them yet, npm comes with node, so you can just download node at [nodejs.org](https://nodejs.org/) or use something like [nvm](https://github.com/nvm-sh/nvm) or [nvm-windows](https://github.com/coreybutler/nvm-windows), depending on your system.
 
@@ -29,18 +29,18 @@ Just run the following commands in the project directory:
   $ npm run build:prod
 ```
 
-then, you can just open index.html from the build folder in your browser.
+then, you can just open *./build-dev/index.html* or *./build-prod/index.html* in your browser.
 
 ### To Develop
 
-It's often useful to have a dev server in development, so I set this project up with [webpack-dev-server](https://github.com/webpack/webpack-dev-server). To utilize it, you'll have to create a _.env_ file in the project's root directory, because I set it up with https.
+It's often useful to have a dev server in development, so I set this project up with [webpack-dev-server](https://github.com/webpack/webpack-dev-server). To utilize it, you'll have to create a *.env* file in the project's root directory, because I set it up with https.
 
-To use your own local dev cert, just put the following info in the _.env_ file:
+To use your own local dev cert, just put the following info in the *.env* file:
 
 ```text
-  SSL_KEY=C:/path/to/your.key
-  SSL_CRT=C:/path/to/your.crt
-  SSL_PEM=C:/path/to/your.pem
+  SSL_KEY=/path/to/your.key
+  SSL_CRT=/path/to/your.crt
+  SSL_PEM=/path/to/your.pem
 ```
 
 if you don't have one, you can create a cert using [mkcert](https://github.com/FiloSottile/mkcert).
@@ -73,13 +73,14 @@ I also enabled Hot Module Replacement (HMR) so you can use that too. If you don'
 
 If you like my webpack settings and would just like to reuse them for your own project, you can do that too.
 
-For your reference, here are the pertinent defaults I set in the configs not mentioned above:
+For your reference, here are some pertinent defaults that I set in the configs which are not mentioned above:
 
-- main entry point is ./src/main.js
-- template for emitted index.html is ./src/template.ejs
-- html titles are set in [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin#options) options
-- scss files are used for styles
-- [file-loader](https://github.com/webpack-contrib/file-loader) is only set to process png, jpg, woff, woff2
+- main entry point is *./src/main.js*
+- template for emitted index.html is *./src/ejs-template/index.ejs*
+- title tag text content are set in [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin#options) options
+- only SCSS files can be used for styling
+- [file-loader](https://github.com/webpack-contrib/file-loader) is only set to process and emit png, jpg, woff, and woff2 files
+- other details can be seen by looking at the configs themselves at *./configs*
 
 Of course you can extend, modify, and build on top of the configs I set here if you want to.
 
@@ -87,39 +88,71 @@ Of course you can extend, modify, and build on top of the configs I set here if 
 
 A tentative list of things I'd like to implement to better the project (though I'm not quite sure how to do some of them).
 
+### Fix
+
+- UI/UX
+  - [ ] fix stiff scrolling seen in iPhone Safari
+
 ### Refactoring
 
-- [ ] create the html components in js
-- [ ] use css modules with css-loader
-- [ ] break up js and scss monoliths into components
-- [ ] reduce unnecessary media query use
-- [ ] find a way to keep webpack configs DRY
-- [ ] use jsdoc comments / add explaining comments
-- [ ] use a formatter and/or linter
+- General
+  - [ ] add and maintain docs style / guiding / delimiting comments in source code and configs
+  - [ ] use a formatter and/or linter
+- JS
+  - [x] break up *./src/main.js* into modules
+  - [x] use a class-based, event-driven approach
+  - [x] create HTML components with js instead of with ejs
+  - [x] use css-modules with css-loader to assign classes to HTMLElements
+- SCSS
+  - [x] break up *./src/main.scss* into modules
+  - [ ] reduce media query use
+- webpack
+  - [ ] follow the DRY principle in configs
 
 ### Features
 
-- [ ] dynamically insert web API polyfills from polyfill-library only for browsers that need them
-- [ ] make two bundles, one with modern code for newer browsers and another with transpiled code for older browsers
-- [ ] use simplebar
-- [ ] add unicode emojis for decoration where appropriate
-- [ ] make _staph_ button circular to match _dank memes hur_ button
-- [ ] remove _moar_ button and use infinite scrolling
-- [ ] use client side routing
-- [ ] make pages look decent even in super big screens
-- [ ] make it look more consistent across browsers
-- [ ] make it more accesible for keyboard-only navigation
-- [ ] create a custom 404 page
-- [ ] allow users to choose the subreddit where memes come from
-- [ ] allow users to choose how many memes to load at a time
-- [ ] add SEO meta tags
+- Performance
+  - [ ] for browsers that need them, dynamically insert and load web API polyfills from polyfill-library
+  - [ ] make two bundles:
+    - untranspiled, to be loaded by newer browsers
+    - transpiled, to be loaded by older browsers
+- UI/UX
+  - [x] make `Main.hideButton` and `Main.moreButton` circular with larger horizontal writing
+  - [ ] use simplebar for scrollbar styling
+  - [ ] make it look more consistent across browsers and devices
+    - create a *./src/scss-global/_reset.scss* file
+    - make bigger screen experience more similiar with standard screen experience
+    - make landing page feel less cramped in smaller devices
+- Pages
+  - [ ] use client side routing for per page URLs and history navigation
+  - [ ] create a custom 404 page
+  - [ ] add SEO meta tags and repo image
+  - [ ] add credits and GitHub link
+- Accessibility
+  - [ ] make keyboard-only navigation experience better
+    - put focus on the right HTMLElements at the right time
+    - transfer focus to next meme loaded instead of keeping it on `Main.moreButton`
+- App
+  - [ ] allow users to choose the subreddit where memes come from
+  - [ ] allow users to choose how many memes to load at a time
+  - [ ] add nsfw and spoiler indications to memes
+
+### Experiment
+
+- SCSS
+  - [ ] use CSS grid and/or flexbox for layout
+- JS
+  - [ ] use @babel/plugin-proposal-class-properties to allow:
+    - making internal methods and properties private with `#`
+    - creating a getter for private properties
+    - creating public methods using the class fields' syntax, `method = () => {}`, to bind `this`
 
 ## Licenses and 3rd Party Assets
 
 ### Code
 
 - The code in this project is licensed under the terms of the MIT license (see [LICENSE](LICENSE) file).
-- NPM packages used are under their own licenses.
+- npm packages used are under their own licenses.
 
 ### Memes
 
@@ -143,4 +176,4 @@ Images were processed using [Meme-Creator](https://meme-creator.com/) and [TinyJ
 
 ## Thanks
 
-That's it! Thanks for reading. Feel free to fork or reach out with an issue or pull request, though I am still learning how those work.
+That's it! Thanks for reading. Feel free to fork or reach out with an issue or a pull request, though I am still learning how those work.

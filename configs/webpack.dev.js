@@ -25,7 +25,7 @@ const developmentSettings = {
     new htmlWebpackPlugin({
       title: 'Development - Meme Party',
       inject: false,
-      template: './src/template.ejs'
+      template: './src/ejs-template/index.ejs'
     }),
     new miniCssExtractPlugin({
       filename: '[name].[contenthash:5].css'
@@ -81,9 +81,9 @@ const developmentSettings = {
             loader: 'css-loader', 
             options: { 
               importLoaders: 2, 
-              // modules: {
-              //   localIdentName: 'from-[name]__class-[local]'
-              // }
+              modules: {
+                localIdentName: '[local]-[sha1:hash:base64:5]'
+              }
             }
           },
           { 

@@ -33,14 +33,14 @@ const serverSettings = {
       errors: true
     },
     before: (app, server, compiler) => {
-      server._watch('./src/template.ejs');
+      server._watch('./src/ejs-template/index.ejs');
     }
   },
   plugins: [
     new htmlWebpackPlugin({
       title: 'Server - Meme Party',
       inject: false,
-      template: './src/template.ejs'
+      template: './src/ejs-template/index.ejs'
     }),
     new miniCssExtractPlugin({
       filename: '[name].css'
@@ -79,9 +79,9 @@ const serverSettings = {
             loader: 'css-loader', 
             options: { 
               importLoaders: 2, 
-              // modules: {
-              //   localIdentName: 'from-[name]__class-[local]'
-              // }
+              modules: {
+                localIdentName: '[local]-[sha1:hash:base64:5]'
+              }
             }
           }, 
           { 

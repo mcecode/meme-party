@@ -1,0 +1,257 @@
+/**************************************************\
+  component-landing main.scss
+\**************************************************/
+
+/// @use
+@use '../scss-partial/index.scss' as *;
+
+/* Base classes */
+.container {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  padding: 1.5rem 1rem 0;
+  overflow: hidden;
+}
+.heading pre {
+  font-size: 3.5rem;
+  font-family: $v_font-head;
+  color: $v_green-main;
+
+  @include m_width500 {
+    font-size: 3.8rem;
+  }
+  @include m_width600 {
+    font-size: 4.3rem;
+  }
+  @include m_width700 {
+    font-size: 5rem;
+  }
+  @include m_width800 {
+    font-size: 5.5rem;
+  }
+  @include m_width900 {
+    font-size: 6rem;
+  }
+  @include m_width1000 {
+    font-size: 6.5rem;
+  }
+  @include m_width1100 {
+    font-size: 7rem;
+  }
+  @include m_width1200 {
+    font-size: 7.5rem;
+  }
+  @include m_width1300 {
+    font-size: 8rem;
+  }
+}
+.tagLine {
+  position: absolute;
+  top: 1.5rem;
+  right: 1rem;   
+  font-size: 1.5rem;
+  color: $v_green-main;
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  letter-spacing: 0.1rem;
+
+  @include m_height600 {
+    font-size: 1.6rem;
+  }
+  @include m_height650 {
+    font-size: 1.8rem;
+  }
+  @include m_height700 {
+    font-size: 1.95rem;
+  }
+  @include m_height750 {
+    font-size: 2.1rem;
+  }
+  @include m_height800 {
+    font-size: 2.25rem;
+  }
+  @include m_height850 {
+    font-size: 2.45rem;
+  }
+  @include m_height900 {
+    font-size: 2.55rem;
+  }
+  @include m_height950 {
+    font-size: 2.75rem;
+  }
+  @include m_height1000 {
+    font-size: 2.9rem;
+  }
+}
+.catImage {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 50vw;
+
+  @include m_landscape {
+    width: 30vw;
+  }
+}
+.showButton {
+  position: absolute;
+  left: 40vw;
+  bottom: 35vh;
+  width: 5rem;
+  height: 5rem;
+  border: 0.5rem solid $v_green-main;
+  border-radius: 50%;
+  background-color: $v_green-main;
+  font-size: 0.9rem;
+  color: $v_light-contrast;
+  cursor: pointer;
+
+  &:hover {
+    color: $v_dark-contrast;
+    background-color: $v_light-contrast;
+    border-color: $v_light-contrast;
+  }
+
+  &:active {
+    border-color: $v_green-main;
+  }
+
+  @include m_width500 { 
+    width: 6rem;
+    height: 6rem;
+  }
+  @include m_width600 { 
+    width: 7rem;
+    height: 7rem;
+  }
+  @include m_width700 { 
+    left: 50vw;
+    bottom: 50vh;
+    width: 8rem;
+    height: 8rem;
+    font-size: 1rem;
+  }
+  @include m_width800 { 
+    width: 9rem;
+    height: 9rem;
+    font-size: 1.1rem;
+  }
+  @include m_width900 { 
+    width: 10rem;
+    height: 10rem;
+    font-size: 1.3rem;
+  }
+  @include m_width1000 { 
+    width: 11rem;
+    height: 11rem;
+    border-width: 1rem;
+  }
+  @include m_width1100 { 
+    width: 12rem;
+    height: 12rem;
+    font-size: 1.5rem;
+  }
+  @include m_width1200 { 
+    width: 13rem;
+    height: 13rem;
+  }
+  @include m_width1300 { 
+    width: 14rem;
+    height: 14rem;
+    font-size: 1.7rem;
+  }
+
+  @include m_landscape {
+    left: 50vw;
+    bottom: 25vh;
+  }
+}
+
+/* Pre-animation classes */
+.headingPreAnimate {
+  transform: translateX(-100vw) skewX(10deg);
+}
+.tagLinePreAnimate {
+  transform: translateY(-100vh);
+}
+.catImagePreAnimate {
+  transform: scale(0);
+}
+.showButtonPreAnimate {
+  transform: translateY(100vh);
+}
+
+/* Animation keyframes */
+@keyframes headingAnimation {
+  50% {
+    transform: translateX(50vw) skewX(-10deg);
+  }
+  100% {
+    transform: translateX(0vw) skewX(0deg);
+  }
+}
+@keyframes tagLineAnimation {
+  100% {
+    transform: translateY(0vh);
+  }
+}
+@keyframes catImageAnimation {
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+@keyframes showButtonAnimation {
+  100% {
+    transform: translateY(0vh);
+  }
+}
+@keyframes showButtonRippleAnimation {
+  0% {
+    box-shadow: 0 0 0 0 $v_dark-contrast;
+  }
+  99% {
+    box-shadow: 0 0 0 2rem lighten($color: $v_dark-contrast, $amount: 90%);
+  }
+  100% {
+    box-shadow: 0 0 0 0 $v_dark-contrast;
+  }
+}
+
+/* Animation classes */
+.headingAnimate :local {
+  animation: headingAnimation 1300ms ease-in-out 0ms 1 normal forwards running;
+}
+.tagLineAnimate :local {
+  animation: tagLineAnimation 750ms ease-in-out 1300ms 1 normal forwards running;
+}
+.catImageAnimate :local {
+  animation: catImageAnimation 750ms ease-in-out 2050ms 1 normal forwards running;
+}
+.showButtonAnimate :local {
+  animation: 
+    showButtonAnimation 750ms ease-in-out 2800ms 1 normal forwards running,
+    showButtonRippleAnimation 750ms ease-in-out 3800ms 5 normal forwards running;
+}
+.showButtonRippleAnimate :local {
+  animation: showButtonRippleAnimation 750ms ease-in-out 0ms 5 normal forwards running;
+}
+
+/* @media prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .headingPreAnimate,
+  .tagLinePreAnimate,
+  .catImagePreAnimate,
+  .showButtonPreAnimate {
+    transform: none;
+  }
+
+  .headingAnimate,
+  .tagLineAnimate,
+  .catImageAnimate,
+  .showButtonAnimate,
+  .showButtonRippleAnimate {
+    animation: none;
+  };
+}

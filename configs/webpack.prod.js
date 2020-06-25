@@ -35,7 +35,7 @@ const productionSettings = {
     new htmlWebpackPlugin({
       title: 'Meme Party',
       inject: false,
-      template: './src/template.ejs'
+      template: './src/ejs-template/index.ejs'
     }),
     new miniCssExtractPlugin({
       filename: '[contenthash:5].css'
@@ -84,17 +84,17 @@ const productionSettings = {
       },
       {
         test: /\.scss$/i,
-        include: path.resolve(__dirname, '../src'),
         sideEffects: true,
+        include: path.resolve(__dirname, '../src'),
         use: [
           miniCssExtractPlugin.loader,
           { 
             loader: 'css-loader', 
             options: { 
               importLoaders: 2, 
-              // modules: {
-              //   localIdentName: '[sha1:hash:base64:5]'
-              // }
+              modules: {
+                localIdentName: '[sha1:hash:base64:5]'
+              }
             }
           }, 
           { 
@@ -108,7 +108,15 @@ const productionSettings = {
               ]
             }
           },
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                minimize: false,
+                outputStyle: 'expanded'
+              }
+            }
+          }
         ]
       },
       {

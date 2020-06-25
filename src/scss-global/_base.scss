@@ -1,0 +1,37 @@
+/**************************************************\
+  scss-global _base.scss
+\**************************************************/
+
+/// @use
+@use '../scss-partial/index.scss' as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+  font-family: $v_font-main;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+:focus {
+  outline: lighten($color: $v_green-main, $amount: 10%) double 0.3rem;
+  outline-offset: 0.5rem;
+}
+
+::-moz-focus-inner,
+::-moz-focus-outer {
+  border: none;
+}
+
+::selection {
+  background-color: $v_green-main;
+  color: $v_light-contrast;
+}
