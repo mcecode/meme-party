@@ -2,7 +2,7 @@
   main.js
 \**************************************************/
 
-/** Non-js imports */
+/** SCSS imports */
 import './scss-global/index.scss';
 
 /** JS imports */

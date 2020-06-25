@@ -2,7 +2,7 @@
   component-main index.js
 \**************************************************/
 
-/** Non-js imports */
+/** SCSS imports */
 import style from './main.scss';
 
 /** JS imports */

@@ -2,8 +2,10 @@
   component-main memes.js
 \**************************************************/
 
-/** Non-js imports */
+/** SCSS imports */
 import style from './main.scss';
+
+/** Image imports */
 import sadPepe from './images/sad-pepe.png';
 
 /** Class representing the memes that get shown after the loader */

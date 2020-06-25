@@ -2,8 +2,10 @@
   component-landing index.js
 \**************************************************/
 
-/** Non-js imports */
+/** SCSS imports */
 import style from './main.scss';
+
+/** Image imports */
 import heavyBreathingCat from './images/heavy-breathing-cat.jpg';
 
 /** Class representing the landing page */
@@ -27,7 +29,7 @@ class Landing {
     this.tagLine = document.createElement('p');
     this.catImage = document.createElement('img');
     this.showButton = document.createElement('button');
-    this.sawInitialAnimationKey = 'landing: saw initial animation v2';
+    this.sawInitialAnimationKey = 'landing: saw initial animation v2.0.0';
   }
 
   /**
@@ -50,7 +52,7 @@ class Landing {
     window.addEventListener('resize', this);
   }
 
-  /** Adds base style and pre-animation classes to HTMLElements */
+  /** Adds base and pre-animation classes to HTMLElements */
   setStyles() {
     this.container.className = style.container;
     this.heading.className = style.heading;

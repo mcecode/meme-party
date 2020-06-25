@@ -2,8 +2,10 @@
   component-main loader.js
 \**************************************************/
 
-/** Non-js imports */
+/** SCSS imports */
 import style from './main.scss';
+
+/** Image imports */
 import loaderMeme1 from './images/loader-meme-1.jpg';
 import loaderMeme2 from './images/loader-meme-2.jpg';
 import loaderMeme3 from './images/loader-meme-3.jpg';
