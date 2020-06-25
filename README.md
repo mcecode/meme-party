@@ -101,7 +101,7 @@ A tentative list of things I'd like to implement to better the project (though I
 - JS
   - [x] break up *./src/main.js* into modules
   - [x] use a class-based, event-driven approach
-  - [x] create the HTMLElements in js
+  - [x] create HTML components with js instead of with ejs
   - [x] use css-modules with css-loader to assign classes to HTMLElements
 - SCSS
   - [x] break up *./src/main.scss* into modules
