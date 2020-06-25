@@ -84,6 +84,7 @@ const productionSettings = {
       },
       {
         test: /\.scss$/i,
+        sideEffects: true,
         include: path.resolve(__dirname, '../src'),
         use: [
           miniCssExtractPlugin.loader,
@@ -107,7 +108,15 @@ const productionSettings = {
               ]
             }
           },
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                minimize: false,
+                outputStyle: 'expanded'
+              }
+            }
+          }
         ]
       },
       {
