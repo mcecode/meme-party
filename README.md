@@ -91,7 +91,7 @@ A tentative list of things I'd like to implement to better the project (though I
 ### Fix
 
 - UI/UX
-  - [ ] fix stiff scrolling seen in iPhone Safari
+  - [ ] fix stiff scrolling seen in iPhone Safari version <=12
 
 ### Refactoring
 
