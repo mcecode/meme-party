@@ -10,9 +10,13 @@
   ],
   "license": "MIT",
   "scripts": {
-    "start": "env-cmd cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.server.js --env.NODE_ENV=development",
-    "build:dev": "cross-env NODE_ENV=development webpack --config configs/webpack.dev.js --env.NODE_ENV=development --progress",
-    "build:prod": "cross-env NODE_ENV=production webpack --config configs/webpack.prod.js --env.NODE_ENV=production --progress"
+    "test:serve": "env-cmd cross-env NODE_ENV=development USE_CASE=serve node webpack.config.js",
+    "test:dev": "cross-env NODE_ENV=development USE_CASE=dev node webpack.config.js",
+    "test:prod": "cross-env NODE_ENV=production USE_CASE=prod node webpack.config.js",
+    
+    "start": "env-cmd cross-env NODE_ENV=development USE_CASE=serve webpack-dev-server --config configs/webpack.server.js --env.NODE_ENV=development",
+    "build:dev": "cross-env NODE_ENV=development USE_CASE=dev webpack --config configs/webpack.dev.js --env.NODE_ENV=development --progress",
+    "build:prod": "cross-env NODE_ENV=production USE_CASE=prod webpack --config configs/webpack.prod.js --env.NODE_ENV=production --progress"
   },
   "dependencies": {
     "polyfill-library": "^3.94.0",
