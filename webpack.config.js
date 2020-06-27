@@ -203,6 +203,142 @@ if (USE_CASE === 'serve') {
 
 config.plugins = plugins;
 
+/** config.module.rules alias */
+const rules = [];
+
+const jsRule = {
+  test: /\.js$/i,
+  include: path.resolve(__dirname, '../src'),
+  exclude: /node_modules/,
+  use: {
+    loader: 'babel-loader',
+    options: {
+      presets: [
+        '@babel/preset-env'
+      ],
+      plugins: [
+        '@babel/plugin-transform-runtime'
+      ]
+    }
+  }
+};
+
+const scssRule = {
+  test: /\.scss$/i,
+  include: path.resolve(__dirname, '../src'),
+  use: []
+};
+
+if (NODE_ENV === 'production') scssRule.sideEffects = true;
+
+const miniCssExtractPluginLoader = {
+  loader: MiniCssExtractPlugin.loader
+};
+if (USE_CASE === 'serve') miniCssExtractPluginLoader.options = {
+  hmr: true
+}
+const cssLoader = {
+  loader: 'css-loader', 
+  options: { 
+    importLoaders: 2
+  }
+};
+(NODE_ENV === 'production') ?
+  cssLoader.options.modules = {
+    localIdentName: '[sha1:hash:base64:5]'
+  } :
+  cssLoader.options.modules = {
+    localIdentName: '[local]-[sha1:hash:base64:5]'
+  };
+
+const postCssLoader = {
+  loader: 'postcss-loader',
+  options: {
+    ident: 'postcss',
+    plugins: [
+      require('postcss-import'),
+      require('postcss-preset-env'),
+      require('autoprefixer')
+    ]
+  }
+};
+
+const scssLoader = {
+  loader: 'sass-loader',
+};
+if (NODE_ENV === 'production') scssLoader.options = {
+  sassOptions: {
+    minimize: false,
+    outputStyle: 'expanded'
+  }
+};
+
+scssRule.use.push(
+  miniCssExtractPluginLoader,
+  cssLoader,
+  postCssLoader,
+  scssLoader
+);
+
+const imageRule = {
+  test: /\.(png|jpg)$/i,
+  include: path.resolve(__dirname, '../src'),
+  loader: 'file-loader',
+  options: {
+    outputPath: 'images',
+    esModule: false
+  }
+};
+
+switch (USE_CASE) {
+  case 'prod':
+    imageRule.options.name = '[sha1:contenthash:base64:5].[ext]';
+    break;
+
+  case 'dev':
+    imageRule.options.name = '[name].[sha1:contenthash:base64:5].[ext]';
+    break;
+
+  case 'serve':
+    imageRule.options.name = '[name].[ext]';
+    break;
+}
+
+const fontRule = {
+  test: /\.(woff|woff2)$/i,
+  include: path.resolve(__dirname, '../src'),
+  loader: 'file-loader',
+  options: {
+    outputPath: 'fonts',
+    esModule: false
+  }
+};
+
+switch (USE_CASE) {
+  case 'prod':
+    fontRule.options.name = '[sha1:contenthash:base64:5].[ext]';
+    break;
+
+  case 'dev':
+    fontRule.options.name = '[name].[sha1:contenthash:base64:5].[ext]';
+    break;
+
+  case 'serve':
+    fontRule.options.name = '[name].[ext]';
+    break;
+}
+
+rules.push(
+  jsRule,
+  scssRule,
+  imageRule,
+  fontRule
+);
+
+config.module = {
+  rules: rules
+};
+
 /** export webpack configs */
 // module.exports = config;
 
@@ -210,6 +346,9 @@ config.plugins = plugins;
   testing logs beyond
 \**************************************************/
 const { EOL } = require('os');
+
+// just to break up from top
+console.log(EOL);
 
 // see whole config
 console.log(
