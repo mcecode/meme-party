@@ -47,7 +47,7 @@ const config = {
 
 /**************************************************\
   USE_CASE=prod only configs
-  - config.performance
+  - config.performance.hints
   - config.optimization
 \**************************************************/
 
@@ -144,48 +144,42 @@ const htmlWebpackPluginOptions = {
   inject: false,
   template: './src/ejs-template/index.ejs'
 };
-switch (USE_CASE) {
-  case 'prod':
-    htmlWebpackPluginOptions.title = 'Meme Party';
-    break;
-
-  case 'dev':
-    htmlWebpackPluginOptions.title = 'Development - Meme Party';
-    break;
-  
-  case 'serve':
-    htmlWebpackPluginOptions.title = 'Server - Meme Party';
-    break;
-}
 
 /** MiniCssExtractPlugin options */
 const miniCssExtractPluginOptions = {};
+
 switch (USE_CASE) {
   case 'prod':
+    htmlWebpackPluginOptions.title = 'Meme Party';
     miniCssExtractPluginOptions.filename = '[contenthash:5].css';
     break;
 
   case 'dev':
+    htmlWebpackPluginOptions.title = 'Development - Meme Party';
     miniCssExtractPluginOptions.filename = '[name].[contenthash:5].css';
     break;
   
   case 'serve':
+    htmlWebpackPluginOptions.title = 'Server - Meme Party';
     miniCssExtractPluginOptions.filename = '[name].css';
     break;
 }
 
 /** WebpackManifestPlugin options */
 const webpackManifestPluginOptions = {};
+
 if (USE_CASE === 'prod') webpackManifestPluginOptions.filename = '../build-manifests/prod-all.json';
 if (USE_CASE === 'dev') webpackManifestPluginOptions.filename = '../build-manifests/dev-all.json';
 
 /** WebpackAssetsManifest options */
 const webpackAssetsManifestOptions = {};
+
 if (USE_CASE === 'prod') webpackAssetsManifestOptions.output = '../build-manifests/prod-hashed.json';
 if (USE_CASE === 'dev') webpackAssetsManifestOptions.output = '../build-manifests/dev-hashed.json';
 
 /** RemovePlugin options */
 const removePluginOptions = {}
+
 if (USE_CASE === 'prod' || USE_CASE === 'dev') removePluginOptions.before = {
   include: [
     './fonts',
@@ -200,6 +194,7 @@ if (USE_CASE === 'prod' || USE_CASE === 'dev') removePluginOptions.before = {
     }
   ]
 };
+
 if (USE_CASE === 'prod') removePluginOptions.before.root = './build-prod';
 if (USE_CASE === 'dev') removePluginOptions.before.root = './build-dev';
 
@@ -211,22 +206,21 @@ config.plugins.push(
   new MiniCssExtractPlugin(miniCssExtractPluginOptions)
 );
 
-if (USE_CASE === 'serve') {
+(USE_CASE === 'serve') ?
   config.plugins.push(
     new webpack.HotModuleReplacementPlugin()
-  );
-} else {
+  ):
   config.plugins.push(
     new WebpackManifestPlugin(webpackManifestPluginOptions),
     new WebpackAssetsManifest(webpackAssetsManifestOptions),
     new RemovePlugin(removePluginOptions)
   );
-}
 
 /**************************************************\
   config.module.rules
 \**************************************************/
 
+/** config.module.rules[0] - process (.js) */
 const jsRule = {
   test: /\.js$/i,
   include: path.resolve(__dirname, '../src'),
@@ -244,34 +238,41 @@ const jsRule = {
   }
 };
 
+/** config.module.rules[1] - process (.scss) */
 const scssRule = {
   test: /\.scss$/i,
   include: path.resolve(__dirname, '../src'),
   use: []
 };
 
-if (NODE_ENV === 'production') scssRule.sideEffects = true;
+if (USE_CASE === 'prod') scssRule.sideEffects = true;
 
+/** MiniCssExtractPlugin.loader */
 const miniCssExtractPluginLoader = {
   loader: MiniCssExtractPlugin.loader
 };
+
 if (USE_CASE === 'serve') miniCssExtractPluginLoader.options = {
   hmr: true
 }
+
+/** css-loader */
 const cssLoader = {
   loader: 'css-loader', 
   options: { 
     importLoaders: 2
   }
 };
-(NODE_ENV === 'production') ?
+
+(USE_CASE === 'prod') ?
   cssLoader.options.modules = {
     localIdentName: '[sha1:hash:base64:5]'
-  } :
+  }:
   cssLoader.options.modules = {
     localIdentName: '[local]-[sha1:hash:base64:5]'
   };
 
+/** postcss-loader */
 const postCssLoader = {
   loader: 'postcss-loader',
   options: {
@@ -284,23 +285,27 @@ const postCssLoader = {
   }
 };
 
-const scssLoader = {
+/** sass-loader */
+const sassLoader = {
   loader: 'sass-loader',
 };
-if (NODE_ENV === 'production') scssLoader.options = {
+
+if (USE_CASE === 'prod') sassLoader.options = {
   sassOptions: {
     minimize: false,
     outputStyle: 'expanded'
   }
 };
 
+/** config.module.rules[1].use */
 scssRule.use.push(
   miniCssExtractPluginLoader,
   cssLoader,
   postCssLoader,
-  scssLoader
+  sassLoader
 );
 
+/** config.module.rules[2] - process (.png | .jpg) */
 const imageRule = {
   test: /\.(png|jpg)$/i,
   include: path.resolve(__dirname, '../src'),
@@ -311,20 +316,7 @@ const imageRule = {
   }
 };
 
-switch (USE_CASE) {
-  case 'prod':
-    imageRule.options.name = '[sha1:contenthash:base64:5].[ext]';
-    break;
-
-  case 'dev':
-    imageRule.options.name = '[name].[sha1:contenthash:base64:5].[ext]';
-    break;
-
-  case 'serve':
-    imageRule.options.name = '[name].[ext]';
-    break;
-}
-
+/** config.module.rules[3] - process (.woff | .woff2) */
 const fontRule = {
   test: /\.(woff|woff2)$/i,
   include: path.resolve(__dirname, '../src'),
@@ -337,35 +329,44 @@ const fontRule = {
 
 switch (USE_CASE) {
   case 'prod':
+    imageRule.options.name = '[sha1:contenthash:base64:5].[ext]';
     fontRule.options.name = '[sha1:contenthash:base64:5].[ext]';
     break;
 
   case 'dev':
+    imageRule.options.name = '[name].[sha1:contenthash:base64:5].[ext]';
     fontRule.options.name = '[name].[sha1:contenthash:base64:5].[ext]';
     break;
 
   case 'serve':
+    imageRule.options.name = '[name].[ext]';
     fontRule.options.name = '[name].[ext]';
     break;
 }
 
+/** config.module.rules */
 config.module = {
-  jsRule,
-  scssRule,
-  imageRule,
-  fontRule
+  rules: [
+    jsRule,
+    scssRule,
+    imageRule,
+    fontRule
+  ]
 };
 
 /** export webpack configs */
-if (process.env.SEE_RUN === 'true') {
-  module.exports = [
+(process.env.SEE_RUN === 'true') ?
+  module.exports = {
+    USE_CASE,
     config,
     htmlWebpackPluginOptions,
     miniCssExtractPluginOptions,
     webpackManifestPluginOptions,
     webpackAssetsManifestOptions,
-    removePluginOptions
-  ]
-} else {
+    removePluginOptions,
+    jsRule,
+    scssRule,
+    imageRule,
+    fontRule
+  }:
   module.exports = config;
-}
