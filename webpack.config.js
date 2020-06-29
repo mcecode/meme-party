@@ -1,18 +1,23 @@
-/** process.env.NODE_ENV alias (production | development) */
+/**************************************************\
+  setting environment variables
+\**************************************************/
+
+/** process.env.NODE_ENV (production | development) */
 const NODE_ENV = process.env.NODE_ENV || 'development';
 console.log(`NODE_ENV: ${NODE_ENV}`);
 
-/** process.env.USE_CASE alias (prod | dev | serve) */
+/** process.env.USE_CASE (prod | dev | serve) */
 const USE_CASE = process.env.USE_CASE || 'serve';
 console.log(`USE_CASE: ${USE_CASE}`);
 
-/** process.env.PORT alias */
+/** process.env.PORT */
 const PORT = process.env.PORT || 5000;
-if (USE_CASE === 'serve') {
-  console.log(`PORT: ${PORT}`);
-}
+if (USE_CASE === 'serve') console.log(`PORT: ${PORT}`);
 
-/* node modules */
+/**************************************************\
+  require node modules
+\**************************************************/
+
 const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
@@ -24,7 +29,14 @@ const WebpackManifestPlugin = require('webpack-manifest-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const RemovePlugin = require('remove-files-webpack-plugin');
 
-/** webpack configs */
+/**************************************************\
+  common configs
+  - config.mode
+  - config.entry
+  - config.resolve
+\**************************************************/
+
+/** webpack config */
 const config = {
   mode: NODE_ENV,
   entry: './src/main.js',
@@ -33,11 +45,17 @@ const config = {
   }
 };
 
-/* prod only settings */
+/**************************************************\
+  USE_CASE=prod only configs
+  - config.performance
+  - config.optimization
+\**************************************************/
+
 if (USE_CASE === 'prod') {
   config.performance = {
     hints: 'error'
   };
+
   config.optimization = {
     minimizer: [
       new TerserPlugin(),
@@ -46,12 +64,20 @@ if (USE_CASE === 'prod') {
   };
 }
 
-/* dev only settings */
+/**************************************************\
+  USE_CASE=dev only configs
+  - config.devtool
+\**************************************************/
+
 if (USE_CASE === 'dev') {
   config.devtool = 'source-map';
 }
 
-/* serve only settings */
+/**************************************************\
+  USE_CASE=serve only configs
+  - config.devServer
+\**************************************************/
+
 if (USE_CASE === 'serve') {
   config.devServer = {
     contentBase: false,
@@ -68,60 +94,56 @@ if (USE_CASE === 'serve') {
     }
   };
 
-  (() => {
-    if ('SSL_KEY' in process.env && 'SSL_CRT' in process.env && 'SSL_PEM' in process.env) {
-      console.log('HTTPS: true');
-      config.devServer.https = {
-        key: fs.readFileSync(process.env.SSL_KEY),
-        cert: fs.readFileSync(process.env.SSL_CRT),
-        ca: fs.readFileSync(process.env.SSL_PEM)
-      };
-      return;
-    }
-    if (process.env.SSL === 'true') {
-      console.log('HTTPS: true');
-      config.devServer.https = true;
-      return;
-    }
+  if ('SSL_KEY' in process.env && 'SSL_CRT' in process.env && 'SSL_PEM' in process.env) {
+    console.log('HTTPS: true');
+    config.devServer.https = {
+      key: fs.readFileSync(process.env.SSL_KEY),
+      cert: fs.readFileSync(process.env.SSL_CRT),
+      ca: fs.readFileSync(process.env.SSL_PEM)
+    };
+  } else if (process.env.SSL === 'true') {
+    console.log('HTTPS: true');
+    config.devServer.https = true;
+  } else {
     console.log('HTTPS: false');
-  })();
+  }
 }
 
-/** config.output alias */
-let output = {};
+/**************************************************\
+  config.output
+\**************************************************/
 
 switch (USE_CASE) {
   case 'prod':
-    output = {
+    config.output = {
       path: path.resolve(__dirname, '../build-prod'),
       filename: '[contenthash:5].js'  
     };
     break;
     
     case 'dev':
-    output = {
+    config.output = {
       path: path.resolve(__dirname, '../build-dev'),
       filename: '[name].[contenthash:5].js'  
     };
     break;
 
   case 'serve':
-    output = {
+    config.output = {
       filename: '[name].js'
     };
     break;
 }
 
-config.output = output;
+/**************************************************\
+  config.plugins
+\**************************************************/
 
-/** config.plugins alias */
-let plugins = [];
-
+/** HtmlWebpackPlugin options */
 const htmlWebpackPluginOptions = {
   inject: false,
   template: './src/ejs-template/index.ejs'
 };
-
 switch (USE_CASE) {
   case 'prod':
     htmlWebpackPluginOptions.title = 'Meme Party';
@@ -136,8 +158,8 @@ switch (USE_CASE) {
     break;
 }
 
+/** MiniCssExtractPlugin options */
 const miniCssExtractPluginOptions = {};
-
 switch (USE_CASE) {
   case 'prod':
     miniCssExtractPluginOptions.filename = '[contenthash:5].css';
@@ -152,59 +174,58 @@ switch (USE_CASE) {
     break;
 }
 
+/** WebpackManifestPlugin options */
 const webpackManifestPluginOptions = {};
+if (USE_CASE === 'prod') webpackManifestPluginOptions.filename = '../build-manifests/prod-all.json';
+if (USE_CASE === 'dev') webpackManifestPluginOptions.filename = '../build-manifests/dev-all.json';
 
-(NODE_ENV === 'production') ?
-  webpackManifestPluginOptions.filename = '../build-manifests/prod-all.json' :
-  webpackManifestPluginOptions.filename = '../build-manifests/dev-all.json';
-
+/** WebpackAssetsManifest options */
 const webpackAssetsManifestOptions = {};
+if (USE_CASE === 'prod') webpackAssetsManifestOptions.output = '../build-manifests/prod-hashed.json';
+if (USE_CASE === 'dev') webpackAssetsManifestOptions.output = '../build-manifests/dev-hashed.json';
 
-(NODE_ENV === 'production') ?
-  webpackAssetsManifestOptions.output = '../build-manifests/prod-hashed.json' :
-  webpackAssetsManifestOptions.output = '../build-manifests/dev-hashed.json';
-
-const removePluginOptions = {
-  before: {
-    include: [
-      './fonts',
-      './images'
-    ],
-    test: [
-      {
-        folder: '.',
-        method: (absoluteItemPath) => {
-            return new RegExp(/\.(html|css|js|json|map)$/i, 'm').test(absoluteItemPath);
-        }
+/** RemovePlugin options */
+const removePluginOptions = {}
+if (USE_CASE === 'prod' || USE_CASE === 'dev') removePluginOptions.before = {
+  include: [
+    './fonts',
+    './images'
+  ],
+  test: [
+    {
+      folder: '.',
+      method: (absoluteItemPath) => {
+          return new RegExp(/\.(html|css|js|json|map)$/i, 'm').test(absoluteItemPath);
       }
-    ]
-  }
+    }
+  ]
 };
+if (USE_CASE === 'prod') removePluginOptions.before.root = './build-prod';
+if (USE_CASE === 'dev') removePluginOptions.before.root = './build-dev';
 
-(NODE_ENV === 'production') ?
-  removePluginOptions.before.root = './build-prod' :
-  removePluginOptions.before.root = './build-dev';
+/** config.plugins */
+config.plugins = [];
+
+config.plugins.push(
+  new HtmlWebpackPlugin(htmlWebpackPluginOptions),
+  new MiniCssExtractPlugin(miniCssExtractPluginOptions)
+);
 
 if (USE_CASE === 'serve') {
-  plugins.push([
-    new HtmlWebpackPlugin(htmlWebpackPluginOptions),
-    new MiniCssExtractPlugin(miniCssExtractPluginOptions),
+  config.plugins.push(
     new webpack.HotModuleReplacementPlugin()
-  ]);
+  );
 } else {
-  plugins.push([
-    new HtmlWebpackPlugin(htmlWebpackPluginOptions),
-    new MiniCssExtractPlugin(miniCssExtractPluginOptions),
+  config.plugins.push(
     new WebpackManifestPlugin(webpackManifestPluginOptions),
     new WebpackAssetsManifest(webpackAssetsManifestOptions),
     new RemovePlugin(removePluginOptions)
-  ]);
+  );
 }
 
-config.plugins = plugins;
-
-/** config.module.rules alias */
-const rules = [];
+/**************************************************\
+  config.module.rules
+\**************************************************/
 
 const jsRule = {
   test: /\.js$/i,
@@ -328,15 +349,11 @@ switch (USE_CASE) {
     break;
 }
 
-rules.push(
+config.module = {
   jsRule,
   scssRule,
   imageRule,
   fontRule
-);
-
-config.module = {
-  rules: rules
 };
 
 /** export webpack configs */

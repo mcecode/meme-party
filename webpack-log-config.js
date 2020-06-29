@@ -40,10 +40,11 @@ console.log(
 );
 
 // see removePluginOptions method
-console.log(
-  // bgcyan, fgblack, string, reset, string
-  '\x1b[44m \x1b[30m %s \x1b[0m %s',
-  'removePluginOptions.before.test[0].method = ',
-  removePluginOptions.before.test[0].method,
-  EOL
-);
+// add if statement to remove for USE_CASE=serve
+// console.log(
+//   // bgcyan, fgblack, string, reset, string
+//   '\x1b[44m \x1b[30m %s \x1b[0m %s',
+//   'removePluginOptions.before.test[0].method = ',
+//   removePluginOptions.before.test[0].method,
+//   EOL
+// );
