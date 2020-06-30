@@ -1,21 +1,21 @@
 /**************************************************\
-  setting environment variables
+  Setting environment variables
 \**************************************************/
 
-/** process.env.NODE_ENV (production | development) */
+/** Current environment mode, can be (production | development) */
 const NODE_ENV = process.env.NODE_ENV || 'development';
 console.log(`NODE_ENV: ${NODE_ENV}`);
 
-/** process.env.USE_CASE (prod | dev | serve) */
+/** Current run use case, can be (prod | dev | serve) */
 const USE_CASE = process.env.USE_CASE || 'serve';
 console.log(`USE_CASE: ${USE_CASE}`);
 
-/** process.env.PORT */
+/** Port where webpack-dev-server runs */
 const PORT = process.env.PORT || 5000;
 if (USE_CASE === 'serve') console.log(`PORT: ${PORT}`);
 
 /**************************************************\
-  require node modules
+  Require node modules
 \**************************************************/
 
 const path = require('path');
@@ -25,40 +25,48 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const WebpackManifestPlugin = require('webpack-manifest-plugin');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 const RemovePlugin = require('remove-files-webpack-plugin');
 
 /**************************************************\
-  common configs
-  - config.mode
-  - config.entry
-  - config.resolve
+  Common configs
 \**************************************************/
 
 /** webpack config */
 const config = {
+  /** Tells webpack to use its built-in optimizations accordingly */
   mode: NODE_ENV,
+
+  /** Where webpack looks to start building the bundle */
   entry: './src/main.js',
+
+  /** Configures how modules are resolved */
   resolve: {
+    /** Resolves symlinks to their symlinked location */
     symlinks: false
   }
 };
 
 /**************************************************\
   USE_CASE=prod only configs
-  - config.performance.hints
-  - config.optimization
 \**************************************************/
 
 if (USE_CASE === 'prod') {
+  /** Controls how webpack notifies you of assets and entry points that exceed a specific file limit */
   config.performance = {
+    /** Tells webpack whether to throw an error, a warning, or nothing when large assets are created */
     hints: 'error'
   };
 
+  /** Configures bundle optimizations */
   config.optimization = {
+    /** Overrides the default minimizer TerserPlugin */
+    // When adding minimizers for other file types TerserPlugin needs to be set again because it is overriden
     minimizer: [
+      /** Mangles and minimizes JS files */
       new TerserPlugin(),
+
+      /** Minifies CSS files */
       new OptimizeCssAssetsPlugin()
     ]
   };
@@ -66,36 +74,54 @@ if (USE_CASE === 'prod') {
 
 /**************************************************\
   USE_CASE=dev only configs
-  - config.devtool
 \**************************************************/
 
 if (USE_CASE === 'dev') {
+  /** Controls if and how source maps are generated */
   config.devtool = 'source-map';
 }
 
 /**************************************************\
   USE_CASE=serve only configs
-  - config.devServer
 \**************************************************/
 
 if (USE_CASE === 'serve') {
+  /** Options picked up by webpack-dev-server to change its behavior */
   config.devServer = {
+    /** Tells the server where to serve content from */
+    // This only necessary when serving static files
     contentBase: false,
+
+    /** Enables Hot Module Replacement (HMR) */
     hot: true,
+
+    /** Specifies a port number to listen to for requests */
     port: PORT,
+
+    /** Enables gzip compression for everything served */
     compress: true,
+
+    /** Lets you control what bundle information gets displayed */
     stats: 'errors-warnings',
+
+    /** Shows a full-screen overlay in the browser when there are compiler errors or warnings */
     overlay: {
       warnings: true,
       errors: true
     },
+
+    /** Executes custom middleware prior to all other middleware internally within the server */
     before: (app, server, compiler) => {
+      // Reloads the server when changes are made to the html template
       server._watch('./src/ejs-template/index.ejs');
     }
   };
 
+  // Sets whether webpack-dev-server will use http or https
   if ('SSL_KEY' in process.env && 'SSL_CRT' in process.env && 'SSL_PEM' in process.env) {
     console.log('HTTPS: true');
+
+    /** Uses provided certs to enable https */
     config.devServer.https = {
       key: fs.readFileSync(process.env.SSL_KEY),
       cert: fs.readFileSync(process.env.SSL_CRT),
@@ -103,6 +129,8 @@ if (USE_CASE === 'serve') {
     };
   } else if (process.env.SSL === 'true') {
     console.log('HTTPS: true');
+
+    /** Tells webpack-dev-server to create and use self-signed certs */
     config.devServer.https = true;
   } else {
     console.log('HTTPS: false');
@@ -115,15 +143,19 @@ if (USE_CASE === 'serve') {
 
 switch (USE_CASE) {
   case 'prod':
+    /** Contains options instructing webpack on how and where it should output your bundles and assets */
     config.output = {
-      path: path.resolve(__dirname, '../build-prod'),
+      /** Absolute path of the output directory */
+      path: path.resolve(__dirname, './build-prod'),
+
+      /** Determines the name of each output bundle */
       filename: '[contenthash:5].js'  
     };
     break;
     
     case 'dev':
     config.output = {
-      path: path.resolve(__dirname, '../build-dev'),
+      path: path.resolve(__dirname, './build-dev'),
       filename: '[name].[contenthash:5].js'  
     };
     break;
@@ -141,7 +173,10 @@ switch (USE_CASE) {
 
 /** HtmlWebpackPlugin options */
 const htmlWebpackPluginOptions = {
+  /** Whether or not HtmlWebpackPlugin automatically injects assets in the template and where */
   inject: false,
+
+  /** Relative or absolute path to the template used to generate the HTML document */
   template: './src/ejs-template/index.ejs'
 };
 
@@ -150,7 +185,10 @@ const miniCssExtractPluginOptions = {};
 
 switch (USE_CASE) {
   case 'prod':
+    /** The title to use for the generated HTML document */
     htmlWebpackPluginOptions.title = 'Meme Party';
+
+    /** File name of the emitted CSS file */
     miniCssExtractPluginOptions.filename = '[contenthash:5].css';
     break;
 
@@ -165,21 +203,17 @@ switch (USE_CASE) {
     break;
 }
 
-/** WebpackManifestPlugin options */
-const webpackManifestPluginOptions = {};
-
-if (USE_CASE === 'prod') webpackManifestPluginOptions.filename = '../build-manifests/prod-all.json';
-if (USE_CASE === 'dev') webpackManifestPluginOptions.filename = '../build-manifests/dev-all.json';
-
 /** WebpackAssetsManifest options */
 const webpackAssetsManifestOptions = {};
 
-if (USE_CASE === 'prod') webpackAssetsManifestOptions.output = '../build-manifests/prod-hashed.json';
-if (USE_CASE === 'dev') webpackAssetsManifestOptions.output = '../build-manifests/dev-hashed.json';
+// Sets the relative location and file name of the emitted JSON file
+if (USE_CASE === 'prod') webpackAssetsManifestOptions.output = '../build-manifests/prod-manifest.json';
+if (USE_CASE === 'dev') webpackAssetsManifestOptions.output = '../build-manifests/dev-manifest.json';
 
 /** RemovePlugin options */
 const removePluginOptions = {}
 
+// Sets what should be removed before 
 if (USE_CASE === 'prod' || USE_CASE === 'dev') removePluginOptions.before = {
   include: [
     './fonts',
@@ -211,7 +245,6 @@ config.plugins.push(
     new webpack.HotModuleReplacementPlugin()
   ):
   config.plugins.push(
-    new WebpackManifestPlugin(webpackManifestPluginOptions),
     new WebpackAssetsManifest(webpackAssetsManifestOptions),
     new RemovePlugin(removePluginOptions)
   );
@@ -223,7 +256,7 @@ config.plugins.push(
 /** config.module.rules[0] - process (.js) */
 const jsRule = {
   test: /\.js$/i,
-  include: path.resolve(__dirname, '../src'),
+  include: path.resolve(__dirname, './src'),
   exclude: /node_modules/,
   use: {
     loader: 'babel-loader',
@@ -241,7 +274,7 @@ const jsRule = {
 /** config.module.rules[1] - process (.scss) */
 const scssRule = {
   test: /\.scss$/i,
-  include: path.resolve(__dirname, '../src'),
+  include: path.resolve(__dirname, './src'),
   use: []
 };
 
@@ -308,7 +341,7 @@ scssRule.use.push(
 /** config.module.rules[2] - process (.png | .jpg) */
 const imageRule = {
   test: /\.(png|jpg)$/i,
-  include: path.resolve(__dirname, '../src'),
+  include: path.resolve(__dirname, './src'),
   loader: 'file-loader',
   options: {
     outputPath: 'images',
@@ -319,7 +352,7 @@ const imageRule = {
 /** config.module.rules[3] - process (.woff | .woff2) */
 const fontRule = {
   test: /\.(woff|woff2)$/i,
-  include: path.resolve(__dirname, '../src'),
+  include: path.resolve(__dirname, './src'),
   loader: 'file-loader',
   options: {
     outputPath: 'fonts',

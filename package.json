@@ -13,7 +13,6 @@
     "see:serve": "env-cmd cross-env NODE_ENV=development USE_CASE=serve SEE_RUN=true node webpack-log-config.js",
     "see:dev": "cross-env NODE_ENV=development USE_CASE=dev SEE_RUN=true node webpack-log-config.js",
     "see:prod": "cross-env NODE_ENV=production USE_CASE=prod SEE_RUN=true node webpack-log-config.js",
-    
     "start": "env-cmd cross-env NODE_ENV=development USE_CASE=serve webpack-dev-server --env.NODE_ENV=development",
     "build:dev": "cross-env NODE_ENV=development USE_CASE=dev webpack --env.NODE_ENV=development --progress",
     "build:prod": "cross-env NODE_ENV=production USE_CASE=prod webpack --env.NODE_ENV=production --progress"
@@ -46,8 +45,7 @@
     "webpack": "^4.43.0",
     "webpack-assets-manifest": "^3.1.1",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0",
-    "webpack-manifest-plugin": "^2.2.0"
+    "webpack-dev-server": "^3.11.0"
   },
   "browserslist": "defaults",
   "sideEffects": false
