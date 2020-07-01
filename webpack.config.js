@@ -29,7 +29,7 @@ const WebpackAssetsManifest = require('webpack-assets-manifest');
 const RemovePlugin = require('remove-files-webpack-plugin');
 
 /**************************************************\
-  Common configs
+  Common configs for all use cases
 \**************************************************/
 
 /** webpack config */
@@ -143,7 +143,7 @@ if (USE_CASE === 'serve') {
 
 switch (USE_CASE) {
   case 'prod':
-    /** Contains options instructing webpack on how and where it should output your bundles and assets */
+    /** Contains options instructing webpack on how and where it should output bundles and assets */
     config.output = {
       /** Absolute path of the output directory */
       path: path.resolve(__dirname, './build-prod'),
@@ -213,15 +213,21 @@ if (USE_CASE === 'dev') webpackAssetsManifestOptions.output = '../build-manifest
 /** RemovePlugin options */
 const removePluginOptions = {}
 
-// Sets what should be removed before 
+// Sets what should be removed before full compilation
 if (USE_CASE === 'prod' || USE_CASE === 'dev') removePluginOptions.before = {
+  /** Sets what directories within root should be removed */
   include: [
     './fonts',
     './images'
   ],
+
+  /** Sets a directory within root whose contents will be tested for possible removal */
   test: [
     {
+      /** Directory to test */
       folder: '.',
+
+      /** Method used to test, tests for (.html | .css | .js | .json | .map) files */
       method: (absoluteItemPath) => {
           return new RegExp(/\.(html|css|js|json|map)$/i, 'm').test(absoluteItemPath);
       }
@@ -229,23 +235,34 @@ if (USE_CASE === 'prod' || USE_CASE === 'dev') removePluginOptions.before = {
   ]
 };
 
+// Sets where the root directory of the removal process will be
 if (USE_CASE === 'prod') removePluginOptions.before.root = './build-prod';
 if (USE_CASE === 'dev') removePluginOptions.before.root = './build-dev';
 
-/** config.plugins */
+/** Sets what plugins should be used for compilation */
 config.plugins = [];
 
+// Common plugins between all use cases
 config.plugins.push(
+  /** Creates index.html in the build folder based on the template */
   new HtmlWebpackPlugin(htmlWebpackPluginOptions),
+
+  /** Extracts styles into a CSS file */
   new MiniCssExtractPlugin(miniCssExtractPluginOptions)
 );
 
 (USE_CASE === 'serve') ?
+  // Plugins for USE_CASE=serve
   config.plugins.push(
+    /** For HMR */
     new webpack.HotModuleReplacementPlugin()
   ):
+  // Plugins for USE_CASE=prod or USE_CASE=dev
   config.plugins.push(
+    /** Generates a JSON file that matches original filenames with their hashed versions */
     new WebpackAssetsManifest(webpackAssetsManifestOptions),
+
+    /** Removes files before compilation */
     new RemovePlugin(removePluginOptions)
   );
 
@@ -253,14 +270,25 @@ config.plugins.push(
   config.module.rules
 \**************************************************/
 
-/** config.module.rules[0] - process (.js) */
+/** config.module.rules[0] - processes (.js) files */
 const jsRule = {
+  /** Includes all modules that pass test assertion */
   test: /\.js$/i,
+
+  /** Includes all modules matching any of these conditions */
   include: path.resolve(__dirname, './src'),
+
+  /** Excludes all modules matching any of these conditions */
   exclude: /node_modules/,
+
+  /** Specifies loader/s to be used */
   use: {
+    /** The loader to be used */
     loader: 'babel-loader',
+
+    /** Options passed to the loader */
     options: {
+      // TODO: add comments here
       presets: [
         '@babel/preset-env'
       ],
@@ -271,47 +299,53 @@ const jsRule = {
   }
 };
 
-/** config.module.rules[1] - process (.scss) */
+/** config.module.rules[1] - processes (.scss) files */
 const scssRule = {
   test: /\.scss$/i,
   include: path.resolve(__dirname, './src'),
   use: []
 };
 
+// Specifies that the CSS file emitted has side effects during production to avoid it being tree shaken
 if (USE_CASE === 'prod') scssRule.sideEffects = true;
 
-/** MiniCssExtractPlugin.loader */
+/** MiniCssExtractPlugin.loader - emits a CSS file from the processed SCSS files */
 const miniCssExtractPluginLoader = {
   loader: MiniCssExtractPlugin.loader
 };
 
+// Turns on HMR for MiniCssExtractPlugin.loader when running webpack-dev-server
 if (USE_CASE === 'serve') miniCssExtractPluginLoader.options = {
   hmr: true
 }
 
-/** css-loader */
+/** css-loader - interprets @import and url() like import/require() and will resolve them */
 const cssLoader = {
-  loader: 'css-loader', 
-  options: { 
+  loader: 'css-loader',
+  options: {
+    /** Configures how many loaders before css-loader should be applied to @import-ed resources */
     importLoaders: 2
   }
 };
 
 (USE_CASE === 'prod') ?
+  /** Enables CSS Modules */
   cssLoader.options.modules = {
+    /** Sets the naming scheme for classes and keyframes */
     localIdentName: '[sha1:hash:base64:5]'
   }:
   cssLoader.options.modules = {
     localIdentName: '[local]-[sha1:hash:base64:5]'
   };
 
-/** postcss-loader */
+/** postcss-loader - transforms CSS produced by sass-loader with JS plugins */
 const postCssLoader = {
   loader: 'postcss-loader',
   options: {
+    /** Required by webpack when {Function}/require() is used */
     ident: 'postcss',
     plugins: [
-      require('postcss-import'),
+      
       require('postcss-preset-env'),
       require('autoprefixer')
     ]
@@ -338,7 +372,7 @@ scssRule.use.push(
   sassLoader
 );
 
-/** config.module.rules[2] - process (.png | .jpg) */
+/** config.module.rules[2] - processes (.png | .jpg) files */
 const imageRule = {
   test: /\.(png|jpg)$/i,
   include: path.resolve(__dirname, './src'),
@@ -349,7 +383,7 @@ const imageRule = {
   }
 };
 
-/** config.module.rules[3] - process (.woff | .woff2) */
+/** config.module.rules[3] - processes (.woff | .woff2) files */
 const fontRule = {
   test: /\.(woff|woff2)$/i,
   include: path.resolve(__dirname, './src'),
@@ -394,7 +428,6 @@ config.module = {
     config,
     htmlWebpackPluginOptions,
     miniCssExtractPluginOptions,
-    webpackManifestPluginOptions,
     webpackAssetsManifestOptions,
     removePluginOptions,
     jsRule,

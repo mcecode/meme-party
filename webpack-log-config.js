@@ -8,7 +8,6 @@ const {
   config, 
   htmlWebpackPluginOptions,
   miniCssExtractPluginOptions,
-  webpackManifestPluginOptions,
   webpackAssetsManifestOptions,
   removePluginOptions,
   jsRule,
@@ -34,7 +33,6 @@ console.log(
   {
     htmlWebpackPluginOptions,
     miniCssExtractPluginOptions,
-    webpackManifestPluginOptions,
     webpackAssetsManifestOptions,
     removePluginOptions
   }
