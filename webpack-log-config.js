@@ -1,5 +1,5 @@
 /**************************************************\
-  require EOL and configs
+  require EOL, USE_CASE, config, options, rules
 \**************************************************/
 
 const { EOL } = require('os');
@@ -20,16 +20,16 @@ const {
   config logs
 \**************************************************/
 
-/** Boilerplate setup for logs = EOL, bgBlue, fgBlack, string, reset  */
+/** Boilerplate setup for logs - EOL, bgBlue, fgBlack, string, reset */
 const preLog = `${EOL} \x1b[44m \x1b[30m %s \x1b[0m`;
 
-/** See whole config */
+// Shows whole config
 console.log(`${preLog} %O`, 'config = ' , config);
 
-/** See config.plugin options */
+// Shows config.plugin options
 console.log(
   `${preLog} %o`,
-  'pluginOptions = ',
+  'plugins options = ',
   {
     htmlWebpackPluginOptions,
     miniCssExtractPluginOptions,
@@ -38,14 +38,16 @@ console.log(
   }
 );
 
-/** See removePluginOptions method */
+// Shows removePluginOptions before test method
+// Only set for USE_CASE=prod and USE_CASE=dev
+// Not set for USE_CASE=serve
 if (USE_CASE !== 'serve') console.log(
   `${preLog} %s`,
-  'removePluginOptions.before.test[0].method = ',
+  'removePluginOptions before test method = ',
   removePluginOptions.before.test[0].method
 );
 
-/** See config.module.rules rules */
+// Shows config.module.rules
 console.log(
   `${preLog} %o`,
   'rules = ',
@@ -55,4 +57,18 @@ console.log(
     imageRule,
     fontRule
   }
+);
+
+// Shows css-loader modules
+console.log(
+  `${preLog} %O`,
+  'css-loader modules = ',
+  scssRule.use[1].options.modules
+);
+
+// Shows postcss-loader plugins
+console.log(
+  `${preLog} %O`,
+  'postcss-loader plugins = ',
+  scssRule.use[2].options.plugins
 );

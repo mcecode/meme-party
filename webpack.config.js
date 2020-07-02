@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 if (USE_CASE === 'serve') console.log(`PORT: ${PORT}`);
 
 /**************************************************\
-  Require node modules
+  require node modules
 \**************************************************/
 
 const path = require('path');
@@ -34,15 +34,9 @@ const RemovePlugin = require('remove-files-webpack-plugin');
 
 /** webpack config */
 const config = {
-  /** Tells webpack to use its built-in optimizations accordingly */
   mode: NODE_ENV,
-
-  /** Where webpack looks to start building the bundle */
   entry: './src/main.js',
-
-  /** Configures how modules are resolved */
   resolve: {
-    /** Resolves symlinks to their symlinked location */
     symlinks: false
   }
 };
@@ -52,21 +46,14 @@ const config = {
 \**************************************************/
 
 if (USE_CASE === 'prod') {
-  /** Controls how webpack notifies you of assets and entry points that exceed a specific file limit */
   config.performance = {
-    /** Tells webpack whether to throw an error, a warning, or nothing when large assets are created */
     hints: 'error'
   };
 
-  /** Configures bundle optimizations */
   config.optimization = {
-    /** Overrides the default minimizer TerserPlugin */
     // When adding minimizers for other file types TerserPlugin needs to be set again because it is overriden
     minimizer: [
-      /** Mangles and minimizes JS files */
       new TerserPlugin(),
-
-      /** Minifies CSS files */
       new OptimizeCssAssetsPlugin()
     ]
   };
@@ -77,7 +64,6 @@ if (USE_CASE === 'prod') {
 \**************************************************/
 
 if (USE_CASE === 'dev') {
-  /** Controls if and how source maps are generated */
   config.devtool = 'source-map';
 }
 
@@ -86,42 +72,24 @@ if (USE_CASE === 'dev') {
 \**************************************************/
 
 if (USE_CASE === 'serve') {
-  /** Options picked up by webpack-dev-server to change its behavior */
   config.devServer = {
-    /** Tells the server where to serve content from */
-    // This only necessary when serving static files
     contentBase: false,
-
-    /** Enables Hot Module Replacement (HMR) */
     hot: true,
-
-    /** Specifies a port number to listen to for requests */
     port: PORT,
-
-    /** Enables gzip compression for everything served */
     compress: true,
-
-    /** Lets you control what bundle information gets displayed */
     stats: 'errors-warnings',
-
-    /** Shows a full-screen overlay in the browser when there are compiler errors or warnings */
     overlay: {
       warnings: true,
       errors: true
     },
-
-    /** Executes custom middleware prior to all other middleware internally within the server */
     before: (app, server, compiler) => {
-      // Reloads the server when changes are made to the html template
+      // Reloads the server when changes are made to the ejs template
       server._watch('./src/ejs-template/index.ejs');
     }
   };
 
-  // Sets whether webpack-dev-server will use http or https
   if ('SSL_KEY' in process.env && 'SSL_CRT' in process.env && 'SSL_PEM' in process.env) {
     console.log('HTTPS: true');
-
-    /** Uses provided certs to enable https */
     config.devServer.https = {
       key: fs.readFileSync(process.env.SSL_KEY),
       cert: fs.readFileSync(process.env.SSL_CRT),
@@ -129,8 +97,6 @@ if (USE_CASE === 'serve') {
     };
   } else if (process.env.SSL === 'true') {
     console.log('HTTPS: true');
-
-    /** Tells webpack-dev-server to create and use self-signed certs */
     config.devServer.https = true;
   } else {
     console.log('HTTPS: false');
@@ -143,12 +109,8 @@ if (USE_CASE === 'serve') {
 
 switch (USE_CASE) {
   case 'prod':
-    /** Contains options instructing webpack on how and where it should output bundles and assets */
     config.output = {
-      /** Absolute path of the output directory */
       path: path.resolve(__dirname, './build-prod'),
-
-      /** Determines the name of each output bundle */
       filename: '[contenthash:5].js'  
     };
     break;
@@ -171,24 +133,18 @@ switch (USE_CASE) {
   config.plugins
 \**************************************************/
 
-/** HtmlWebpackPlugin options */
+/** Options passed to HtmlWebpackPlugin */
 const htmlWebpackPluginOptions = {
-  /** Whether or not HtmlWebpackPlugin automatically injects assets in the template and where */
   inject: false,
-
-  /** Relative or absolute path to the template used to generate the HTML document */
   template: './src/ejs-template/index.ejs'
 };
 
-/** MiniCssExtractPlugin options */
+/** Options passed to MiniCssExtractPlugin */
 const miniCssExtractPluginOptions = {};
 
 switch (USE_CASE) {
   case 'prod':
-    /** The title to use for the generated HTML document */
     htmlWebpackPluginOptions.title = 'Meme Party';
-
-    /** File name of the emitted CSS file */
     miniCssExtractPluginOptions.filename = '[contenthash:5].css';
     break;
 
@@ -203,31 +159,24 @@ switch (USE_CASE) {
     break;
 }
 
-/** WebpackAssetsManifest options */
+/** Options passed to WebpackAssetsManifest */
 const webpackAssetsManifestOptions = {};
 
-// Sets the relative location and file name of the emitted JSON file
 if (USE_CASE === 'prod') webpackAssetsManifestOptions.output = '../build-manifests/prod-manifest.json';
 if (USE_CASE === 'dev') webpackAssetsManifestOptions.output = '../build-manifests/dev-manifest.json';
 
-/** RemovePlugin options */
+/** Options passed to RemovePlugin */
 const removePluginOptions = {}
 
-// Sets what should be removed before full compilation
 if (USE_CASE === 'prod' || USE_CASE === 'dev') removePluginOptions.before = {
-  /** Sets what directories within root should be removed */
   include: [
     './fonts',
     './images'
   ],
-
-  /** Sets a directory within root whose contents will be tested for possible removal */
   test: [
     {
-      /** Directory to test */
       folder: '.',
-
-      /** Method used to test, tests for (.html | .css | .js | .json | .map) files */
+      // Tests for and removes any HTML, CSS, JS, JSON, map files in the build folder
       method: (absoluteItemPath) => {
           return new RegExp(/\.(html|css|js|json|map)$/i, 'm').test(absoluteItemPath);
       }
@@ -235,34 +184,23 @@ if (USE_CASE === 'prod' || USE_CASE === 'dev') removePluginOptions.before = {
   ]
 };
 
-// Sets where the root directory of the removal process will be
 if (USE_CASE === 'prod') removePluginOptions.before.root = './build-prod';
 if (USE_CASE === 'dev') removePluginOptions.before.root = './build-dev';
 
-/** Sets what plugins should be used for compilation */
 config.plugins = [];
 
 // Common plugins between all use cases
 config.plugins.push(
-  /** Creates index.html in the build folder based on the template */
   new HtmlWebpackPlugin(htmlWebpackPluginOptions),
-
-  /** Extracts styles into a CSS file */
   new MiniCssExtractPlugin(miniCssExtractPluginOptions)
 );
 
 (USE_CASE === 'serve') ?
-  // Plugins for USE_CASE=serve
   config.plugins.push(
-    /** For HMR */
     new webpack.HotModuleReplacementPlugin()
   ):
-  // Plugins for USE_CASE=prod or USE_CASE=dev
   config.plugins.push(
-    /** Generates a JSON file that matches original filenames with their hashed versions */
     new WebpackAssetsManifest(webpackAssetsManifestOptions),
-
-    /** Removes files before compilation */
     new RemovePlugin(removePluginOptions)
   );
 
@@ -283,16 +221,19 @@ const jsRule = {
 
   /** Specifies loader/s to be used */
   use: {
-    /** The loader to be used */
+    /** Transpiles and polyfills newer ECMAScript into a backwards compatible version of JavaScript */
     loader: 'babel-loader',
 
     /** Options passed to the loader */
     options: {
-      // TODO: add comments here
+      /** A preset set of plugins */
       presets: [
+        /** Allows the use of the latest JavaScript without needing to micromanage which syntax to transform */
         '@babel/preset-env'
       ],
+// ! WHAT DO I DO?
       plugins: [
+        /** Enables the re-use of Babel's injected helper code to save on codesize */
         '@babel/plugin-transform-runtime'
       ]
     }
@@ -345,9 +286,14 @@ const postCssLoader = {
     /** Required by webpack when {Function}/require() is used */
     ident: 'postcss',
     plugins: [
-      
-      require('postcss-preset-env'),
-      require('autoprefixer')
+      /** Converts modern CSS into something most browsers can */
+      require('postcss-preset-env')({
+        /** Determines which CSS features to polyfill */
+        stage: 0
+      }),
+
+      /** Adds vendor prefixes to CSS rules */
+      require('autoprefixer')()
     ]
   }
 };
