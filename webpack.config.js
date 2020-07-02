@@ -84,6 +84,7 @@ if (USE_CASE === 'serve') {
     },
     before: (app, server, compiler) => {
       // Reloads the server when changes are made to the ejs template
+      // This is the easiest way I found how to do it
       server._watch('./src/ejs-template/index.ejs');
     }
   };
@@ -115,7 +116,7 @@ switch (USE_CASE) {
     };
     break;
     
-    case 'dev':
+  case 'dev':
     config.output = {
       path: path.resolve(__dirname, './build-dev'),
       filename: '[name].[contenthash:5].js'  
@@ -176,9 +177,8 @@ if (USE_CASE === 'prod' || USE_CASE === 'dev') removePluginOptions.before = {
   test: [
     {
       folder: '.',
-      // Tests for and removes any HTML, CSS, JS, JSON, map files in the build folder
       method: (absoluteItemPath) => {
-          return new RegExp(/\.(html|css|js|json|map)$/i, 'm').test(absoluteItemPath);
+          return /\.(html|css|js|json|map)$/im.test(absoluteItemPath);
       }
     }
   ]
@@ -187,13 +187,11 @@ if (USE_CASE === 'prod' || USE_CASE === 'dev') removePluginOptions.before = {
 if (USE_CASE === 'prod') removePluginOptions.before.root = './build-prod';
 if (USE_CASE === 'dev') removePluginOptions.before.root = './build-dev';
 
-config.plugins = [];
-
-// Common plugins between all use cases
-config.plugins.push(
+// Putting config.plugins together
+config.plugins = [
   new HtmlWebpackPlugin(htmlWebpackPluginOptions),
   new MiniCssExtractPlugin(miniCssExtractPluginOptions)
-);
+];
 
 (USE_CASE === 'serve') ?
   config.plugins.push(
@@ -210,33 +208,17 @@ config.plugins.push(
 
 /** config.module.rules[0] - processes (.js) files */
 const jsRule = {
-  /** Includes all modules that pass test assertion */
   test: /\.js$/i,
-
-  /** Includes all modules matching any of these conditions */
   include: path.resolve(__dirname, './src'),
-
-  /** Excludes all modules matching any of these conditions */
   exclude: /node_modules/,
-
-  /** Specifies loader/s to be used */
-  use: {
-    /** Transpiles and polyfills newer ECMAScript into a backwards compatible version of JavaScript */
-    loader: 'babel-loader',
-
-    /** Options passed to the loader */
-    options: {
-      /** A preset set of plugins */
-      presets: [
-        /** Allows the use of the latest JavaScript without needing to micromanage which syntax to transform */
-        '@babel/preset-env'
-      ],
-// ! WHAT DO I DO?
-      plugins: [
-        /** Enables the re-use of Babel's injected helper code to save on codesize */
-        '@babel/plugin-transform-runtime'
-      ]
-    }
+  loader: 'babel-loader',
+  options: {
+    presets: [
+      '@babel/preset-env'
+    ],
+    plugins: [
+      '@babel/plugin-transform-runtime'
+    ]
   }
 };
 
@@ -244,55 +226,46 @@ const jsRule = {
 const scssRule = {
   test: /\.scss$/i,
   include: path.resolve(__dirname, './src'),
-  use: []
 };
 
-// Specifies that the CSS file emitted has side effects during production to avoid it being tree shaken
+// Specifies during production builds that anything processed by scssRule has side effects
+// This is to avoid global styles being tree shaken
 if (USE_CASE === 'prod') scssRule.sideEffects = true;
 
-/** MiniCssExtractPlugin.loader - emits a CSS file from the processed SCSS files */
+/** MiniCssExtractPlugin.loader */
 const miniCssExtractPluginLoader = {
   loader: MiniCssExtractPlugin.loader
 };
 
-// Turns on HMR for MiniCssExtractPlugin.loader when running webpack-dev-server
 if (USE_CASE === 'serve') miniCssExtractPluginLoader.options = {
   hmr: true
 }
 
-/** css-loader - interprets @import and url() like import/require() and will resolve them */
+/** css-loader */
 const cssLoader = {
   loader: 'css-loader',
   options: {
-    /** Configures how many loaders before css-loader should be applied to @import-ed resources */
     importLoaders: 2
   }
 };
 
 (USE_CASE === 'prod') ?
-  /** Enables CSS Modules */
   cssLoader.options.modules = {
-    /** Sets the naming scheme for classes and keyframes */
     localIdentName: '[sha1:hash:base64:5]'
   }:
   cssLoader.options.modules = {
     localIdentName: '[local]-[sha1:hash:base64:5]'
   };
 
-/** postcss-loader - transforms CSS produced by sass-loader with JS plugins */
+/** postcss-loader */
 const postCssLoader = {
   loader: 'postcss-loader',
   options: {
-    /** Required by webpack when {Function}/require() is used */
     ident: 'postcss',
     plugins: [
-      /** Converts modern CSS into something most browsers can */
       require('postcss-preset-env')({
-        /** Determines which CSS features to polyfill */
         stage: 0
       }),
-
-      /** Adds vendor prefixes to CSS rules */
       require('autoprefixer')()
     ]
   }
@@ -303,6 +276,8 @@ const sassLoader = {
   loader: 'sass-loader',
 };
 
+// Turns off sass-loader minification during production builds
+// This is because I want OptimizeCssAssetsPlugin to be the main/only minifier for CSS
 if (USE_CASE === 'prod') sassLoader.options = {
   sassOptions: {
     minimize: false,
@@ -310,13 +285,13 @@ if (USE_CASE === 'prod') sassLoader.options = {
   }
 };
 
-/** config.module.rules[1].use */
-scssRule.use.push(
+// Putting scssRule.use together
+scssRule.use = [
   miniCssExtractPluginLoader,
   cssLoader,
   postCssLoader,
   sassLoader
-);
+];
 
 /** config.module.rules[2] - processes (.png | .jpg) files */
 const imageRule = {
@@ -325,6 +300,8 @@ const imageRule = {
   loader: 'file-loader',
   options: {
     outputPath: 'images',
+    // file-loader using ES Modules interferes with HtmlWebpackPlugin templates using CommonJS
+    // This is beacuse HtmlWebpackPlugin cannot use ES Modules right now
     esModule: false
   }
 };
@@ -336,6 +313,8 @@ const fontRule = {
   loader: 'file-loader',
   options: {
     outputPath: 'fonts',
+    // file-loader using ES Modules interferes with HtmlWebpackPlugin templates using CommonJS
+    // This is beacuse HtmlWebpackPlugin cannot use ES Modules right now
     esModule: false
   }
 };
@@ -357,7 +336,7 @@ switch (USE_CASE) {
     break;
 }
 
-/** config.module.rules */
+// Putting config.module.rules together
 config.module = {
   rules: [
     jsRule,
@@ -367,7 +346,9 @@ config.module = {
   ]
 };
 
-/** export webpack configs */
+// export webpack configs
+// exports additional data if used by ./webpack-log-config.js to show configs in the terminal
+// exports just the config if used by webpack for compilation
 (process.env.SEE_RUN === 'true') ?
   module.exports = {
     USE_CASE,

@@ -50,7 +50,7 @@ if (USE_CASE !== 'serve') console.log(
 // Shows config.module.rules
 console.log(
   `${preLog} %o`,
-  'rules = ',
+  'module rules = ',
   {
     jsRule,
     scssRule,
