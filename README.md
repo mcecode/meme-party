@@ -1,8 +1,8 @@
 # Meme Party
 
-> A fun site that shows random memes from reddit.
->
-> Site is live at <https://mcecode.github.io/meme-party/>.
+A fun site that shows random memes from reddit.
+
+The site is live at <https://mcecode.github.io/meme-party/>.
 
 This was supposed to be a short local project, but after a while I decided that it would be a good avenue to try to use and learn Git, webpack, GitHub, and SCSS, among other technologies. As such, I now plan to update/refactor the code and add features whenever I can (see [Todo](#todo) section below).
 
@@ -79,8 +79,20 @@ For your reference, here are some pertinent defaults that I set in the configs w
 - template for emitted index.html is *./src/ejs-template/index.ejs*
 - title tag text content are set in [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin#options) options
 - only SCSS files can be used for styling
-- [file-loader](https://github.com/webpack-contrib/file-loader) is only set to process and emit png, jpg, woff, and woff2 files
-- other details can be seen by looking at the configs themselves at *./configs*
+- [file-loader](https://github.com/webpack-contrib/file-loader) is only set to process and emit PNG, JPG, WOFF, and WOFF2 files
+
+Other details can be seen by looking at the configs themselves at *./webpack.config.js* or by running the following commands:
+
+```bash
+  # see configs during production builds
+  $ npm run see:prod
+
+  # see configs during development builds
+  $ npm run see:dev
+
+  # see configs when running dev server
+  $ npm run see:serve
+```
 
 Of course you can extend, modify, and build on top of the configs I set here if you want to.
 
@@ -91,12 +103,12 @@ A tentative list of things I'd like to implement to better the project (though I
 ### Fix
 
 - UI/UX
-  - [ ] fix stiff scrolling seen in iPhone Safari
+  - [ ] fix stiff scrolling and layout problems seen in iPhone Safari version <=12
 
 ### Refactoring
 
 - General
-  - [ ] add and maintain docs style / guiding / delimiting comments in source code and configs
+  - [x] add and maintain docs style / guiding / delimiting comments in source code and configs
   - [ ] use a formatter and/or linter
 - JS
   - [x] break up *./src/main.js* into modules
@@ -107,15 +119,15 @@ A tentative list of things I'd like to implement to better the project (though I
   - [x] break up *./src/main.scss* into modules
   - [ ] reduce media query use
 - webpack
-  - [ ] follow the DRY principle in configs
+  - [x] follow the DRY principle in configs
 
 ### Features
 
 - Performance
   - [ ] for browsers that need them, dynamically insert and load web API polyfills from polyfill-library
-  - [ ] make two bundles:
-    - untranspiled, to be loaded by newer browsers
-    - transpiled, to be loaded by older browsers
+  - [ ] create two JS bundles:
+    - untranspiled/unpolyfilled, to be loaded by newer browsers
+    - transpiled/polyfilled, to be loaded by older browsers
 - UI/UX
   - [x] make `Main.hideButton` and `Main.moreButton` circular with larger horizontal writing
   - [ ] use simplebar for scrollbar styling
@@ -123,6 +135,7 @@ A tentative list of things I'd like to implement to better the project (though I
     - create a *./src/scss-global/_reset.scss* file
     - make bigger screen experience more similiar with standard screen experience
     - make landing page feel less cramped in smaller devices
+  - [ ] Put guiding messages wherever appropriate
 - Pages
   - [ ] use client side routing for per page URLs and history navigation
   - [ ] create a custom 404 page
@@ -132,7 +145,7 @@ A tentative list of things I'd like to implement to better the project (though I
   - [ ] make keyboard-only navigation experience better
     - put focus on the right HTMLElements at the right time
     - transfer focus to next meme loaded instead of keeping it on `Main.moreButton`
-- App
+- Functionality
   - [ ] allow users to choose the subreddit where memes come from
   - [ ] allow users to choose how many memes to load at a time
   - [ ] add nsfw and spoiler indications to memes
@@ -141,6 +154,10 @@ A tentative list of things I'd like to implement to better the project (though I
 
 - SCSS
   - [ ] use CSS grid and/or flexbox for layout
+  - [ ] use autoprefixer autoplacement for CSS grid polyfill
+  - [ ] create two CSS files:
+    - unpolyfilled/unprefixed, to be loaded by newer browsers
+    - polyfilled/unprefixed, to be loaded by older browsers
 - JS
   - [ ] use @babel/plugin-proposal-class-properties to allow:
     - making internal methods and properties private with `#`

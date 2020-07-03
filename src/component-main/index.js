@@ -2,10 +2,10 @@
   component-main index.js
 \**************************************************/
 
-/** SCSS imports */
+// SCSS imports
 import style from './main.scss';
 
-/** JS imports */
+// JS imports
 import Memes from './memes.js';
 import Loader from './loader.js';
 
@@ -141,5 +141,5 @@ class Main {
   }
 }
 
-/** Exports Main class */
+// Exports Main class
 export default Main;

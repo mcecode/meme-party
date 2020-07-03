@@ -3,26 +3,29 @@
   "version": "2.0.0",
   "private": true,
   "author": "Matthew Espino",
-  "description": "a simple test site that shows memes from reddit",
+  "description": "A fun site that shows random memes from reddit",
   "keywords": [
     "memes",
     "reddit"
   ],
   "license": "MIT",
   "scripts": {
-    "start": "env-cmd cross-env NODE_ENV=development webpack-dev-server --config configs/webpack.server.js --env.NODE_ENV=development",
-    "build:dev": "cross-env NODE_ENV=development webpack --config configs/webpack.dev.js --env.NODE_ENV=development --progress",
-    "build:prod": "cross-env NODE_ENV=production webpack --config configs/webpack.prod.js --env.NODE_ENV=production --progress"
+    "see:serve": "env-cmd cross-env NODE_ENV=development USE_CASE=serve SEE_RUN=true node webpack-log-config.js",
+    "see:dev": "cross-env NODE_ENV=development USE_CASE=dev SEE_RUN=true node webpack-log-config.js",
+    "see:prod": "cross-env NODE_ENV=production USE_CASE=prod SEE_RUN=true node webpack-log-config.js",
+    "start": "env-cmd cross-env NODE_ENV=development USE_CASE=serve webpack-dev-server --env.NODE_ENV=development",
+    "build:dev": "cross-env NODE_ENV=development USE_CASE=dev webpack --env.NODE_ENV=development --progress",
+    "build:prod": "cross-env NODE_ENV=production USE_CASE=prod webpack --env.NODE_ENV=production --progress"
   },
   "dependencies": {
-    "polyfill-library": "^3.94.0",
+    "polyfill-library": "^3.95.0",
     "simplebar": "^5.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.3",
-    "@babel/plugin-transform-runtime": "^7.10.3",
-    "@babel/preset-env": "^7.10.3",
-    "@babel/runtime": "^7.10.3",
+    "@babel/core": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/runtime": "^7.10.4",
     "autoprefixer": "^9.8.4",
     "babel-loader": "^8.1.0",
     "cross-env": "^7.0.2",
@@ -32,18 +35,16 @@
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "remove-files-webpack-plugin": "^1.4.3",
     "sass": "^1.26.9",
-    "sass-loader": "^8.0.2",
+    "sass-loader": "^9.0.0",
     "terser-webpack-plugin": "^3.0.6",
     "webpack": "^4.43.0",
     "webpack-assets-manifest": "^3.1.1",
     "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0",
-    "webpack-manifest-plugin": "^2.2.0"
+    "webpack-dev-server": "^3.11.0"
   },
   "browserslist": "defaults",
   "sideEffects": false

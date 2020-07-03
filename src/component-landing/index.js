@@ -2,10 +2,10 @@
   component-landing index.js
 \**************************************************/
 
-/** SCSS imports */
+// SCSS imports
 import style from './main.scss';
 
-/** Image imports */
+// Image imports
 import heavyBreathingCat from './images/heavy-breathing-cat.jpg';
 
 /** Class representing the landing page */
@@ -125,5 +125,5 @@ class Landing {
   }
 }
 
-/** Exports Landing class */
+// Exports Landing class
 export default Landing;

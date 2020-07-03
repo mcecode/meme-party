@@ -1,7 +1,7 @@
-////
-/// scss-partial _index.scss
-////
+//**************************************************
+// scss-partial _index.scss
+//**************************************************
 
-/// @forward
+// @forward
 @forward './variables.scss' as v_*;
 @forward './mixins.scss' as m_*;
