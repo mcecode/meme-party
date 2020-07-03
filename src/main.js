@@ -2,10 +2,10 @@
   main.js
 \**************************************************/
 
-/** SCSS imports */
+// SCSS imports
 import './scss-global/index.scss';
 
-/** JS imports */
+// JS imports
 import Landing from './component-landing/index.js';
 import Main from './component-main/index.js';
 import GlobalState from './js-state/index.js';
@@ -22,7 +22,7 @@ let main = new Main(root);
 /** GlobalState instance */
 let globalState = new GlobalState(landing, main);
 
-/** Hot Module Replacement */
+// Hot Module Replacement
 if (module.hot) {
   module.hot.accept('./component-landing/index.js', () => {
     landing.container.remove();

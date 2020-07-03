@@ -30,5 +30,5 @@ class GlobalState {
   }
 }
 
-/** Exports GlobalState class */
+// Exports GlobalState class
 export default GlobalState;

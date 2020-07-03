@@ -2,10 +2,10 @@
   component-main memes.js
 \**************************************************/
 
-/** SCSS imports */
+// SCSS imports
 import style from './main.scss';
 
-/** Image imports */
+// Image imports
 import sadPepe from './images/sad-pepe.png';
 
 /** Class representing the memes that get shown after the loader */
@@ -63,7 +63,7 @@ class Memes {
         memeImage.alt = meme.title;
         memeLink.append(memeImage);
 
-        // Preload fetched meme images
+        // Preloads fetched meme images
         memeImage.onload = () => {
           memeImage.onload = null;
           memeLinkArray[i] = memeLink;
@@ -129,5 +129,5 @@ class Memes {
   }
 }
 
-/** Exports Memes class */
+// Exports Memes class
 export default Memes;
