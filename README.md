@@ -1,14 +1,14 @@
 # Meme Party
 
-A fun site that shows random memes from reddit.
+A fun site that shows random memes from Reddit.
 
 The site is live at <https://mcecode.github.io/meme-party/>.
 
-This was supposed to be a short local project, but after a while I decided that it would be a good avenue to try to use and learn Git, webpack, GitHub, and SCSS, among other technologies. As such, I now plan to update/refactor the code and add features whenever I can (see [Todo](#todo) section below).
+This was supposed to be a short local project, but after a while, I decided that it would be a good avenue to try to use and learn Git, webpack, GitHub, and SCSS, among other technologies. As such, I now plan to update/refactor the code and add features whenever I can (see [Todo](#todo) section below).
 
 ## Usage
 
-You're going to need node and npm for this project, to check if you have them just type `node -v` and/or `npm -v` in your command line and if you see it respond with a version (e.g. `v12.18.0`) then you should be good to go.
+You're going to need node and npm for this project, to check if you have them just type `node -v` and/or `npm -v` in your command line, if you see it respond with a version (e.g. `v12.18.0`) then you should be good to go.
 
 If you don't have them yet, npm comes with node, so you can just download node at [nodejs.org](https://nodejs.org/) or use something like [nvm](https://github.com/nvm-sh/nvm) or [nvm-windows](https://github.com/coreybutler/nvm-windows), depending on your system.
 
@@ -33,9 +33,15 @@ then, you can just open *./build-dev/index.html* or *./build-prod/index.html* in
 
 ### To Develop
 
-It's often useful to have a dev server in development, so I set this project up with [webpack-dev-server](https://github.com/webpack/webpack-dev-server). To utilize it, you'll have to create a *.env* file in the project's root directory, because I set it up with https.
+It's often useful to have a dev server in development, so I set this project up with [webpack-dev-server](https://github.com/webpack/webpack-dev-server). To utilize it, you'll have to create a *.env* file in the project's root directory because I set up the start command with [env-cmd](https://github.com/toddbluhm/env-cmd) to load up HTTPS dev certs.
 
-To use your own local dev cert, just put the following info in the *.env* file:
+The default port where the dev server runs is 5000. If you want to specify a different port, just put the following to your *.env* file:
+
+```text
+  PORT=your port number preference
+```
+
+To use your own local dev cert, just add the following info in your *.env* file:
 
 ```text
   SSL_KEY=/path/to/your.key
@@ -43,9 +49,9 @@ To use your own local dev cert, just put the following info in the *.env* file:
   SSL_PEM=/path/to/your.pem
 ```
 
-if you don't have one, you can create a cert using [mkcert](https://github.com/FiloSottile/mkcert).
+If you don't have one, you can create a cert using [mkcert](https://github.com/FiloSottile/mkcert).
 
-If you don't want to generate a cert yourself but would still like to use https then just put:
+If you don't want to generate a cert yourself but would still like to use HTTPS then just put:
 
 ```text
   SSL=true
@@ -53,7 +59,7 @@ If you don't want to generate a cert yourself but would still like to use https 
 
 and webpack-dev-server will generate one for you, though that might cause some problems because the generated certificate is a self-signed one.
 
-Finally, if you think using https is a hassle and want to do away with it, just leave the file blank but it **must** be there, the dev server will then default to http.
+Finally, if you think using HTTPS is a hassle and you're fine with the default port, then just leave the file blank but it **must** be there, the dev server will then default to HTTP.
 
 Once you finish tinkering with that, just run the following commands:
 
@@ -67,7 +73,7 @@ Once you finish tinkering with that, just run the following commands:
 
 it'll tell you where your local server is running so you can open it in your browser.
 
-I also enabled Hot Module Replacement (HMR) so you can use that too. If you don't have a clue what that is, like I did, please refer to the [official guide](https://v4.webpack.js.org/guides/hot-module-replacement/).
+I also enabled Hot Module Replacement (HMR) so you can use that too. If you don't have a clue what that is, as I did, please refer to the [official guide](https://v4.webpack.js.org/guides/hot-module-replacement/).
 
 ### To Reuse
 
@@ -94,7 +100,7 @@ Other details can be seen by looking at the configs themselves at *./webpack.con
   $ npm run see:serve
 ```
 
-Of course you can extend, modify, and build on top of the configs I set here if you want to.
+Of course, you can extend, modify, and build on top of the configs I set here if you want to.
 
 ## Todo
 
@@ -133,22 +139,22 @@ A tentative list of things I'd like to implement to better the project (though I
   - [ ] use simplebar for scrollbar styling
   - [ ] make it look more consistent across browsers and devices
     - create a *./src/scss-global/_reset.scss* file
-    - make bigger screen experience more similiar with standard screen experience
+    - make bigger screen experience more similar with standard screen experience
     - make landing page feel less cramped in smaller devices
   - [ ] Put guiding messages wherever appropriate
 - Pages
-  - [ ] use client side routing for per page URLs and history navigation
+  - [ ] use client-side routing for per page URLs and history navigation
   - [ ] create a custom 404 page
   - [ ] add SEO meta tags and repo image
   - [ ] add credits and GitHub link
 - Accessibility
   - [ ] make keyboard-only navigation experience better
-    - put focus on the right HTMLElements at the right time
+    - put the focus on the right HTMLElements at the right time
     - transfer focus to next meme loaded instead of keeping it on `Main.moreButton`
 - Functionality
   - [ ] allow users to choose the subreddit where memes come from
   - [ ] allow users to choose how many memes to load at a time
-  - [ ] add nsfw and spoiler indications to memes
+  - [ ] add NSFW and spoiler indications to memes
 
 ### Experiment
 
@@ -173,7 +179,7 @@ A tentative list of things I'd like to implement to better the project (though I
 
 ### Memes
 
-- Memes from reddit are provided by the awesome [Meme API](https://github.com/R3l3ntl3ss/Meme_Api).
+- Memes from Reddit are provided by the awesome [Meme API](https://github.com/R3l3ntl3ss/Meme_Api).
 
 ### Fonts
 
