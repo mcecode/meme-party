@@ -23,8 +23,8 @@ let main = new Main(root);
 let globalState = new GlobalState(landing, main);
 
 // Hot Module Replacement
-if (module.hot) {
-  module.hot.accept('./component-landing/index.js', () => {
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept('./component-landing/index.js', () => {
     landing.container.remove();
     window.removeEventListener('resize', landing);
     landing = new Landing(root);
@@ -32,13 +32,13 @@ if (module.hot) {
     globalState = new GlobalState(landing, main);
   });
 
-  module.hot.accept('./component-main/index.js', () => {
+  import.meta.webpackHot.accept('./component-main/index.js', () => {
     main.container.remove();
     main = new Main(root);
     globalState = new GlobalState(landing, main);
   });
 
-  module.hot.accept('./js-state/index.js', () => {
+  import.meta.webpackHot.accept('./js-state/index.js', () => {
     globalState = new GlobalState(landing, main);
   });
 }

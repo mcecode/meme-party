@@ -37,7 +37,7 @@ class Landing {
    * @param {HTMLDivElement} root - Entry point for all components
    */
   mount(root) {
-    root.append(this.container);
+    root.prepend(this.container);
     this.container.append(
       this.heading,
       this.tagLine,

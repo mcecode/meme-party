@@ -31,17 +31,19 @@ Just run the following commands in the project directory:
 
 then, you can just open *./build-dev/index.html* or *./build-prod/index.html* in your browser.
 
-### To Develop
+### To Develop - THIS PART DOESN'T WORK YET
 
-It's often useful to have a dev server in development, so I set this project up with [webpack-dev-server](https://github.com/webpack/webpack-dev-server). To utilize it, you'll have to create a *.env* file in the project's root directory because I set up the start command with [env-cmd](https://github.com/toddbluhm/env-cmd) to load up HTTPS dev certs.
+**webpack-dev-server@3 is not yet fully compatible with webpack@5 and causes some problems with npm so I removed it from the project for now. I will add it when it back has been updated.**
 
-The default port where the dev server runs is 5000. If you want to specify a different port, just put the following to your *.env* file:
+It's often useful to have a dev server in development, so I set this project up with [webpack-dev-server](https://github.com/webpack/webpack-dev-server). If you want to use HTTPS or set a custom port, you'll have to create a *.env* file in the project's root directory to load up the HTTPS dev certs and/or your other preferences.
+
+If you want to specify a custom port, just put the following in your *.env* file:
 
 ```text
   PORT=your port number preference
 ```
 
-To use your own local dev cert, just add the following info in your *.env* file:
+To use your own local dev cert, just add:
 
 ```text
   SSL_KEY=/path/to/your.key
@@ -59,7 +61,7 @@ If you don't want to generate a cert yourself but would still like to use HTTPS 
 
 and webpack-dev-server will generate one for you, though that might cause some problems because the generated certificate is a self-signed one.
 
-Finally, if you think using HTTPS is a hassle and you're fine with the default port, then just leave the file blank but it **must** be there, the dev server will then default to HTTP.
+Finally, if you don't want to mess with all of that, you don't have to, the dev server will just default to HTTP and port 5000.
 
 Once you finish tinkering with that, just run the following commands:
 
@@ -73,7 +75,7 @@ Once you finish tinkering with that, just run the following commands:
 
 it'll tell you where your local server is running so you can open it in your browser.
 
-I also enabled Hot Module Replacement (HMR) so you can use that too. If you don't have a clue what that is, as I did, please refer to the [official guide](https://v4.webpack.js.org/guides/hot-module-replacement/).
+I also enabled Hot Module Replacement (HMR) so you can use that too. If you don't have a clue what that is, as I did, please refer to the [official guide](https://webpack.js.org/concepts/hot-module-replacement/).
 
 ### To Reuse
 
@@ -90,14 +92,14 @@ For your reference, here are some pertinent defaults that I set in the configs w
 Other details can be seen by looking at the configs themselves at *./webpack.config.js* or by running the following commands:
 
 ```bash
-  # see configs during production builds
-  $ npm run see:prod
+  # view configs during production builds
+  $ npm run log:prod
 
-  # see configs during development builds
-  $ npm run see:dev
+  # view configs during development builds
+  $ npm run log:dev
 
-  # see configs when running dev server
-  $ npm run see:serve
+  # view configs when running dev server
+  $ npm run log:serve
 ```
 
 Of course, you can extend, modify, and build on top of the configs I set here if you want to.
