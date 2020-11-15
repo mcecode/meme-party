@@ -116,15 +116,13 @@ if (USE_CASE === 'serve') {
   extend config.output
 \**************************************************/
 
-switch (USE_CASE) {
-  case 'prod':
-  case 'dev':
-    config.output = {
-      ...config.output,
-      hashDigestLength: 5,
-      hashFunction: 'sha1'
-    };
+if (USE_CASE !== 'serve') config.output = {
+  ...config.output,
+  hashDigestLength: 5,
+  hashFunction: 'sha1'
+};
 
+switch (USE_CASE) {
   case 'prod':
     config.output = {
       ...config.output,
