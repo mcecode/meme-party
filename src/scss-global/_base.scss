@@ -16,6 +16,10 @@ body {
   font-family: $v_font-main;
 }
 
+button {
+  font-family: inherit;
+}
+
 a {
   text-decoration: none;
   color: inherit;

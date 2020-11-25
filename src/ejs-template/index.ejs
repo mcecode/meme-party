@@ -8,19 +8,13 @@
   <title><%= htmlWebpackPlugin.options.title %></title>
 
   <!-- Preloads -->
-  <link rel="preload" 
+  <link rel="preload"
     href="<%= require('../component-landing/images/heavy-breathing-cat.jpg') %>"
     as="image" type="image/jpeg">
-  <link rel="preload" 
-    href="<%= require('../scss-global/fonts/roboto-v20-latin-400.woff2') %>"
+  <link rel="preload"
+    href="<%= require('../scss-global/fonts/zilla-slab-highlight-v8-latin-700.woff2') %>"
     as="font" type="font/woff2" crossorigin>
-  <link rel="preload" 
-    href="<%= require('../scss-global/fonts/roboto-v20-latin-900.woff2') %>"
-    as="font" type="font/woff2" crossorigin>
-  <link rel="preload" 
-    href="<%= require('../scss-global/fonts/zilla-slab-highlight-v7-latin-700.woff2') %>"
-    as="font" type="font/woff2" crossorigin>
-  
+
   <!-- Prefetches -->
   <link rel="prefetch" href="<%= require('../component-main/images/loader-meme-1.jpg') %>">
   <link rel="prefetch" href="<%= require('../component-main/images/loader-meme-2.jpg') %>">

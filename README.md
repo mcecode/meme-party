@@ -185,9 +185,8 @@ A tentative list of things I'd like to implement to better the project (though I
 
 ### Fonts
 
-Fonts are downloaded from [Google Fonts](https://fonts.google.com/) using [google-webfonts-helper](https://google-webfonts-helper.herokuapp.com/fonts).
+Fonts were downloaded from [Google Fonts](https://fonts.google.com/) using [google-webfonts-helper](https://google-webfonts-helper.herokuapp.com/fonts).
 
-- [Roboto](https://fonts.google.com/specimen/Roboto) is licensed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 - [Zilla Slab Highlight](https://fonts.google.com/specimen/Zilla+Slab+Highlight) is licensed under [SIL Open Font License (OFL)](https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL).
 
 ### Images
