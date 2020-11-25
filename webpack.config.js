@@ -31,7 +31,7 @@ const config = {
   mode: NODE_ENV,
   entry: './src/main.js',
   output: {
-    publicPath: '/',
+    publicPath: '',
   },
   // ?? Workaround for HMR not working when target is implicitly set as both 'web' and 'browserslist'
   // ?? Happens when a browserslist config is set
