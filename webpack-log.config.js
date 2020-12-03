@@ -26,13 +26,6 @@ const preLog = `${EOL} \x1b[44m \x1b[30m %s \x1b[0m`;
 // Show whole config
 console.log(`${preLog} %O`, 'config = ', config);
 
-// Show devServer before function
-if (USE_CASE === 'serve') console.log(
-  `${preLog} %s`,
-  'devServer before function = ',
-  config.devServer.before
-);
-
 // Show config.plugin options
 console.log(
   `${preLog} %o`,

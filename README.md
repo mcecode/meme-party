@@ -31,9 +31,7 @@ Just run the following commands in the project directory:
 
 then, you can just open *./build-dev/index.html* or *./build-prod/index.html* in your browser.
 
-### To Develop - THIS PART DOESN'T WORK YET
-
-**webpack-dev-server@3 is not yet fully compatible with webpack@5 and causes some problems with npm so I removed it from the project for now. I will add it when it back has been updated.**
+### To Develop
 
 It's often useful to have a dev server in development, so I set this project up with [webpack-dev-server](https://github.com/webpack/webpack-dev-server). If you want to use HTTPS or set a custom port, you'll have to create a *.env* file in the project's root directory to load up the HTTPS dev certs and/or your other preferences.
 

@@ -33,10 +33,6 @@ const config = {
   output: {
     publicPath: '',
   },
-  // ?? Workaround for HMR not working when target is implicitly set as both 'web' and 'browserslist'
-  // ?? Happens when a browserslist config is set
-  // ??👉 https://github.com/webpack/webpack-dev-server/issues/2758#issuecomment-710086019
-  target: (USE_CASE === 'serve') ? 'web' : 'browserslist',
   resolve: {
     symlinks: false
   }
@@ -74,22 +70,26 @@ if (USE_CASE === 'dev') {
 if (USE_CASE === 'serve') {
   // Get port number and SSL credentials/preferences
   if (fs.existsSync('.env')) require('dotenv').config();
+  const PORT = process.env.PORT || 5000;
+
+  config.stats = 'errors-warnings';
 
   config.devServer = {
-    contentBase: false,
-    hot: true,
-    port: process.env.PORT || 5000,
+    // ?? Reload the server when changes are made to the EJS template
+    // ??👉 https://github.com/webpack/webpack-dev-server/releases/tag/v4.0.0-beta.0
+    static: path.resolve(__dirname, './src/ejs-template/index.ejs'),
+    // ?? Use localhost as the preferred host name
+    // ?? webpack-dev-server@4.0.0-beta.0 seems to use 127.0.0.1 as the default host name
+    // ?? Changing the `host` or `client.host` options do not seem to affect this
+    // ?? While changing the `public` option seems to work
+    // ??👉 https://webpack.js.org/configuration/dev-server/#devserverpublic
+    // ??👉 https://stackoverflow.com/a/60074675
+    public: `localhost:${PORT}`,
+    port: PORT,
     compress: true,
-    stats: 'errors-warnings',
     overlay: {
       warnings: true,
       errors: true
-    },
-    // ?? Reload the server when changes are made to the EJS template
-    // ?? It's hacky but this is the easiest way I found how to do it
-    // ??👉 https://github.com/webpack/webpack-dev-server/blob/4ab1f21bc85cc1695255c739160ad00dc14375f1/lib/Server.js#L992
-    before: (app, server, compiler) => {
-      server._watch('./src/ejs-template/index.ejs');
     }
   };
 
@@ -109,7 +109,7 @@ if (USE_CASE === 'serve') {
     console.log('HTTPS: false');
   }
 
-  console.log(`PORT: ${config.devServer.port}`);
+  console.log(`PORT: ${PORT}`);
 }
 
 /**************************************************\
