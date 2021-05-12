@@ -33,7 +33,7 @@
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^1.2.1",
-    "postcss": "^8.1.4",
+    "postcss": "^8.2.10",
     "postcss-loader": "^4.0.4",
     "remove-files-webpack-plugin": "^1.4.3",
     "sass": "^1.26.9",
