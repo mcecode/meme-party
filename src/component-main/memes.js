@@ -45,7 +45,7 @@ class Memes {
     // Tries to fetch memes
     try {
       // Fetches memes
-      const res = await fetch(`https://meme-api.herokuapp.com/gimme/${this.subreddits[this.subredditsIndex]}/${this.memesToFetch}`);
+      const res = await fetch(`https://meme-api.com/gimme/${this.subreddits[this.subredditsIndex]}/${this.memesToFetch}`);
       if (!res.ok) throw new Error('An error occured while fetching memes.');
       const data = await res.json();
 
