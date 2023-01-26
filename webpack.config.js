@@ -4,7 +4,6 @@
 
 const path = require('path');
 const fs = require('fs');
-const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -31,7 +30,7 @@ const config = {
   mode: NODE_ENV,
   entry: './src/main.js',
   output: {
-    publicPath: '',
+    publicPath: 'auto',
   },
   resolve: {
     symlinks: false
@@ -84,26 +83,31 @@ if (USE_CASE === 'serve') {
     // ?? While changing the `public` option seems to work
     // ??👉 https://webpack.js.org/configuration/dev-server/#devserverpublic
     // ??👉 https://stackoverflow.com/a/60074675
-    public: `localhost:${PORT}`,
+    host: 'localhost',
     port: PORT,
     compress: true,
-    overlay: {
-      warnings: true,
-      errors: true
+    client: {
+      overlay: {
+        warnings: true,
+        errors: true
+      }
     }
   };
 
   if ('SSL_KEY' in process.env && 'SSL_CRT' in process.env && 'SSL_PEM' in process.env) {
     console.log('HTTPS: true');
-    config.devServer.https = {
-      key: fs.readFileSync(process.env.SSL_KEY),
-      cert: fs.readFileSync(process.env.SSL_CRT),
-      ca: fs.readFileSync(process.env.SSL_PEM)
+    config.devServer.server = {
+      type: 'https',
+      options: {
+        key: fs.readFileSync(process.env.SSL_KEY),
+        cert: fs.readFileSync(process.env.SSL_CRT),
+        ca: fs.readFileSync(process.env.SSL_PEM)
+      }
     };
   }
   else if (process.env.SSL === 'true') {
     console.log('HTTPS: true');
-    config.devServer.https = true;
+    config.devServer.server = 'https';
   }
   else {
     console.log('HTTPS: false');
@@ -183,14 +187,10 @@ config.plugins = [
   new MiniCssExtractPlugin(miniCssExtractPluginOptions)
 ];
 
-(USE_CASE === 'serve') ?
-  config.plugins.push(
-    new webpack.HotModuleReplacementPlugin()
-  ) :
-  config.plugins.push(
-    new AssetsManifestPlugin(AssetsManifestPluginOptions),
-    new RemoveFilesPlugin(removeFilesPluginOptions)
-  );
+USE_CASE !== 'serve' && config.plugins.push(
+  new AssetsManifestPlugin(AssetsManifestPluginOptions),
+  new RemoveFilesPlugin(removeFilesPluginOptions)
+);
 
 /**************************************************\
   config.module.rules
@@ -256,47 +256,33 @@ const scssRule = {
 };
 
 const imageRule = {
+  type: 'asset/resource',
   test: /\.(png|jpg)$/i,
   include: includePath,
-  loader: 'file-loader',
-  options: {
-    outputPath: 'images',
-    // ?? When using EJS with HtmlPlugin CommonJS require is used to resolve the output asset names
-    // ??👉 https://stackoverflow.com/a/47127094
-    // ?? file-loader using ES Modules interferes with this
-    // ??👉 https://stackoverflow.com/a/59075858
-    esModule: false
-  }
+  generator: {},
 };
 
 const fontRule = {
+  type: 'asset/resource',
   test: /\.(woff|woff2)$/i,
   include: includePath,
-  loader: 'file-loader',
-  options: {
-    outputPath: 'fonts',
-    // ?? When using EJS with HtmlPlugin CommonJS require is used to resolve the output asset names
-    // ??👉 https://stackoverflow.com/a/47127094
-    // ?? file-loader using ES Modules interferes with this
-    // ??👉 https://stackoverflow.com/a/59075858
-    esModule: false
-  }
+  generator: {},
 };
 
 switch (USE_CASE) {
   case 'prod':
-    imageRule.options.name = '[sha1:contenthash:base64:5].[ext]';
-    fontRule.options.name = '[sha1:contenthash:base64:5].[ext]';
+    imageRule.generator.filename = 'images/[contenthash][ext]';
+    fontRule.generator.filename = 'fonts/[contenthash][ext]';
     break;
 
   case 'dev':
-    imageRule.options.name = '[name].[sha1:contenthash:base64:5].[ext]';
-    fontRule.options.name = '[name].[sha1:contenthash:base64:5].[ext]';
+    imageRule.generator.filename = 'images/[name].[contenthash][ext]';
+    fontRule.generator.filename = 'fonts/[name].[contenthash][ext]';
     break;
 
   case 'serve':
-    imageRule.options.name = '[name].[ext]';
-    fontRule.options.name = '[name].[ext]';
+    imageRule.generator.filename = 'images/[name][ext]';
+    fontRule.generator.filename = 'fonts/[name][ext]';
     break;
 }
 
