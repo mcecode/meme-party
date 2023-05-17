@@ -29,13 +29,13 @@ Just run the following commands in the project directory:
   $ npm run build:prod
 ```
 
-then, you can just open *./build-dev/index.html* or *./build-prod/index.html* in your browser.
+then, you can just open _./build-dev/index.html_ or _./build-prod/index.html_ in your browser.
 
 ### To Develop
 
-It's often useful to have a dev server in development, so I set this project up with [webpack-dev-server](https://github.com/webpack/webpack-dev-server). If you want to use HTTPS or set a custom port, you'll have to create a *.env* file in the project's root directory to load up the HTTPS dev certs and/or your other preferences.
+It's often useful to have a dev server in development, so I set this project up with [webpack-dev-server](https://github.com/webpack/webpack-dev-server). If you want to use HTTPS or set a custom port, you'll have to create a _.env_ file in the project's root directory to load up the HTTPS dev certs and/or your other preferences.
 
-If you want to specify a custom port, just put the following in your *.env* file:
+If you want to specify a custom port, just put the following in your _.env_ file:
 
 ```text
   PORT=your port number preference
@@ -81,13 +81,13 @@ If you like my webpack settings and would just like to reuse them for your own p
 
 For your reference, here are some pertinent defaults that I set in the configs which are not mentioned above:
 
-- main entry point is *./src/main.js*
-- template for emitted index.html is *./src/ejs-template/index.ejs*
+- main entry point is _./src/main.js_
+- template for emitted index.html is _./src/ejs-template/index.ejs_
 - title tag text content are set in [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin#options) options
 - only SCSS files can be used for styling
 - [file-loader](https://github.com/webpack-contrib/file-loader) is only set to process and emit PNG, JPG, WOFF, and WOFF2 files
 
-Other details can be seen by looking at the configs themselves at *./webpack.config.js* or by running the following commands:
+Other details can be seen by looking at the configs themselves at _./webpack.config.js_ or by running the following commands:
 
 ```bash
   # view configs during production builds
@@ -117,12 +117,12 @@ A tentative list of things I'd like to implement to better the project (though I
   - [x] add and maintain docs style / guiding / delimiting comments in source code and configs
   - [ ] use a formatter and/or linter
 - JS
-  - [x] break up *./src/main.js* into modules
+  - [x] break up _./src/main.js_ into modules
   - [x] use a class-based, event-driven approach
   - [x] create HTML components with js instead of with ejs
   - [x] use css-modules with css-loader to assign classes to HTMLElements
 - SCSS
-  - [x] break up *./src/main.scss* into modules
+  - [x] break up _./src/main.scss_ into modules
   - [ ] reduce media query use
 - webpack
   - [x] follow the DRY principle in configs
@@ -138,7 +138,7 @@ A tentative list of things I'd like to implement to better the project (though I
   - [x] make `Main.hideButton` and `Main.moreButton` circular with larger horizontal writing
   - [ ] use simplebar for scrollbar styling
   - [ ] make it look more consistent across browsers and devices
-    - create a *./src/scss-global/_reset.scss* file
+    - create a _./src/scss-global/_reset.scss_ file
     - make bigger screen experience more similar with standard screen experience
     - make landing page feel less cramped in smaller devices
   - [ ] Put guiding messages wherever appropriate
