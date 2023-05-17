@@ -2,6 +2,8 @@
 
 A fun site that shows random memes from Reddit.
 
+![A demo of Meme Party loading with animations and showing memes from Reddit.](assets/demo.gif)
+
 The site is live at <https://mcecode.github.io/meme-party/>.
 
 This was supposed to be a short local project, but after a while, I decided that it would be a good avenue to try to use and learn Git, webpack, GitHub, and SCSS, among other technologies. As such, I now plan to update/refactor the code and add features whenever I can (see [Todo](#todo) section below).
