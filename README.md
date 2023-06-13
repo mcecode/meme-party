@@ -2,7 +2,7 @@
 
 A fun site that shows random memes from Reddit.
 
-![A demo of Meme Party loading with animations and showing memes from Reddit.](assets/demo.gif)
+![A demo of Meme Party loading with animations and showing memes from Reddit.](assets/demo.webp)
 
 The site is live at <https://mcecode.github.io/meme-party/>.
 
@@ -140,7 +140,7 @@ A tentative list of things I'd like to implement to better the project (though I
   - [x] make `Main.hideButton` and `Main.moreButton` circular with larger horizontal writing
   - [ ] use simplebar for scrollbar styling
   - [ ] make it look more consistent across browsers and devices
-    - create a _./src/scss-global/_reset.scss_ file
+    - create a _./src/scss-global/\_reset.scss_ file
     - make bigger screen experience more similar with standard screen experience
     - make landing page feel less cramped in smaller devices
   - [ ] Put guiding messages wherever appropriate
